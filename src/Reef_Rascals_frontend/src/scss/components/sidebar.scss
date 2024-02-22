@@ -7,6 +7,18 @@
 }
 
 .sidebar {
+    width: fit-content;
+    height: 100%;
+    background-color: rgba(colors.$dark, 0.1);
+
+    &:hover {
+        .sidebar-open {
+            transform: scaleX(1);
+        }
+    }
+}
+
+.sidebar-closed {
     position: fixed;
     height: 100vh;
     display: flex;
@@ -16,45 +28,60 @@
     gap: 1.5rem;
     padding: 0.5rem;
     padding-top: 2rem;
-    background-color: rgba(colors.$dark, 0.1);
+
+    img {
+        transform: scale(0.8);
+    }
+
+
+}
+
+.sidebar-open {
+    position: fixed;
+    height: 100vh;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    padding-top: 2rem;
+    z-index: 100;
+    display: flex;
+    // display: none;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: 300ms;
 
 
     h3 {
-        display: none;
+        color: colors.$light-blue;
     }
 
     .button {
-        width: 100%;
-        padding: 0.4rem 0.8rem;
-        border-radius: 10px;
         display: flex;
-        align-items: center;
-        justify-content: start;
         gap: 0.5rem;
-        color: colors.$light-blue;
+        align-items: center;
         transition: 300ms;
+        padding: 0.2rem 0.5rem;
+        border-radius: 10px;
 
-        img{
+        img {
             transform: scale(0.8);
         }
 
         &:hover {
             background-color: colors.$dark-blue-fade;
-            color: colors.$light-blue;
             cursor: pointer;
             transform: scale(1.05) translateX(0.5rem);
-        }
 
-        &:hover h3 {
-            color: colors.$light-orange;
-        }
+            h3 {
+                color: colors.$light-orange;
+            }
 
-        &:hover img {
-            filter: brightness(0) saturate(100%) invert(77%) sepia(68%) saturate(4167%) hue-rotate(317deg) brightness(95%) contrast(118%);
-        }
-
-        &:hover h3 {
-            display: block;
+            img {
+                filter: brightness(0) saturate(100%) invert(77%) sepia(68%) saturate(4167%) hue-rotate(317deg) brightness(95%) contrast(118%);
+            }
         }
     }
 }
