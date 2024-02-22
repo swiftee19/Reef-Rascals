@@ -1,0 +1,60 @@
+@use "../colors";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    padding-top: 2rem;
+    background-color: rgba(colors.$dark, 0.1);
+
+
+    h3 {
+        display: none;
+    }
+
+    .button {
+        width: 100%;
+        padding: 0.4rem 0.8rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 0.5rem;
+        color: colors.$light-blue;
+        transition: 300ms;
+
+        img{
+            transform: scale(0.8);
+        }
+
+        &:hover {
+            background-color: colors.$dark-blue-fade;
+            color: colors.$light-blue;
+            cursor: pointer;
+            transform: scale(1.05) translateX(0.5rem);
+        }
+
+        &:hover h3 {
+            color: colors.$light-orange;
+        }
+
+        &:hover img {
+            filter: brightness(0) saturate(100%) invert(77%) sepia(68%) saturate(4167%) hue-rotate(317deg) brightness(95%) contrast(118%);
+        }
+
+        &:hover h3 {
+            display: block;
+        }
+    }
+}
