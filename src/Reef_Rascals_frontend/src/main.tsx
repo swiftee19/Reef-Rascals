@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import Root from './routes/root';
 import ProfilePage from './routes/profile-page';
 import ErrorPage from './error-page';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
+import Home from './routes/home-page';
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root/>,
+        element: <Home/>,
         errorElement: <ErrorPage/>
     },
     {

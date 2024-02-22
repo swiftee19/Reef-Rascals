@@ -16,6 +16,9 @@
     "src/Reef_Rascals_frontend"
   ],
   "dependencies": {
+    "@types/react-router": "^5.1.20",
+    "@types/react-router-dom": "^5.3.3",
+    "react-router": "^6.22.1",
     "react-router-dom": "^6.22.1"
   }
 }

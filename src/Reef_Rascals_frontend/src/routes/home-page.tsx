@@ -1,8 +1,8 @@
-export default function Root() {
+export default function Home() {
     return (
         <>
             <div>
-                Root
+                Home
             </div>
         </>
     )
