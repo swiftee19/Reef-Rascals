@@ -16,11 +16,12 @@
 
     width: fit-content;
     height: 100vh;
-    background-color: rgba(colors.$dark, 0.1);
+    background-color: colors.$dark-blue;
 
     .button {
         display: flex;
         gap: 0.5rem;
+        width: fit-content;
         align-items: center;
         transition: 300ms;
         padding: 0.2rem 0.5rem;
