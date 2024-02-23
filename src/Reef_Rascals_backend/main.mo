@@ -1,53 +1,56 @@
 import Text "mo:base/Text";
 import HashMap "mo:base/HashMap";
 import Result "mo:base/Result";
+import Principal "mo:base/Principal";
+import Types "Types";
 
 actor {
-  type User = {
-  email : Text;
-  name : Text;
-  age : Nat;
-  password : Text;
-  money : Nat;
-  rascal : [Rascals];
-};
+  let users = HashMap.HashMap<Principal, Types.Account>(5, Principal.equal, Principal.hash);
 
-type Rascals = {
-  name : Text;
-  health : Nat;
-  attack : Nat;
-  rarity : Text;
-  price : Nat;
-};
+  public func addUser(key : Principal, email: Text, password : Text) : async Result.Result<Types.Account, Text> {
+    var user: ?Types.Account = users.get(key); 
 
-  let users = HashMap.HashMap<Text, User>(5, Text.equal, Text.hash);
-
-  public func addUser(email: Text, name: Text, age: Nat, password: Text) : async Result.Result<(), Text>{
-    switch (users.get(email)) {
+    switch(users.get(key)) {
       case(null) {
-          let user: User = {
-            email = email;
-            name = name;
-            age = age;
-            password = password;
-            money = 100;
-            rascal = [];
-          };
-          users.put(email, user);
-          return #ok();
+        let account: Types.Account = {
+          owner = key;
+          email = email;
+          password = password;
+          tokens = 0;
+          rascals = [];
+        };
+        users.put(key, account);
+        return #ok(account);
       };
-      case(?User) {
+      case(?Account) {
         return #err("User already exists");
       };
-    }
+    };
   };
 
-  public func getUser(email: Text) : async ?User {
-    let user = users.get(email);
-    if (user != null) {
-      return user;
-    } else {
-      return null;
-    }
-  }
+  public func getUser(key : Principal) : async Result.Result<Types.Account, Text> {
+    switch(users.get(key)) {
+      case(null) {
+        return #err("User not found");
+      };
+      case(?Account) {
+        return #ok(Account);
+      };
+    };
+  };
+
+  public func login(key: Principal, password: Text) : async Result.Result<Types.Account, Text> {
+    switch(users.get(key)) {
+      case(null) {
+        return #err("User not found");
+      };
+      case(?Account) {
+        if (Account.password == password) {
+          return #ok(Account);
+        } else {
+          return #err("Invalid password");
+        };
+      };
+    };
+  };
 };
