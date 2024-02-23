@@ -1,4 +1,5 @@
-import Sidebar from "../components/sidebar";
+import SidebarNav from "../components/sidebar-nav";
+import Sidebar from "../components/sidebar-nav";
 import "../scss/pages/profile-page.scss";
 import {useEffect} from "react";
 
@@ -10,7 +11,7 @@ export default function ProfilePage() {
     return (
         <>
             <div className={"main-container"}>
-                <Sidebar/>
+                <SidebarNav/>
                 profile
             </div>
         </>
