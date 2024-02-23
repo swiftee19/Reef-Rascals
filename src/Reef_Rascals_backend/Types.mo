@@ -3,7 +3,7 @@ import Nat "mo:base/Nat";
 
 module {
 
-    public type Rascals = {
+    public type Rascal = {
         name : Text;
         health : Nat;
         attack : Nat;
@@ -16,6 +16,6 @@ module {
         email: Text;
         password: Text;
         tokens : Nat;
-        rascals : [Rascals];
+        rascals : [Rascal];
     };
 }
