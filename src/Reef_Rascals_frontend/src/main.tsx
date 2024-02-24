@@ -10,13 +10,12 @@ import Home from './routes/home-page';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home/>,
+        element: <ProfilePage/>,
         errorElement: <ErrorPage/>
     },
     {
         path: "/profile/:profileId",
         element: <ProfilePage/>,
-        
     }
 ]);
 
