@@ -39,10 +39,9 @@ module {
         }
     ];
 
-    // public func gacha() : async Result.Result<Types.Rascal, Text> {
-    //     let seed : Blob = "0xdeadbeef";
-    //     let random = Random.Finite(seed);
-    //     let index : Nat = random.range(4);
-    //     return #ok(rascals[index]);
-    // };
+    public func getRandomRascal() : async Types.Rascal {
+        let index : Nat = Random.rangeFrom(32, await Random.blob());
+        let rascal = rascals[index % 4];
+        return rascal;
+    };
 }
