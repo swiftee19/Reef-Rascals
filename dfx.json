@@ -4,6 +4,10 @@
       "main": "src/Reef_Rascals_backend/main.mo",
       "type": "motoko"
     },
+    "Test": {
+      "main": "src/Reef_Rascals_backend/test-websocket.mo",
+      "type": "motoko"
+    },
     "Reef_Rascals_frontend": {
       "dependencies": [
         "Reef_Rascals_backend"
@@ -29,7 +33,7 @@
   "defaults": {
     "build": {
       "args": "",
-      "packtool": ""
+      "packtool": "mops sources"
     }
   },
   "output_env_file": ".env",
