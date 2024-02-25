@@ -1,10 +1,9 @@
-import Sidebar from "../components/sidebar-nav";
-import SidebarNav from "../components/sidebar-nav";
 import "../scss/pages/profile-page.scss";
 import {useEffect} from "react";
+import SidebarNav from "../components/sidebar-nav";
 
 export default function ProfilePage() {
-    useEffect(()=>{
+    useEffect(() => {
         document.title = "Reef Rascals | Profile"
     }, [])
 
@@ -12,7 +11,7 @@ export default function ProfilePage() {
         <>
             <div className={"main-container"}>
                 <SidebarNav/>
-                profile
+                <h2>Profile</h2>
             </div>
         </>
     )
