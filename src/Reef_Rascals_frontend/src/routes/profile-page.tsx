@@ -1,6 +1,6 @@
 import "../scss/pages/profile-page.scss";
 import SidebarNav from "../components/sidebar-nav";
-import {League, User} from "../types/user";
+import { League, User } from "../types/user";
 
 export default function ProfilePage() {
 
@@ -17,7 +17,7 @@ export default function ProfilePage() {
     return (
         <>
         <SidebarNav/>
-        <div className={"profile-container"}>
+        <div className={"main-container"}>
             <img className={"backdrop"} src="/bg-aquarium.png" alt="image not found"/>
             <div className={"backdrop-overlay"}/>
             <div className={"left-container"}>
