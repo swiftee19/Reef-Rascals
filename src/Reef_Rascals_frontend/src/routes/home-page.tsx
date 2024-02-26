@@ -1,7 +1,6 @@
 import SidebarNav from "../components/sidebar-nav";
 
-
-export default function Home() {
+export default function HomePage() {
     return (
         <>
             <div className={"main-container"}>
