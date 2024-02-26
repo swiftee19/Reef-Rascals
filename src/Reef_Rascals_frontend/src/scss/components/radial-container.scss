@@ -1,0 +1,14 @@
+@use "../colors";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.radial-container {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  background: radial-gradient(ellipse at bottom, colors.$dark-blue, colors.$dark);
+}
