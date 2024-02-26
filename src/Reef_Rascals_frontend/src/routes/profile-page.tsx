@@ -17,9 +17,9 @@ export default function ProfilePage() {
     return (
         <>
         <SidebarNav/>
-        <img className={"backdrop"} src="/bg-aquarium.png" alt="image not found"/>
-        <div className={"backdrop-overlay"}/>
-        <div className={"main-container"}>
+        <div className={"profile-container"}>
+            <img className={"backdrop"} src="/bg-aquarium.png" alt="image not found"/>
+            <div className={"backdrop-overlay"}/>
             <div className={"left-container"}>
                 <div className={"user-profile-container"}>
                     <img className={"profile-picture"} src="/Ganyu.jpg" alt={"Image not found"}/>
