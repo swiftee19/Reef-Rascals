@@ -1,4 +1,5 @@
 import {Rascal} from "./rascal";
+import {BattleHistory} from "./battle-history";
 
 export enum League {
     Bronze = "Bronze",
@@ -10,10 +11,8 @@ export type User = {
     id: string;
     name: string;
     profilePictureUrl: string;
-    registeredAt: Date;
+    dateJoined: Date;
     rascals: Rascal[];
-    wins: number;
     league: League;
-    battles: number;
-    winRate: number;
+    battleHistories: BattleHistory[];
 }
