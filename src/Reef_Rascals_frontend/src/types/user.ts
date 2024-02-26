@@ -12,6 +12,7 @@ export type User = {
     name: string;
     profilePictureUrl: string;
     dateJoined: Date;
+    token: number;
     rascals: Rascal[];
     league: League;
     battleHistories: BattleHistory[];
