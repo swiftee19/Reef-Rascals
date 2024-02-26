@@ -16,31 +16,31 @@ export default function ProfilePage() {
 
     return (
         <>
-            <SidebarNav/>
-            <img className={"backdrop"} src="/temp_backdrop.png" alt="image not found"/>
-            <div className={"backdrop-overlay"}/>
-            <div className={"main-container"}>
-                <div className={"left-container"}>
-                    <div className={"user-profile-container"}>
-                        <img className={"profile-picture"} src="/Ganyu.jpg" alt={"Image not found"}/>
-                        <div className={"user-info-container"}>
-                            <p className={"khula sm"}>
-                                Date Joined: {user.dateJoined.toDateString()}
-                            </p>
-                            <h1 className={"khula bold"}>
-                                {user.name}
-                            </h1>
-                            <p className={"khula sm"}>
-                                Player ID: {user.id}
-                            </p>
-                        </div>
+        <SidebarNav/>
+        <img className={"backdrop"} src="/bg-aquarium.png" alt="image not found"/>
+        <div className={"backdrop-overlay"}/>
+        <div className={"main-container"}>
+            <div className={"left-container"}>
+                <div className={"user-profile-container"}>
+                    <img className={"profile-picture"} src="/Ganyu.jpg" alt={"Image not found"}/>
+                    <div className={"user-info-container"}>
+                        <p className={"khula sm"}>
+                            Date Joined: {user.dateJoined.toDateString()}
+                        </p>
+                        <h1 className={"khula bold"}>
+                            {user.name}
+                        </h1>
+                        <p className={"khula sm"}>
+                            Player ID: {user.id}
+                        </p>
                     </div>
                 </div>
-
-                <div className={"right-container"}>
-
-                </div>
             </div>
+
+            <div className={"right-container"}>
+
+            </div>
+        </div>
         </>
     )
 }

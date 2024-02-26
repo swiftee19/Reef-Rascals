@@ -6,12 +6,18 @@ import ErrorPage from './error-page';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
 import Home from './routes/home-page';
+import HomePage from './routes/home-page';
+import MarketPage from './routes/market-page';
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <ProfilePage/>,
+        element: <HomePage/>,
         errorElement: <ErrorPage/>
+    },
+    {
+        path: "/marketplace",
+        element: <MarketPage/>,
     },
     {
         path: "/profile/:profileId",
