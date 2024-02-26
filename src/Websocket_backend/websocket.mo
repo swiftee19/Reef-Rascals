@@ -7,14 +7,14 @@ import HashMap "mo:base/HashMap";
 import Buffer "mo:base/Buffer";
 import Blob "mo:base/Blob";
 import Bool "mo:base/Bool";
+import Array "mo:base/Array";
 
 actor {
 
- type AppMessage = {
+  type AppMessage = {
     message : Text;
   };
 
-  /// A custom function to send the message to the client
   func send_app_message(client_principal : IcWebSocketCdk.ClientPrincipal, msg : AppMessage): async () {
     Debug.print("Sending message: " # debug_show (msg));
 
@@ -40,7 +40,7 @@ actor {
   func on_message(args : IcWebSocketCdk.OnMessageCallbackArgs) : async () {
     let app_msg : ?AppMessage = from_candid(args.message);
     let new_msg: AppMessage = switch (app_msg) {
-      case (?msg) {
+      case (?msg) { 
         { message = Text.concat(msg.message, " ping") };
       };
       case (null) {
