@@ -1,14 +1,24 @@
-import React, { ReactNode } from "react";
-import "../scss/components/radial-container.scss";
+import React, {ReactNode} from "react";
+import styles from "../scss/components/radial-container.module.scss";
 
 interface RadialContainerProps {
     children: ReactNode;
+    width?: number;
 }
 
-export default function RadialContainer({ children }: RadialContainerProps) {
+export default function RadialContainer(value: RadialContainerProps) {
+
+    if(value.width) {
+        return (
+            <div className={styles.radialContainer} style={{width: `${value.width}%`}}>
+                {value.children}
+            </div>
+        );
+    }
+
     return (
-        <div className={"radial-container"}>
-            {children}
+        <div className={styles.radialContainer}>
+            {value.children}
         </div>
     );
 }

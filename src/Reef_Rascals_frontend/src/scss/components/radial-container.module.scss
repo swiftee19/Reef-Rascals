@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-.radial-container {
+.radialContainer {
   width: fit-content;
   height: fit-content;
   position: relative;
@@ -14,7 +14,7 @@
   background: radial-gradient(ellipse at bottom, colors.$dark-blue, colors.$dark);
 }
 
-.radial-container::before {
+.radialContainer::before {
   content: '';
   position: absolute;
   top: 0;

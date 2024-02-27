@@ -7,6 +7,12 @@ export enum League {
     Gold = "Gold",
 }
 
+export enum LeagueThresholdNumber{
+    Bronze = 100,
+    Silver = 200,
+    Gold = 300,
+}
+
 export type User = {
     id: string;
     name: string;
@@ -16,4 +22,5 @@ export type User = {
     rascals: Rascal[];
     league: League;
     battleHistories: BattleHistory[];
+    elo: number;
 }
