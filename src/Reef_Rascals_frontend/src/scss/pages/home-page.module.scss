@@ -69,4 +69,10 @@
     position: absolute;
     top: 2rem;
     right: 5rem;
+    transition: 300ms;
+
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 }
