@@ -30,6 +30,15 @@
       "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
     }
   },
+<<<<<<< Updated upstream
+=======
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+>>>>>>> Stashed changes
   "output_env_file": ".env",
   "version": 1
 }
