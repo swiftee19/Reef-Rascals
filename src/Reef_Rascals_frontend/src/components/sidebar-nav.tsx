@@ -30,9 +30,9 @@ export default function SidebarNav() {
              onMouseOut={toggleSidebar}>
             <a href={"/" + canisterId}>
                 <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path
-                    fill="currentColor" fill-rule="evenodd"
+                    fill="currentColor" fillRule="evenodd"
                     d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6l2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2z"
-                    clip-rule="evenodd"/></svg></span>
+                    clipRule="evenodd"/></svg></span>
                 <span className='icon-text'>Home</span>
             </a>
             <a href={"/marketplace/" + canisterId}>
@@ -49,9 +49,9 @@ export default function SidebarNav() {
             </a>
             <a href={"/profile/1" + canisterId}>
                 <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path
-                    fill="currentColor" fill-rule="evenodd"
+                    fill="currentColor" fillRule="evenodd"
                     d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076A9.959 9.959 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.958 9.958 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22a9.947 9.947 0 0 0 5.675-1.765a10.055 10.055 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
-                    clip-rule="evenodd"/></svg></span>
+                    clipRule="evenodd"/></svg></span>
                 <span className='icon-text'>Profile</span>
             </a>
         </div>

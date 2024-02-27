@@ -2,65 +2,58 @@
 @use "../fonts";
 
 .mainContainer {
-    background-color: colors.$dark;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 0 0 0 70px;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.parallaxContainer, .aboutContainer {
-    width: 100%;
     min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    color: colors.$white;
-    align-items: center;
-    justify-content: center;
-}
-.logo {
-    font-size: 100px;
-    text-align: center;
-    font-family: fonts.$vt323;
-}
-.backImg,
-.midImg,
-.frontImg {
-    width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    position: absolute;
-    bottom: 0;
-}
-.backImg {
-    z-index: -3;
-}
-.midImg {
-    z-index: -2;
-}
-.frontImg {
-    z-index: -1;
+    overflow-x: hidden;
+    // background-color: colors.$dark;
 }
 
-.aboutContainer {
-    width: 100%;
-    min-height: 80vh;
+.parallaxContainer {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     overflow: hidden;
+}
+
+.parallaxContainer img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    object-fit: cover;
+    object-position: center bottom;
+}   
+
+.parallaxContainer h1 {
+    position: absolute;
+}
+
+.parallaxContainer .logo {
+    position: relative;
+    width: 50%;
+    object-fit: contain;
+}
+
+.lightImg {
+    mix-blend-mode: screen;
+}
+
+.introContainer {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    background-color: colors.$dark;
     color: colors.$white;
-    padding: 10rem;
-    gap: 2rem;  
-    
+    height: 100vh;
+    padding: 15rem;
+    gap: 2rem;
 
     h1 {
         font-size: 5rem;
@@ -68,7 +61,6 @@
     }
     p {
         font-size: 2rem;
-        text-align: center;
         font-family: fonts.$vt323;
     }
 }
