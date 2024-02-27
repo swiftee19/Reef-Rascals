@@ -4,8 +4,8 @@
       "main": "src/Reef_Rascals_backend/main.mo",
       "type": "motoko"
     },
-    "websocket": {
-      "main": "src/Websocket_backend/websocket.mo",
+    "matchmaking": {
+      "main": "src/Match/match.mo",
       "type": "motoko"
     },
     "Reef_Rascals_frontend": {
