@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
+import './index.css';
 import ProfilePage from './routes/profile-page';
 import ErrorPage from './error-page';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
-import Home from './routes/home-page';
 import HomePage from './routes/home-page';
 import MarketPage from './routes/market-page';
 import MatchPage from './routes/match-page';

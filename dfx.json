@@ -30,6 +30,12 @@
       "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
     }
   },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
   "output_env_file": ".env",
   "version": 1
 }
