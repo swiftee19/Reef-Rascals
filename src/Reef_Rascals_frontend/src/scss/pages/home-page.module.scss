@@ -2,65 +2,53 @@
 @use "../fonts";
 
 .mainContainer {
+    min-height: 100vh;
+    overflow-x: hidden;
     background-color: colors.$dark;
-    position: fixed;
+}
+
+.parallaxContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.parallaxContainer img {
+    position: absolute;
     top: 0;
     left: 0;
-    padding: 0 0 0 70px;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    pointer-events: none;
 }
 
-.parallaxContainer, .aboutContainer {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    color: colors.$white;
-    align-items: center;
-    justify-content: center;
-}
-.logo {
-    font-size: 100px;
-    text-align: center;
-    font-family: fonts.$vt323;
-}
-.backImg,
-.midImg,
-.frontImg {
-    width: 100%;
-    min-height: 100%;
-    object-fit: cover;
+.parallaxContainer h1 {
     position: absolute;
-    bottom: 0;
-}
-.backImg {
-    z-index: -3;
-}
-.midImg {
-    z-index: -2;
-}
-.frontImg {
-    z-index: -1;
 }
 
-.aboutContainer {
-    width: 100%;
-    min-height: 80vh;
+.lightImg {
+    mix-blend-mode: screen;
+}
+
+.parallaxContainer .logo {
     position: relative;
-    overflow: hidden;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.introContainer {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    background-color: colors.$light-blue;
     color: colors.$white;
-    padding: 10rem;
-    gap: 2rem;  
-    
+    height: 100vh;
+    gap: 2rem;
 
     h1 {
         font-size: 5rem;
@@ -68,7 +56,6 @@
     }
     p {
         font-size: 2rem;
-        text-align: center;
         font-family: fonts.$vt323;
     }
 }
