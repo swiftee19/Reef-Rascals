@@ -20,6 +20,7 @@ export default function ProfilePage() {
         battleHistories: [],
         league: League.Silver,
         rascals: [],
+        defense: [],
         dateJoined: new Date(),
         id: "#18270111730",
         elo: 243
@@ -41,6 +42,7 @@ export default function ProfilePage() {
         battleHistories: [battleHistory],
         league: League.Silver,
         rascals: [],
+        defense: [],
         dateJoined: new Date(),
         id: "#18270312730",
         elo: 267

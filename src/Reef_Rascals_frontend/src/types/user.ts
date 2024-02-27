@@ -20,6 +20,7 @@ export type User = {
     dateJoined: Date;
     token: number;
     rascals: Rascal[];
+    defense: Rascal[];
     league: League;
     battleHistories: BattleHistory[];
     elo: number;

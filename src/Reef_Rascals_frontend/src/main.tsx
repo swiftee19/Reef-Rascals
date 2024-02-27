@@ -8,6 +8,7 @@ import { RouterProvider } from 'react-router';
 import Home from './routes/home-page';
 import HomePage from './routes/home-page';
 import MarketPage from './routes/market-page';
+import MatchPage from './routes/match-page';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: "/profile/:profileId",
         element: <ProfilePage/>,
+    },
+    {
+        path: "/match",
+        element: <MatchPage/>,
     }
 ]);
 

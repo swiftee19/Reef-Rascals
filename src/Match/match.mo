@@ -9,7 +9,7 @@ import model "model";
 actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
 
-    public func getAllUser() : async [model.User] {
+    public query func getAllUser() : async [model.User] {
         var userArray: [model.User] = [];
         for ((key, value) in users.entries()) {
             userArray := Array.append<model.User>(userArray, [value]);
@@ -27,7 +27,7 @@ actor {
                 return "success";
             };
             case(?User) {
-                return "failure";
+                return "already exist";
             };
         };
     };
@@ -62,7 +62,7 @@ actor {
                     username = user.username;
                     password = user.password;
                     rank = user.rank;
-                    tokens = user.tokens - 1;
+                    tokens = user.tokens;
                     rascals = Array.append<model.Rascal>(user.rascals, [rascal]);
                     defense = user.defense;
                 });
