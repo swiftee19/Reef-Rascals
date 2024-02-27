@@ -1,16 +1,17 @@
 import SidebarNav from "../components/sidebar-nav";
-import {matchmaking} from "../../../declarations/matchmaking"
+import {matchmaking} from "../../../declarations/matchmaking";
+import styles from "../scss/pages/match-page.module.scss";
 
 export default function MatchPage() {
 
-    function searchForMatch() {
-        let users = matchmaking.getAllUser();
+    async function searchForMatch() {
+        let users = await matchmaking.getAllUser();
         console.log(users);
     }
 
     return (
         <>
-            <div className={"main-container"}>
+            <div className={styles.mainContainer}>
                 <SidebarNav />
                 <button onClick={searchForMatch}>Search</button>
                 <button onClick={searchForMatch}>Search</button>
