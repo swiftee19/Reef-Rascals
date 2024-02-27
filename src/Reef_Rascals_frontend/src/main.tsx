@@ -8,6 +8,7 @@ import { RouterProvider } from 'react-router';
 import HomePage from './routes/home-page';
 import MarketPage from './routes/market-page';
 import MatchPage from './routes/match-page';
+import TestingPage from './routes/testing-page';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     {
         path: "/match",
         element: <MatchPage/>,
+    },
+    {
+        path: "/testing",
+        element: <TestingPage/>,
     }
 ]);
 

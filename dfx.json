@@ -8,6 +8,10 @@
       "main": "src/Match/match.mo",
       "type": "motoko"
     },
+    "Auth": {
+      "main": "src/Auth/auth.mo",
+      "type": "motoko"
+    },
     "Reef_Rascals_frontend": {
       "dependencies": [
         "Reef_Rascals_backend"
@@ -19,15 +23,8 @@
       "workspace": "Reef_Rascals_frontend"
     },
     "internet_identity": {
-      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
-      "frontend": {},
-      "remote": {
-        "id": {
-          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
-        }
-      },
-      "type": "custom",
-      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+      "type": "pull",
+      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai"
     }
   },
   "defaults": {
