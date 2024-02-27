@@ -17,4 +17,7 @@ export type Rascal = {
     imageUrl: string;
     type: RascalType;
     rarity: Rarity;
+    health: number;
+    attack: number;
+    speed: number;
 }

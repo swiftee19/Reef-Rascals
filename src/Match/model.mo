@@ -6,18 +6,6 @@ import Result "mo:base/Result";
 
 module {
 
-    public func newRascal(inputName: Text, inputRarity: Text, inputTribe: Text, inputHealth: Nat, inputAttack: Nat) : Rascal {
-        var rascal = {
-            name = inputName;
-            rarity = inputRarity;
-            tribe = inputTribe;
-            health = inputHealth;
-            attack = inputAttack;
-        };
-
-        return rascal;
-    };
-
     public func newUser(inputPrincipal: Principal, inputUsername: Text, inputPassword: Text) : User {
         var user = {
             principal = inputPrincipal;
@@ -26,17 +14,22 @@ module {
             rank = "Bronze";
             tokens = 0;
             rascals = [];
+            defense = [];
         };
 
         return user;
     };
 
     public type Rascal = {
+        id: Text;
         name: Text;
-        rarity: Text;
+        level: Nat;
+        imageUrl: Text;
         tribe : Text;
+        rarity: Text;
         health: Nat;
         attack: Nat;
+        speed: Nat;
     };
 
     public type User = {
@@ -46,6 +39,7 @@ module {
         rank: Text;
         tokens: Nat;
         rascals: [Rascal];
+        defense: [Rascal];
     };
 
 }
