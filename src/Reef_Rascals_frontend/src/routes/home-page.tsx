@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/home-page.module.scss";
+import WoodButton from "../components/wood-btn";
 
 export default function HomePage() {
     useEffect(() => {
@@ -20,6 +21,10 @@ export default function HomePage() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const goLogin = () => {
+        
+    }
+
     return (
         <>
             <SidebarNav/>
@@ -31,6 +36,9 @@ export default function HomePage() {
                     <img id="lightImg" className={styles.lightImg} src="/bg-parallax-light.png" alt="" />
                     <img id="logo" className={styles.logo} src="/logo-full.png" alt="" />
                     <img id="frontImg" src="/bg-parallax-front.png" alt="" />
+                    <div className={styles.loginBtn}>
+                        <WoodButton btnText="Login" onClick={goLogin} />
+                    </div>
                 </section>
 
                 <section className={styles.introContainer}>
@@ -40,6 +48,8 @@ export default function HomePage() {
                     also gain fortune!</p>
                     <p>Join us and have fun!</p>
                 </section>
+
+
             </div>
         </>
     )
