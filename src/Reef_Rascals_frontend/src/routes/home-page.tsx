@@ -1,19 +1,24 @@
+import { useEffect } from "react";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/home-page.module.scss";
 
 export default function HomePage() {
-    let backSeaImg = document.getElementById("backSeaImg");
-    let backStoneImg = document.getElementById("backStoneImg");
-    let midImg = document.getElementById("midImg");
-    let frontImg = document.getElementById("frontImg");
-    let logo = document.getElementById("logo");
+    useEffect(() => {
+        const handleScroll = () => {
+            const backStoneImg = document.getElementById("backStoneImg");
+            const midImg = document.getElementById("midImg");
+            const logo = document.getElementById("logo");
 
-    window.addEventListener('scroll', function() {
-        let value = window.scrollY;
-        logo!.style.marginTop = value * 2.5 + 'px';
-        midImg!.style.marginTop = value * 0.15 + 'px';
-        backStoneImg!.style.marginTop = value * 0.25 + 'px';
-    });
+            if(backStoneImg && midImg && logo) {
+                let value = window.scrollY;
+                backStoneImg.style.top = value * 0.5 + 'px';
+                midImg.style.top = value * 0.25 + 'px';
+                logo.style.top = value * 1 + 'px';
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <>
