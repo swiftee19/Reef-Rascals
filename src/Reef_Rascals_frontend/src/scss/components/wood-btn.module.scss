@@ -1,0 +1,26 @@
+@use "../colors";
+@use "../fonts";
+
+.woodBtn {
+    width: 275px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+        position: relative;
+    }
+    p {
+        position: absolute;
+        font-family: fonts.$vt323;
+        font-size: 40px;
+        color: colors.$dark-brown;
+        font-weight: bold;
+    }
+}
+
+.topRight {
+    top: 2rem;
+    right: 5rem;
+}
