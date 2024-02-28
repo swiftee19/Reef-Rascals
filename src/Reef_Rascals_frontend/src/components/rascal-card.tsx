@@ -5,17 +5,23 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardTop}>
-                <img src={rascal.imageUrl} alt={rascal.name}/>
-            </div>
+                <img className={styles.rascalImg} src={rascal.imageUrl} alt={rascal.name}/>
 
-            <div className={styles.cardPrice}>
-                <p>0.111</p>
+                <div className={styles.cardPrice}>
+                    <img src="/favicon.ico" alt="" />
+                    <p>0.111</p>
+                </div>
             </div>
 
             <div className={styles.cardBottom}>
                 <div className={styles.cardDetail}>
+<<<<<<< Updated upstream
                     <h3>{rascal.name}</h3>
                     <p>{rascal.tribe}</p>
+=======
+                    <h1>{rascal.name}</h1>
+                    <p>{rascal.type}</p>
+>>>>>>> Stashed changes
                     <p>{rascal.id}</p>
                 </div>
 

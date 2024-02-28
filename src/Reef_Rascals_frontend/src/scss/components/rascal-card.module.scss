@@ -1,13 +1,17 @@
 @use "../colors";
+@use "../fonts";
 
 .cardContainer {
     flex: 1;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .cardTop {
-    background-color: red;
-    padding: 1rem 2rem;
+    position: relative;
+    background-color: linear-gradient(to top, colors.$dark-blue, colors.$light-blue);
+    padding: 1rem 2rem 2rem 2rem;
     display: flex;
     justify-content: center;
     border-radius: 5px 5px 0 0;
@@ -15,13 +19,27 @@
     border-style: solid;
     border-color: colors.$light-blue;
 
-
-    img {
-        width: 80%;
+    .rascalImg {
+        width: 70%;
     }
 }
 
-.cardPrcie{
+.cardPrice{
+    position: absolute;
+    background-color: colors.$dark-blue;
+    color: colors.$light-blue;
+    border-radius: 5px;
+    border: 1px solid colors.$light-blue;
+    bottom: -1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 50%;
+
+    img {
+        width: 2rem;
+    }
 }
 
 .cardBottom {
@@ -34,7 +52,7 @@
     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: colors.$light-blue;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem 1rem 2rem;
     gap: 1rem;
 }
 
@@ -44,7 +62,8 @@
     justify-content: center;
     align-items: center;
 
-    h3 {
+    h1 {
+        font-family: fonts.$vt323;
         color: colors.$light-blue;
     }
     p {
