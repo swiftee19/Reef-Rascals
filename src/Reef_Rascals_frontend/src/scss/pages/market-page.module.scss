@@ -1,0 +1,57 @@
+@use "../colors";
+
+.mainContainer {
+    padding-inline: 10rem ;
+    min-height: 100vh;
+    background-color: colors.$dark;
+    overflow-x: hidden;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+
+    h2 {
+        color: colors.$white;
+    }
+}
+
+.searchBar {
+    color: colors.$light-blue;
+    border: 1px solid colors.$light-blue;
+    background-color: colors.$dark-blue;
+    border-radius: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+
+    svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    input {
+        border: none;
+        width: 100%;
+        background-color: colors.$dark-blue;
+        color: colors.$white;
+        outline: none;
+
+        &::placeholder{
+            color: colors.$light-blue;
+        }
+    }
+}
+
+.recentRascals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}

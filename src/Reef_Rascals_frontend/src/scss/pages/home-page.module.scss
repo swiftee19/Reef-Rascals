@@ -6,12 +6,6 @@
     overflow-x: hidden;
 }
 
-h1 {
-    font-size: 5rem;
-    font-family: fonts.$vt323;
-    color: colors.$soft-red;
-}
-
 .parallaxContainer {
     position: relative;
     display: flex;
@@ -31,10 +25,6 @@ h1 {
     object-fit: cover;
     object-position: center bottom;
 }   
-
-.parallaxContainer h1 {
-    position: absolute;
-}
 
 .parallaxContainer .logo {
     position: relative;
@@ -60,6 +50,12 @@ h1 {
     // padding: 15rem;
     gap: 2rem;
 
+    h1 {
+        font-size: 5rem;
+        font-family: fonts.$vt323;
+        color: colors.$soft-red;
+    }
+       
     p {
         font-size: 2rem;
         font-family: fonts.$vt323;
@@ -88,6 +84,12 @@ h1 {
     width: 100%;
     overflow: hidden;
 
+    h1 {
+        font-size: 5rem;
+        font-family: fonts.$vt323;
+        color: colors.$soft-red;
+    }
+       
     img {
         position: absolute;
         left: 0;
@@ -142,6 +144,9 @@ h1 {
     background-color: colors.$dark;
 
     h1 {
+        font-size: 5rem;
+        font-family: fonts.$vt323;
+        color: colors.$soft-red;
         padding: 2rem;
     }
 }

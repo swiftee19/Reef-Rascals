@@ -1,0 +1,85 @@
+@use "../colors";
+
+.cardContainer {
+    flex: 1;
+    position: relative;
+}
+
+.cardTop {
+    background-color: red;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px 5px 0 0;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: colors.$light-blue;
+
+
+    img {
+        width: 80%;
+    }
+}
+
+.cardPrcie{
+}
+
+.cardBottom {
+    background-color: colors.$dark-blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 5px 5px;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: colors.$light-blue;
+    padding: 1rem 2rem;
+    gap: 1rem;
+}
+
+.cardDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h3 {
+        color: colors.$light-blue;
+    }
+    p {
+        font-size: small;
+        color: colors.$light-blue;
+    }
+}
+
+.cardStats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    div {
+        text-align: center;
+
+        p {
+            color: colors.$light-blue;
+        }
+        .atkLbl, .hpLbl, .spdLbl {
+            color: colors.$white;
+            font-weight: 500;
+            width: 2.5rem;
+            border-radius: 5px;
+        }
+        .atkLbl {
+            background-color: colors.$soft-red;
+        }
+        .hpLbl {
+            background-color: colors.$turqouise;
+        }
+        .spdLbl {
+            background-color: colors.$yellow;
+        }
+    }
+}
+
