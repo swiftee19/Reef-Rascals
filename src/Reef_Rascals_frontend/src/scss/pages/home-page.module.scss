@@ -57,12 +57,13 @@ h1 {
     background-color: colors.$dark;
     color: colors.$white;
     height: 100vh;
-    padding: 15rem;
+    // padding: 15rem;
     gap: 2rem;
 
     p {
         font-size: 2rem;
         font-family: fonts.$vt323;
+        padding-inline: 20rem;
     }
 }
 
@@ -86,49 +87,41 @@ h1 {
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
+
+    img {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        object-fit: cover;
+    }
+
+    .brawlTopImg {
+        top: 0;
+        object-position: center top;
+    }
+    .brawlBottomImg {
+        bottom: 0;
+        object-position: center bottom;
+    }
 }
 
-.brawlContainer img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    object-fit: cover;
-    object-position: center top;
-}
 
-.brawlContainer .brawlTopImg {
-    position: absolute;
-    left: 0;
-    top: -100px;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    object-fit: cover;
-    object-position: center top;
+.brawlContent {
+    position: relative;
+    padding: 15rem;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
 }
-
-.brawlContainer .brawlBottomImg {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    object-fit: cover;
-    object-position: center bottom;
-}
-
-.brawlText {
-    position: absolute;
-    left: 10rem;
+.brawlContent .brawlText {
+    width: 40%;
     display: flex;
     flex-direction: column;
-    width: 30rem;
+    justify-content: center;
     gap: 2rem;
-    
+
     p {
         font-size: 2rem;
         font-family: fonts.$vt323;
