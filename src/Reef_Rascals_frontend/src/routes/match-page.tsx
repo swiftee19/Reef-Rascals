@@ -1,3 +1,4 @@
+import React from 'react';
 import SidebarNav from "../components/sidebar-nav";
 import {matchmaking} from "../../../declarations/matchmaking";
 import styles from "../scss/pages/match-page.module.scss";
