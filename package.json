@@ -16,6 +16,7 @@
     "src/Reef_Rascals_frontend"
   ],
   "dependencies": {
+    "@dfinity/agent": "^1.0.1",
     "@dfinity/auth-client": "^1.0.1",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
