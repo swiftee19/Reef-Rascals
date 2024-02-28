@@ -16,6 +16,17 @@ export default function HomePage() {
                 midImg.style.top = value * 0.25 + 'px';
                 logo.style.top = value * 1 + 'px';
             }
+
+            const scrollThreshold = (2 * window.innerHeight) - 200;
+
+            if (scrollY >= scrollThreshold) {
+                const brawlTopImg = document.getElementById("brawlTopImg");
+
+                if (brawlTopImg) {
+                    let value = (window.scrollY - scrollThreshold);
+                    brawlTopImg.style.top = value * 0.5 + 'px';
+                }
+            }
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -49,6 +60,21 @@ export default function HomePage() {
                     <p>Join us and have fun!</p>
                 </section>
 
+                <section className={styles.brawlContainer}>
+                    <img id="brawlSeaImg" src="/bg-brawl-sea.png" alt="" />
+                    <img id="brawlTopImg" className={styles.brawlTopImg} src="/bg-brawl-top.png" alt="" />
+                    <img id="brawlBottomImg" className={styles.brawlBottomImg} src="/bg-brawl-bottom.png" alt="" />
+                    <div className={styles.brawlText}>
+                        <h1>Brawl it out!</h1>
+                        <p>Your Reef Rascals are feisty little critters! They can brawl with one another!
+                        The victor gets a fragment which can be used to get more Rascals!</p>
+                    </div>
+                </section>
+
+                <section className={styles.rascalsContainer}>
+                    <h1>Meet the Rascals</h1>
+                    <p></p>
+                </section>
 
             </div>
         </>

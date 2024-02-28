@@ -2,7 +2,7 @@ import React from 'react';
 import SidebarNav from "../components/sidebar-nav";
 import { Auth, createActor } from "../../../declarations/Auth";
 import { AuthClient } from "@dfinity/auth-client";
-import { HttpAgent } from "@dfinity/agent";
+// import { HttpAgent } from "@dfinity/agent";
 
 export default function TestingPage() {
     let actor = Auth;
