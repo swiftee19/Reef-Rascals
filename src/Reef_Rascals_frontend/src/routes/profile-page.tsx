@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {BattleHistory, BattleResult} from "../types/battle-history";
 import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
+import { Principal } from "@dfinity/principal";
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -53,11 +54,12 @@ export default function ProfilePage() {
     );
 
     const opponent = new User(
-        "#18270111730",
+        Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
         "Alexander Ryan Alex",
         "/Ganyu.jpg",
         new Date(),
         0.123,
+        [],
         [],
         [],
         League.Silver,
@@ -84,20 +86,21 @@ export default function ProfilePage() {
     }
 
     const user = new User(
-        "#18270312730",
+        Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
         "Alexander Irvin Ryan",
         "/Ganyu.jpg",
         new Date(),
         0.123,
         [rascal1, rascal2, rascal3],
         [rascal1, rascal2, rascal3],
+        [],
         League.Silver,
         [battleHistory, battleHistory1],
         267
     )
 
     const calculateLeagueSliderProgress = () => {
-        switch (user.league) {
+        switch (user.rank) {
             case League.Bronze:
                 return (user.elo / LeagueThresholdNumber.Silver) * 100
             case League.Silver:
@@ -122,7 +125,7 @@ export default function ProfilePage() {
 
         setUserLeagueProgress(calculateLeagueSliderProgress())
 
-        switch (user.league) {
+        switch (user.rank) {
             case League.Bronze:
                 setLeagueFontColor("#CD7F32")
                 setUserLeagueIcon("/bronze-league-icon.png")
@@ -152,16 +155,16 @@ export default function ProfilePage() {
                                 Date Joined: {user.dateJoined.toDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                {user.name}
+                                {user.username}
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                Player ID: {user.id}
+                                Player ID: {user.id.toString()}
                             </p>
                             <RadialContainer>
                                 <div className={styles.userToken}>
                                     <img src="/favicon.ico" alt={"Image not found"}/>
                                     <p>
-                                        {user.token}
+                                        {user.tokens.toString()}
                                     </p>
                                 </div>
                             </RadialContainer>
@@ -235,7 +238,7 @@ export default function ProfilePage() {
                                 <img src="/silver-league-icon.png" alt={"Image not found"}/>
                                 <div className={styles.leagueInfo}>
                                     <h1 style={{color: leagueFontColor}}>
-                                        {user.league}
+                                        {user.rank}
                                     </h1>
                                     <h1 className={styles.playerPercentageInfo}>
                                         You are in the top 79%
@@ -256,7 +259,7 @@ export default function ProfilePage() {
                                     />
                                 </div>
                                 <p style={{color: leagueFontColor}}>
-                                    {user.elo}/{LeagueThresholdNumber[user.league] + 100}
+                                    {user.elo}/{LeagueThresholdNumber[user.rank] + 100}
                                 </p>
                             </div>
                         </div>

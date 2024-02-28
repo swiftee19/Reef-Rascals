@@ -15,22 +15,22 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
             <div className={styles.cardBottom}>
                 <div className={styles.cardDetail}>
                     <h3>{rascal.name}</h3>
-                    <p>{rascal.type}</p>
+                    <p>{rascal.tribe}</p>
                     <p>{rascal.id}</p>
                 </div>
 
                 <div className={styles.cardStats}>
                     <div>
                         <p className={styles.atkLbl}>ATK</p>
-                        <p>{rascal.attack}</p>
+                        <p>{rascal.attack.toString()}</p>
                     </div>
                     <div>
                         <p className={styles.hpLbl}>HP</p>
-                        <p>{rascal.health}</p>
+                        <p>{rascal.health.toString()}</p>
                     </div>
                     <div>
                         <p className={styles.spdLbl}>SPD</p>
-                        <p>{rascal.speed}</p>
+                        <p>{rascal.speed.toString()}</p>
                     </div>
                 </div>
             </div>

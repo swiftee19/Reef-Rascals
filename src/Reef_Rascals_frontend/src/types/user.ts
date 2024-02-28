@@ -1,6 +1,7 @@
 import {Rascal} from "./rascal";
 import {BattleHistory} from "./battle-history";
 import { matchmaking } from "../../../declarations/matchmaking";
+import { Principal } from "@dfinity/principal";
 
 export enum League {
     Bronze = "Bronze",
@@ -15,31 +16,35 @@ export enum LeagueThresholdNumber{
 }
 
 export class User {
-    id: string;
-    name: string;
+    id: Principal;
+    username: string;
+    password: string;
     profilePictureUrl: string;
     dateJoined: Date;
-    token: number;
+    tokens: bigint;
     rascals: Rascal[];
     defense: Rascal[];
-    league: League;
+    sell : Rascal[];
+    rank: League;
     battleHistories: BattleHistory[];
     elo: number;
 
-    constructor(id: string, name: string, profilePictureUrl: string, dateJoined: Date, token: number, rascals: Rascal[], defense: Rascal[], league: League, battleHistories: BattleHistory[], elo: number) {
+    constructor(id: Principal, username: string, profilePictureUrl: string, dateJoined: Date, tokens: number, rascals: Rascal[], defense: Rascal[], sell: Rascal[], league: League, battleHistories: BattleHistory[], elo: number) {
         this.id = id;
-        this.name = name;
+        this.username = username;
+        this.password = "";
         this.profilePictureUrl = profilePictureUrl;
         this.dateJoined = dateJoined;
-        this.token = token;
+        this.tokens = BigInt(tokens);
         this.rascals = rascals;
         this.defense = defense;
-        this.league = league;
+        this.sell = sell;
+        this.rank = league;
         this.battleHistories = battleHistories;
         this.elo = elo;
     }
-}
 
-export function saveUser(user: User) {
-    
+    saveUser() {
+        matchmaking.updateUser(this.id, this);
+    }
 }

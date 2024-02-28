@@ -13,23 +13,23 @@ export enum Rarity {
 export class Rascal {
     id: string;
     name: string;
-    level: number;
+    level: bigint;
     imageUrl: string;
-    type: RascalType;
+    tribe: RascalType;
     rarity: Rarity;
-    health: number;
-    attack: number;
-    speed: number;
+    health: bigint;
+    attack: bigint;
+    speed: bigint;
 
     constructor(id: string, name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number) {
         this.id = id;
         this.name = name;
-        this.level = level;
+        this.level = BigInt(level);
         this.imageUrl = imageUrl;
-        this.type = type;
+        this.tribe = type;
         this.rarity = rarity;
-        this.health = health;
-        this.attack = attack;
-        this.speed = speed;
+        this.health = BigInt(health);
+        this.attack = BigInt(attack);
+        this.speed = BigInt(speed);
     }
 }

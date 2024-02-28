@@ -5,17 +5,17 @@ import { Rarity, Rascal, RascalType } from "../types/rascal";
 
 export default function MarketPage() {
 
-    const rascal1: Rascal = {
-        rarity: Rarity.Rare,
-        level: 2,
-        imageUrl: "/rascals/ribble.png",
-        id: "#10070111730",
-        name: "Ribble",
-        attack: 10,
-        health: 20,
-        speed: 30,
-        type: RascalType.Fearless
-    }
+    const rascal1: Rascal = new Rascal(
+        "#10070111730",
+        "Ribble",
+        2,
+        "/rascals/ribble.png",
+        RascalType.Fearless,
+        Rarity.Rare,
+        20,
+        10,
+        30
+    )
 
     return (
         <>
