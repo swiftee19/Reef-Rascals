@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import styles from '../scss/components/rascal-carousel.module.scss'
 
 const rascalsList = [
-    { name: 'Rascal1', image: '/rascals/circus-clio.png' },
-    { name: 'Rascal2', image: '/rascals/captain-finbite.png' },
+    { name: 'Circus Clio', image: '/rascals/circus-clio.png' },
+    { name: 'Finbite', image: '/rascals/captain-finbite.png' },
     { name: 'Gloomy Bob', image: '/rascals/gloomy-bob.png' },
     { name: 'King Octo', image: '/rascals/king-octo.png' },
     { name: 'Ribble', image: '/rascals/ribble.png' },
@@ -13,23 +14,19 @@ const rascalsList = [
     { name: 'Snooze Puff', image: '/rascals/snooze-puff.png' },
 ];
 
-export default function RascalCarousel() {
+export default function RascalCarousel({speed, flip}: {speed: number, flip: boolean}) {
     return (
-        // <span className={styles.carouselContainer}>
-        //     {
-        //         rascalsList.map((rascal, index) => {
-        //             return (
-        //                 <div key={index} className={styles.carouselCard}>
-        //                     <img src={rascal.image} alt={rascal.name} />
-        //                     <p>{rascal.name}</p>
-        //                 </div>
-        //             )
-        //         })
-        //     }
-        // </span>
-
         <div className={styles.carouselContainer}>
-            <div className={styles.carouselTrack}>
+            <div className={`${styles.carouselTrack} ${flip ? styles.flip : ''}`} style={{ animationDuration: `${speed}s` }}>                {
+                    rascalsList.map((rascal, index) => {
+                        return (
+                            <div key={index} className={`${styles.carouselSlide} `}>
+                                <img src={rascal.image} alt={rascal.name} />
+                                <p>{rascal.name}</p>
+                            </div>
+                        )
+                    })
+                }
                 {
                     rascalsList.map((rascal, index) => {
                         return (

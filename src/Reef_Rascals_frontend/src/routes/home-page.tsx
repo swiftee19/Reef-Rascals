@@ -77,10 +77,10 @@ export default function HomePage() {
 
                 <section className={styles.rascalsContainer}>
                     <h1>Meet the Rascals</h1>
-                    <RascalCarousel/>
+                    <RascalCarousel speed={40} flip={false}/>
+                    <RascalCarousel speed={60} flip={true}/>
+                    <RascalCarousel speed={40} flip={false}/>
                 </section>
-
-                
             </div>
         </>
     )

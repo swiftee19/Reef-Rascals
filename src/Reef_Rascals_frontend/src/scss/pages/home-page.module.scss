@@ -131,12 +131,17 @@ h1 {
 
 .rascalsContainer {
     position: relative;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    gap: 1rem;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
+    padding-block: 5rem;
     background-color: colors.$dark;
+
+    h1 {
+        padding: 2rem;
+    }
 }
