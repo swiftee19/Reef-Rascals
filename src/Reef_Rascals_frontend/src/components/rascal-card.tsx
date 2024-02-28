@@ -15,13 +15,8 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
 
             <div className={styles.cardBottom}>
                 <div className={styles.cardDetail}>
-<<<<<<< Updated upstream
                     <h3>{rascal.name}</h3>
                     <p>{rascal.tribe}</p>
-=======
-                    <h1>{rascal.name}</h1>
-                    <p>{rascal.type}</p>
->>>>>>> Stashed changes
                     <p>{rascal.id}</p>
                 </div>
 
