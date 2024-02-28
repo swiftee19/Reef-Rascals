@@ -1,0 +1,106 @@
+@use "../colors";
+@use "../fonts";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: fonts.$poppins;
+}
+
+.victoryRibbon, .defeatRibbon {
+  padding: 0.5rem 6rem 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(154deg) brightness(103%) contrast(101%);
+  }
+
+  p {
+    font-family: fonts.$poppins;
+    font-size: 1.5rem;
+    color: colors.$white;
+    font-weight: 500;
+    margin-left: 0.5rem;
+  }
+}
+
+.victoryRibbon {
+  background: linear-gradient(to right, colors.$turqouise, colors.$dark-blue);
+}
+
+.defeatRibbon {
+  background: linear-gradient(to right, colors.$light-orange, colors.$dark-blue);
+}
+
+.mainContainer {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  background: colors.$radial-gradient;
+  border: 1px solid colors.$light-blue;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .headerContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .opponentInfoContainer {
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+    justify-content: end;
+
+    p {
+      text-align: end;
+    }
+  }
+
+  .time {
+    padding-left: 2rem;
+    font-weight: 300;
+  }
+
+  .rascalsContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    .rascalsLeftContainer, .rascalsRightContainer {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+
+      img {
+        width: 25%;
+        height: 25%;
+      }
+    }
+
+    .rascalsLeftContainer {
+      flex-direction: row-reverse;
+      padding-right: 1rem;
+    }
+
+    .rascalsRightContainer {
+      flex-direction: row;
+      padding-left: 1rem;
+    }
+  }
+}

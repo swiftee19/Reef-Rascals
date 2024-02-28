@@ -2,19 +2,29 @@ import { useEffect } from "react";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/home-page.module.scss";
 import WoodButton from "../components/wood-btn";
+import RascalCarousel from "../components/rascal-carousel";
 
 export default function HomePage() {
     useEffect(() => {
         const handleScroll = () => {
+            // parallax effect
             const backStoneImg = document.getElementById("backStoneImg");
             const midImg = document.getElementById("midImg");
             const logo = document.getElementById("logo");
-
             if(backStoneImg && midImg && logo) {
                 let value = window.scrollY;
                 backStoneImg.style.top = value * 0.5 + 'px';
                 midImg.style.top = value * 0.25 + 'px';
                 logo.style.top = value * 1 + 'px';
+            }
+            
+            // brawl parallax effect
+            const scrollStart = 2 * window.innerHeight;
+            const brawlSeaImg = document.getElementById("brawlSeaImg");
+            if(window.scrollY > scrollStart) {
+                if(brawlSeaImg) {
+                    brawlSeaImg.style.top = (window.scrollY - scrollStart) * 0.5 + 'px';
+                }
             }
         };
         window.addEventListener('scroll', handleScroll);
@@ -49,7 +59,28 @@ export default function HomePage() {
                     <p>Join us and have fun!</p>
                 </section>
 
+                <section className={styles.brawlContainer}>
+                    <img id="brawlSeaImg" className={styles.brawlSeaImg} src="/bg-brawl-sea.png" alt="" />
+                    <img id="brawlTopImg" className={styles.brawlTopImg} src="/bg-brawl-top.png" alt="" />
+                    <img id="brawlBottomImg" className={styles.brawlBottomImg} src="/bg-brawl-bottom.png" alt="" />
+                    <span className={styles.brawlContent}>
+                        <div className={styles.brawlText}>
+                            <h1>Brawl it out!</h1>
+                            <p>Your Reef Rascals are feisty little critters! They can brawl with one another!
+                            The victor gets a fragment which can be used to get more Rascals!</p>
+                        </div>
+                        <div className={styles.brawlCharacter}>
 
+                        </div>
+                    </span>
+                </section>
+
+                <section className={styles.rascalsContainer}>
+                    <h1>Meet the Rascals</h1>
+                    <RascalCarousel speed={40} flip={false}/>
+                    <RascalCarousel speed={60} flip={true}/>
+                    <RascalCarousel speed={40} flip={false}/>
+                </section>
             </div>
         </>
     )

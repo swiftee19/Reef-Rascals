@@ -1,0 +1,62 @@
+@use "../colors";
+@use "../fonts";
+
+.carouselSlide img {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+
+.carouselContainer {
+    height: 10rem;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10rem;
+        z-index: 2;
+    }
+    &::before {
+        left: 70px;
+        background: linear-gradient(to left, rgba(255, 255, 255, 0), colors.$dark);
+    }
+        
+    &::after {
+        right: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), colors.$dark);
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-7.5rem * 10));
+    }
+}
+
+.carouselContainer .carouselTrack {
+    animation: scroll linear infinite;
+    display: flex;
+    width: calc(10rem * 10);
+}
+
+.carouselContainer .carouselSlide {
+    padding: 1rem;
+
+    p {
+        color: colors.$white;
+        font-family: fonts.$vt323;
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
+.flip img {
+    transform: scaleX(-1)
+}

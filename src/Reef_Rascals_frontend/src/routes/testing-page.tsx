@@ -18,18 +18,8 @@ export default function TestingPage() {
         authClient.login({
             maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000),
             onSuccess: async () => {
-                await handleAuthenticated(authClient);
+                // await handleAuthenticated(authClient);
             },
-        });
-    }
-
-    async function handleAuthenticated(authClient: AuthClient) {
-        const identity = await authClient.getIdentity();
-        const actor = Actor.createActor(idlFactory, {
-            agent: new HttpAgent({
-                identity,
-            }),
-            canisterId,
         });
     }
     
