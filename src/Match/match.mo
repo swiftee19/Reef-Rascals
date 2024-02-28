@@ -49,6 +49,20 @@ actor {
         };
     };
 
+    public func updateUser(key : Principal, user : model.User) : async Text {
+        var check: ?model.User = users.get(key);
+
+        switch(check) {
+            case(null) {
+                return "no user found";
+            };
+            case(?user) {
+                users.put(user.id, user);
+                return "success";
+            };
+        }
+    };
+
     public func addRascalToUser(key : Principal, rascal : model.Rascal) : async Text {
         var check: ?model.User = users.get(key);
 
@@ -57,14 +71,15 @@ actor {
                 return "no user found";
             };
             case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
+                users.put(user.id, {
+                    id = user.id;
                     username = user.username;
                     password = user.password;
                     rank = user.rank;
                     tokens = user.tokens;
                     rascals = Array.append<model.Rascal>(user.rascals, [rascal]);
                     defense = user.defense;
+                    sell = user.sell;
                 });
                 return "success";
             };
@@ -79,14 +94,15 @@ actor {
                 return "no user found";
             };
             case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
+                users.put(user.id, {
+                    id = user.id;
                     username = user.username;
                     password = user.password;
                     rank = user.rank;
                     tokens = user.tokens - 1;
                     rascals = user.rascals;
                     defense = Array.append<model.Rascal>(user.defense, [rascal]);
+                    sell = user.sell;
                 });
                 return "success";
             };
@@ -101,14 +117,15 @@ actor {
                 return "no user found";
             };
             case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
+                users.put(user.id, {
+                    id = user.id;
                     username = user.username;
                     password = user.password;
                     rank = user.rank;
                     tokens = user.tokens - 1;
                     rascals = user.rascals;
                     defense = Array.filter<model.Rascal>(user.defense, func x = x.id != rascal.id );
+                    sell = user.sell;
                 });
                 return "success";
             };

@@ -1,9 +1,5 @@
 {
   "canisters": {
-    "Reef_Rascals_backend": {
-      "main": "src/Reef_Rascals_backend/main.mo",
-      "type": "motoko"
-    },
     "matchmaking": {
       "main": "src/Match/match.mo",
       "type": "motoko"
@@ -14,7 +10,7 @@
     },
     "Reef_Rascals_frontend": {
       "dependencies": [
-        "Reef_Rascals_backend"
+        "matchmaking"
       ],
       "source": [
         "src/Reef_Rascals_frontend/dist"

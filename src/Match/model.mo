@@ -3,18 +3,20 @@ import Principal "mo:base/Principal";
 import Nat "mo:base/Nat";
 import Array "mo:base/Array";
 import Result "mo:base/Result";
+import Int "mo:base/Int";
 
 module {
 
     public func newUser(inputPrincipal: Principal, inputUsername: Text, inputPassword: Text) : User {
         var user = {
-            principal = inputPrincipal;
+            id = inputPrincipal;
             username = inputUsername;
             password = inputPassword;
             rank = "Bronze";
             tokens = 0;
             rascals = [];
             defense = [];
+            sell = [];
         };
 
         return user;
@@ -23,23 +25,24 @@ module {
     public type Rascal = {
         id: Text;
         name: Text;
-        level: Nat;
+        level: Int;
         imageUrl: Text;
         tribe : Text;
         rarity: Text;
-        health: Nat;
-        attack: Nat;
-        speed: Nat;
+        health: Int;
+        attack: Int;
+        speed: Int;
     };
 
     public type User = {
-        principal: Principal;
+        id: Principal;
         username: Text;
         password: Text;
         rank: Text;
-        tokens: Nat;
+        tokens: Int;
         rascals: [Rascal];
         defense: [Rascal];
+        sell: [Rascal];
     };
 
 }

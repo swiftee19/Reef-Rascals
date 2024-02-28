@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "../scss/pages/profile-page.module.scss";
 import SidebarNav from "../components/sidebar-nav";
 import {League, LeagueThresholdNumber, User} from "../types/user";
@@ -15,54 +16,54 @@ export default function ProfilePage() {
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
 
-    const rascal1: Rascal = {
-        rarity: Rarity.Common,
-        level: 3,
-        imageUrl: "/rascals/axolberry.png",
-        id: "#10070111730",
-        name: "Axolberry",
-        attack: 10,
-        health: 20,
-        speed: 30,
-        type: RascalType.Chubby
-    }
+    const rascal1: Rascal = new Rascal(
+        "#10070111730",
+        "Axolberry",
+        3,
+        "/rascals/axolberry.png",
+        RascalType.Chubby,
+        Rarity.Common,
+        20,
+        10,
+        30
+    );
+    
+    const rascal2: Rascal = new Rascal(
+        "#10070111730",
+        "Captain Finbite",
+        6,
+        "/rascals/captain-finbite.png",
+        RascalType.Fearless,
+        Rarity.Epic,
+        20,
+        10,
+        30
+    );
+    
+    const rascal3: Rascal = new Rascal(
+        "#10070111730",
+        "Ribble",
+        2,
+        "/rascals/ribble.png",
+        RascalType.Fearless,
+        Rarity.Rare,
+        20,
+        10,
+        30
+    );
 
-    const rascal2: Rascal = {
-        rarity: Rarity.Epic,
-        level: 6,
-        imageUrl: "/rascals/captain-finbite.png",
-        id: "#10070111730",
-        name: "Captain Finbite",
-        attack: 10,
-        health: 20,
-        speed: 30,
-        type: RascalType.Fearless
-    }
-
-    const rascal3: Rascal = {
-        rarity: Rarity.Rare,
-        level: 2,
-        imageUrl: "/rascals/ribble.png",
-        id: "#10070111730",
-        name: "Ribble",
-        attack: 10,
-        health: 20,
-        speed: 30,
-        type: RascalType.Fearless
-    }
-
-    const opponent: User = {
-        profilePictureUrl: "/Ganyu.jpg",
-        name: "Alexander Ryan Alex",
-        token: 0.123,
-        battleHistories: [],
-        league: League.Silver,
-        rascals: [],
-        defense: [],
-        dateJoined: new Date(),
-        id: "#18270111730",
-        elo: 243
-    }
+    const opponent = new User(
+        "#18270111730",
+        "Alexander Ryan Alex",
+        "/Ganyu.jpg",
+        new Date(),
+        0.123,
+        [],
+        [],
+        League.Silver,
+        [],
+        243
+    )
 
     const battleHistory: BattleHistory = {
         result: BattleResult.Lose,
@@ -82,18 +83,18 @@ export default function ProfilePage() {
         usedRascal: [rascal2, rascal2, rascal3]
     }
 
-    const user: User = {
-        profilePictureUrl: "/Ganyu.jpg",
-        name: "Alexander Irvin Ryan",
-        token: 0.123,
-        battleHistories: [battleHistory, battleHistory1],
-        league: League.Silver,
-        rascals: [],
-        defense: [],
-        dateJoined: new Date(),
-        id: "#18270312730",
-        elo: 267
-    }
+    const user = new User(
+        "#18270312730",
+        "Alexander Irvin Ryan",
+        "/Ganyu.jpg",
+        new Date(),
+        0.123,
+        [rascal1, rascal2, rascal3],
+        [rascal1, rascal2, rascal3],
+        League.Silver,
+        [battleHistory, battleHistory1],
+        267
+    )
 
     const calculateLeagueSliderProgress = () => {
         switch (user.league) {

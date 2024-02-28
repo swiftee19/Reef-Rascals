@@ -13,7 +13,6 @@ export default function TestingPage() {
     }
 
     async function login() {
-<<<<<<< HEAD
         const authClient = await AuthClient.create();
         const identity = authClient.getIdentity();
         authClient.login({
@@ -24,11 +23,6 @@ export default function TestingPage() {
         });
     }
     
-=======
-        let authClient = await AuthClient.create();
-    }
-
->>>>>>> parent of e589351 ([Backend] Marketplace)
     return (
         <>
             <div className={"main-container"}>
