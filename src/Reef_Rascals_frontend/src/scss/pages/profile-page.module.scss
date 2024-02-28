@@ -8,6 +8,10 @@
   font-family: fonts.$poppins;
 }
 
+.large {
+  font-size: 2rem;
+}
+
 .white {
   color: colors.$white;
 }
@@ -226,6 +230,7 @@
             letter-spacing: 2px;
             font-family: fonts.$vt323;
             font-weight: normal;
+            text-shadow: colors.$dark 0.4rem 0.2rem;
           }
 
           .playerPercentageInfo {

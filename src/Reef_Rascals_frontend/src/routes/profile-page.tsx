@@ -4,6 +4,8 @@ import {League, LeagueThresholdNumber, User} from "../types/user";
 import RadialContainer from "../components/radial-container";
 import {useEffect, useState} from "react";
 import {BattleHistory, BattleResult} from "../types/battle-history";
+import BattleHistoryCard from "../components/battle-history-card";
+import {Rarity, Rascal, RascalType} from "../types/rascal";
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -12,6 +14,42 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
+
+    const rascal1: Rascal = {
+        rarity: Rarity.Common,
+        level: 3,
+        imageUrl: "/rascals/axolberry.png",
+        id: "#10070111730",
+        name: "Axolberry",
+        attack: 10,
+        health: 20,
+        speed: 30,
+        type: RascalType.Chubby
+    }
+
+    const rascal2: Rascal = {
+        rarity: Rarity.Epic,
+        level: 6,
+        imageUrl: "/rascals/captain-finbite.png",
+        id: "#10070111730",
+        name: "Captain Finbite",
+        attack: 10,
+        health: 20,
+        speed: 30,
+        type: RascalType.Fearless
+    }
+
+    const rascal3: Rascal = {
+        rarity: Rarity.Rare,
+        level: 2,
+        imageUrl: "/rascals/ribble.png",
+        id: "#10070111730",
+        name: "Ribble",
+        attack: 10,
+        health: 20,
+        speed: 30,
+        type: RascalType.Fearless
+    }
 
     const opponent: User = {
         profilePictureUrl: "/Ganyu.jpg",
@@ -31,15 +69,24 @@ export default function ProfilePage() {
         date: new Date(),
         id: "#18222212730",
         opponent: opponent,
-        opponentRascal: [],
-        usedRascal: []
+        opponentRascal: [rascal1, rascal2],
+        usedRascal: [rascal2, rascal1, rascal3]
+    }
+
+    const battleHistory1: BattleHistory = {
+        result: BattleResult.Win,
+        date: new Date(),
+        id: "#18222212730",
+        opponent: opponent,
+        opponentRascal: [rascal1, rascal2, rascal1],
+        usedRascal: [rascal2, rascal2, rascal3]
     }
 
     const user: User = {
         profilePictureUrl: "/Ganyu.jpg",
         name: "Alexander Irvin Ryan",
         token: 0.123,
-        battleHistories: [battleHistory],
+        battleHistories: [battleHistory, battleHistory1],
         league: League.Silver,
         rascals: [],
         defense: [],
@@ -103,7 +150,7 @@ export default function ProfilePage() {
                             <p className={`${styles.khula} ${styles.sm}`}>
                                 Date Joined: {user.dateJoined.toDateString()}
                             </p>
-                            <h1 className={`${styles.khula}`}>
+                            <h1 className={`${styles.khula} ${styles.white}`}>
                                 {user.name}
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
@@ -208,15 +255,19 @@ export default function ProfilePage() {
                                     />
                                 </div>
                                 <p style={{color: leagueFontColor}}>
-                                    {user.elo}/{LeagueThresholdNumber[user.league]+100}
+                                    {user.elo}/{LeagueThresholdNumber[user.league] + 100}
                                 </p>
                             </div>
                         </div>
                     </RadialContainer>
                 </div>
 
-                <div className={"right-container"}>
-
+                <div className={styles.rightContainer}>
+                    {user.battleHistories.map((battle, index) =>
+                        <>
+                            <BattleHistoryCard battleHistory={battle}/>
+                        </>
+                    )}
                 </div>
             </div>
         </>
