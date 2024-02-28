@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/home-page.module.scss";
 import WoodButton from "../components/wood-btn";
+import RascalCarousel from "../components/rascal-carousel";
 
 export default function HomePage() {
     useEffect(() => {
@@ -69,16 +70,17 @@ export default function HomePage() {
                             The victor gets a fragment which can be used to get more Rascals!</p>
                         </div>
                         <div className={styles.brawlCharacter}>
-                            
+
                         </div>
                     </span>
                 </section>
 
                 <section className={styles.rascalsContainer}>
                     <h1>Meet the Rascals</h1>
-                    <p></p>
+                    <RascalCarousel/>
                 </section>
 
+                
             </div>
         </>
     )

@@ -1,0 +1,62 @@
+// @use "../colors";
+// @use "../fonts";
+
+// .carouselCard {
+//     img {
+//         width: 7.5rem;
+//     }
+//     p {
+//         font-size: 1rem;
+//         font-family: fonts.$vt323;
+//         color: colors.$white;
+//         text-align: center;
+//     }
+// }
+
+// .carouselContainer {
+//     display: flex;
+//     width: calc(-7.5rem * 10);
+//     animation: slide 10s linear infinite;
+// }
+
+// @keyframes slide {
+//     0% {
+//         transform: translateX(0);
+//     }
+//     100% {
+//         transform: translateX(calc(-7.5rem * 10));
+//     }
+// }
+
+.carouselSlide img {
+    width: 7.5rem;
+    height: 7.5rem;
+}
+
+.carouselContainer {
+    height: 10rem;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-7.5rem * 10));
+    }
+}
+
+.carouselContainer .carouselTrack {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(10rem * 10);
+}
+
+.carouselContainer .carouselSlide {
+    width: 7.5rem;
+    height: 7.5rem;
+}
