@@ -17,54 +17,6 @@ actor {
         return userArray;
     };
 
-    public query func getUser(key : Principal) : async Result.Result<model.User, Text>{
-        var user: ?model.User = users.get(key);
-        switch(user) {
-            case(?User) {
-                return #ok(User);
-            };
-            case(null) {
-                return #err("no user found");
-            };
-        };
-    };
-
-    public query func getUserRascals(key : Principal) : async [model.Rascal] {
-        var user: ?model.User = users.get(key);
-        switch(user) {
-            case(?User) {
-                return User.rascals;
-            };
-            case(null) {
-                return [];
-            };
-        };
-    };
-
-    public query func getUserDefense(key : Principal) : async [model.Rascal] {
-        var user: ?model.User = users.get(key);
-        switch(user) {
-            case(?User) {
-                return User.defense;
-            };
-            case(null) {
-                return [];
-            };
-        };
-    };
-
-    public query func getUserSell(key : Principal) : async [model.Rascal] {
-        var user: ?model.User = users.get(key);
-        switch(user) {
-            case(?User) {
-                return User.sell;
-            };
-            case(null) {
-                return [];
-            };
-        };
-    };
-
     public func register(key : Principal, email: Text, password : Text) : async Text {
     var user: ?model.User = users.get(key); 
 
@@ -113,30 +65,6 @@ actor {
                     tokens = user.tokens;
                     rascals = Array.append<model.Rascal>(user.rascals, [rascal]);
                     defense = user.defense;
-                    sell = user.sell;
-                });
-                return "success";
-            };
-        }
-    };
-
-    public func removeRascalFromUser(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
-
-        switch(check) {
-            case(null) {
-                return "no user found";
-            };
-            case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens;
-                    rascals = Array.filter<model.Rascal>(user.rascals, func x = x.id != rascal.id );
-                    defense = user.defense;
-                    sell = user.sell;
                 });
                 return "success";
             };
@@ -159,7 +87,6 @@ actor {
                     tokens = user.tokens - 1;
                     rascals = user.rascals;
                     defense = Array.append<model.Rascal>(user.defense, [rascal]);
-                    sell = user.sell;
                 });
                 return "success";
             };
@@ -182,53 +109,6 @@ actor {
                     tokens = user.tokens - 1;
                     rascals = user.rascals;
                     defense = Array.filter<model.Rascal>(user.defense, func x = x.id != rascal.id );
-                    sell = user.sell;
-                });
-                return "success";
-            };
-        }
-    };
-
-    public func addToSell(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
-
-        switch(check) {
-            case(null) {
-                return "no user found";
-            };
-            case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens - 1;
-                    rascals = user.rascals;
-                    defense = user.defense;
-                    sell = Array.append<model.Rascal>(user.sell, [rascal]);
-                });
-                return "success";
-            };
-        }
-    };
-
-    public func removeFromSell(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
-
-        switch(check) {
-            case(null) {
-                return "no user found";
-            };
-            case(?user) {
-                users.put(user.principal, {
-                    principal = user.principal;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens - 1;
-                    rascals = user.rascals;
-                    defense = user.defense;
-                    sell = Array.filter<model.Rascal>(user.sell, func x = x.id != rascal.id );
                 });
                 return "success";
             };
@@ -246,7 +126,6 @@ actor {
             health = 100;
             attack = 10;
             speed = 10;
-            price = 50;
         },
         {
             id = "tdawdad";
@@ -258,7 +137,6 @@ actor {
             health = 100;
             attack = 10;
             speed = 10;
-            price = 100;
         },
         {
             id = "tdawdad";
@@ -270,7 +148,6 @@ actor {
             health = 100;
             attack = 10;
             speed = 10;
-            price = 200;
         },
         {
             id = "tdawdad";
@@ -282,7 +159,6 @@ actor {
             health = 100;
             attack = 10;
             speed = 10;
-            price = 300;
         }
     ];
 };

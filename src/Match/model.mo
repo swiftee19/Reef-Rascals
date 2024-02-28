@@ -15,7 +15,6 @@ module {
             tokens = 0;
             rascals = [];
             defense = [];
-            sell = [];
         };
 
         return user;
@@ -31,7 +30,6 @@ module {
         health: Nat;
         attack: Nat;
         speed: Nat;
-        price: Nat;
     };
 
     public type User = {
@@ -42,6 +40,6 @@ module {
         tokens: Nat;
         rascals: [Rascal];
         defense: [Rascal];
-        sell: [Rascal];
     };
+
 }

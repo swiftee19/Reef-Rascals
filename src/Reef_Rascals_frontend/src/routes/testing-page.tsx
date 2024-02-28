@@ -1,8 +1,8 @@
 import React from 'react';
 import SidebarNav from "../components/sidebar-nav";
-import { Auth, createActor, idlFactory } from "../../../declarations/Auth";
+import { Auth, createActor } from "../../../declarations/Auth";
 import { AuthClient } from "@dfinity/auth-client";
-import { Actor, HttpAgent } from "@dfinity/agent";
+import { HttpAgent } from "@dfinity/agent";
 
 export default function TestingPage() {
     let actor = Auth;
@@ -13,6 +13,7 @@ export default function TestingPage() {
     }
 
     async function login() {
+<<<<<<< HEAD
         const authClient = await AuthClient.create();
         const identity = authClient.getIdentity();
         authClient.login({
@@ -23,12 +24,17 @@ export default function TestingPage() {
         });
     }
     
+=======
+        let authClient = await AuthClient.create();
+    }
+
+>>>>>>> parent of e589351 ([Backend] Marketplace)
     return (
         <>
             <div className={"main-container"}>
                 <SidebarNav />
                 <button onClick={whoami}>Who am I?</button>
-                <button onClick={login}>Login</button>
+                <button onClick={login}>Login</button> {/* Call the login function on button click */}
             </div>
         </>
     );
