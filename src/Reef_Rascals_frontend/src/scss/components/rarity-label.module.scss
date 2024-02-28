@@ -1,0 +1,28 @@
+@use "../colors";
+
+.common,
+.rare,
+.epic,
+.legend {
+  border-radius: 5px;
+  width: 6rem;
+  p{
+    text-transform: uppercase;
+    color: colors.$white;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+.common{
+  background-color: colors.$gray;
+}
+.rare{
+  background-color: colors.$light-orange;
+}
+.epic{
+  background-color: colors.$turqouise;
+}
+.legend{
+  background-color: colors.$purple;
+}

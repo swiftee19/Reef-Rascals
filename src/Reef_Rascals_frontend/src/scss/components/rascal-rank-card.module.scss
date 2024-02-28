@@ -1,0 +1,84 @@
+@use "../colors";
+@use "../fonts";
+
+.cardContainer {
+  position: relative;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  background-color: colors.$dark-blue;
+  color: colors.$light-blue;
+  border-radius: 5px;
+  border: 1px solid colors.$light-blue;
+  gap: 2rem;
+  padding: 1rem 3rem;
+
+  h1{
+    border-radius: 100%;
+    border: 1.5px solid colors.$light-blue;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    width: 8rem;
+  }
+}
+
+.cardDetail {
+  h2 {
+    color: colors.$light-blue;
+    font-family: fonts.$vt323;
+    font-size: xx-large;
+  }
+
+  .cardPrice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      width: 2rem;
+    }
+  }
+}
+
+.rarityLabel {
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+
+.cardStats {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  right: 2rem;
+
+  div {
+      text-align: center;
+      p {
+          color: colors.$light-blue;
+      }
+      .atkLbl, .hpLbl, .spdLbl {
+          color: colors.$white;
+          font-weight: 500;
+          width: 2.5rem;
+          border-radius: 5px;
+      }
+      .atkLbl {
+          background-color: colors.$soft-red;
+      }
+      .hpLbl {
+          background-color: colors.$turqouise;
+      }
+      .spdLbl {
+          background-color: colors.$yellow;
+      }
+  }
+}

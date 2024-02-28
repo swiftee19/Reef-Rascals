@@ -1,5 +1,6 @@
 import { Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-card.module.scss";
+import RarityLabel from "./rarity-label";
 
 export default function RascalCard({ rascal }: { rascal: Rascal }) {
     return (
@@ -11,11 +12,15 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
                     <img src="/favicon.ico" alt="" />
                     <p>0.111</p>
                 </div>
+
+                <div className={styles.cardRarity}>
+                    <RarityLabel rarity={rascal.rarity} />
+                </div>
             </div>
 
             <div className={styles.cardBottom}>
                 <div className={styles.cardDetail}>
-                    <h3>{rascal.name}</h3>
+                    <h1>{rascal.name}</h1>
                     <p>{rascal.tribe}</p>
                     <p>{rascal.id}</p>
                 </div>

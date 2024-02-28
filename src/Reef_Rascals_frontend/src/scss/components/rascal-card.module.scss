@@ -2,7 +2,7 @@
 @use "../fonts";
 
 .cardContainer {
-    flex: 1;
+    // flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@
 .cardTop {
     position: relative;
     background-color: linear-gradient(to top, colors.$dark-blue, colors.$light-blue);
-    padding: 1rem 2rem 2rem 2rem;
+    padding: 3rem 2rem;
     display: flex;
     justify-content: center;
     border-radius: 5px 5px 0 0;
@@ -22,6 +22,12 @@
     .rascalImg {
         width: 70%;
     }
+}
+
+.cardRarity {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
 }
 
 .cardPrice{
@@ -65,6 +71,7 @@
     h1 {
         font-family: fonts.$vt323;
         color: colors.$light-blue;
+        font-size: xx-large;
     }
     p {
         font-size: small;
@@ -76,7 +83,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    gap: 2rem;
 
     div {
         text-align: center;

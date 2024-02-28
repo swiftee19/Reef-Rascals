@@ -8,15 +8,16 @@
 }
 
 .headerContainer {
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 2rem 0;
-    top: 0;
-    width: 100%;
+    
     z-index: 100;
+    width: 100%;
 
-    h2 {
+    h1 {
         color: colors.$white;
     }
 }
@@ -50,8 +51,48 @@
     }
 }
 
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    background-color: colors.$dark-blue;
+    border-radius: 5px;
+
+    h1 {
+        color: colors.$white;  
+    }
+}
+
+.topSelling {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    > * {
+        flex: 0 1 calc(50% - 1rem);
+        align-self: stretch;
+    }
+}
+
+.recentContainer {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    h1 {
+        color: colors.$white;  
+    }
+}
+
 .recentRascals {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem;
+
+    > * {
+        flex: 0 1 calc(25% - 1rem);
+        align-self: stretch;
+    }
 }
