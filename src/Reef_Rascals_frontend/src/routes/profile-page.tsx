@@ -16,8 +16,8 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
-    const leftContainerRef = useRef(null);
-    const rightContainerRef = useRef(null);
+    const leftContainerRef = useRef<HTMLDivElement>(null);
+    const rightContainerRef = useRef<HTMLDivElement>(null);
 
     const rascal1: Rascal = new Rascal(
         "#10070111730",
