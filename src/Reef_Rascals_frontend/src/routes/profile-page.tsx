@@ -28,7 +28,8 @@ export default function ProfilePage() {
         Rarity.Common,
         20,
         10,
-        30
+        30,
+        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     );
 
     const rascal2: Rascal = new Rascal(
@@ -40,7 +41,8 @@ export default function ProfilePage() {
         Rarity.Epic,
         20,
         10,
-        30
+        30,
+        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     );
 
     const rascal3: Rascal = new Rascal(
@@ -52,7 +54,8 @@ export default function ProfilePage() {
         Rarity.Rare,
         20,
         10,
-        30
+        30,
+        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     );
 
     const opponent = new User(

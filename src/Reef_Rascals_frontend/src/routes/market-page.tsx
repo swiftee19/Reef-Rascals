@@ -1,3 +1,4 @@
+import { matchmaking } from "../../../declarations/matchmaking";
 import RascalCard from "../components/rascal-card";
 import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
@@ -15,8 +16,21 @@ export default function MarketPage() {
         Rarity.Common,
         20,
         10,
-        30
+        30,
+        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     )
+
+    const rascals: Rascal[] = []
+
+    async function getRascals() {
+        return await matchmaking.getMarket()
+    }
+
+    getRascals().then((rascals) => {
+        console.log(rascals)
+    })  
+
+    
 
     return (
         <>

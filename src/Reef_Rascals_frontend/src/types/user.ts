@@ -24,7 +24,6 @@ export class User {
     tokens: number;
     rascals: Rascal[];
     defense: Rascal[];
-    sell : Rascal[];
     rank: League;
     battleHistories: BattleHistory[];
     elo: number;
@@ -38,7 +37,6 @@ export class User {
         this.tokens = tokens;
         this.rascals = rascals;
         this.defense = defense;
-        this.sell = sell;
         this.rank = league;
         this.battleHistories = battleHistories;
         this.elo = elo;
@@ -46,5 +44,13 @@ export class User {
 
     saveUser() {
         matchmaking.updateUser(this.id, this);
+    }
+
+    sellRascal(rascal: Rascal) {
+        matchmaking.sellRascal(rascal)
+    }
+
+    retrieveRascal(rascal: Rascal) {
+        matchmaking.removeFromMarket(rascal)
     }
 }
