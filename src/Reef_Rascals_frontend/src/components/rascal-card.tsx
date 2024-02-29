@@ -14,7 +14,7 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
                 </div>
 
                 <div className={styles.cardRarity}>
-                    <RarityLabel rarity={rascal.rarity} />
+                    <RarityLabel rarity={rascal.rarity}/>
                 </div>
             </div>
 

@@ -4,27 +4,35 @@
 .cardContainer {
   position: relative;
   display: flex;
-  // justify-content: center;
   align-items: center;
   background-color: colors.$dark-blue;
   color: colors.$light-blue;
   border-radius: 5px;
   border: 1px solid colors.$light-blue;
-  gap: 2rem;
-  padding: 1rem 3rem;
+  gap: 10%;
+  padding: 1rem;
 
-  h1{
+  .rankNumber {
+    padding: 0;
+    border: 1px solid colors.$light-blue;
     border-radius: 100%;
-    border: 1.5px solid colors.$light-blue;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
-  img {
-    width: 8rem;
+    h1 {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  
+  .rascalImg {
+    width: 5rem;
+
+    img {
+      width: 100%;
+    }
   }
 }
 
@@ -48,17 +56,19 @@
 
 .rarityLabel {
   position: absolute;
-  right: 2rem;
+  right: 1rem;
   top: 1rem;
 }
 
+.cardAtributes {
+  flex-wrap: wrap;
+}
+
 .cardStats {
-  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  right: 2rem;
 
   div {
       text-align: center;
