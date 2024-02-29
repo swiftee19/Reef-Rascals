@@ -1,0 +1,31 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+
+.backSlider {
+    position: relative;
+    background-color: colors.$dark-brown;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: 10rem;
+    padding: 1rem 5rem;
+    color: colors.$white;
+    border-radius: 10px;
+    border: 3px solid colors.$cream-brown;
+    
+    h1 {
+        white-space: nowrap;
+        font-family: fonts.$vt323;
+        font-weight: 200;
+        color: colors.$light-brown;
+    }
+}
+
+.movingBtn {
+    position: absolute;
+    overflow: hidden;
+    width: 55%;
+    left: -1rem;
+}
