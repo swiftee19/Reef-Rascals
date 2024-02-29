@@ -1,3 +1,5 @@
+import { Principal } from "@dfinity/principal";
+
 export const enum RascalType {
     Fearless = "Fearless",
     Chubby = "Chubby",
@@ -20,8 +22,9 @@ export class Rascal {
     health: bigint;
     attack: bigint;
     speed: bigint;
+    owner: Principal;
 
-    constructor(id: string, name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number) {
+    constructor(id: string, name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number, owner: string) {
         this.id = id;
         this.name = name;
         this.level = BigInt(level);
@@ -31,5 +34,6 @@ export class Rascal {
         this.health = BigInt(health);
         this.attack = BigInt(attack);
         this.speed = BigInt(speed);
+        this.owner = Principal.fromText(owner);
     }
 }

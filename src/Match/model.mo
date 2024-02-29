@@ -13,10 +13,9 @@ module {
             username = inputUsername;
             password = inputPassword;
             rank = "Bronze";
-            tokens = 0;
+            tokens = 0.0;
             rascals = [];
             defense = [];
-            sell = [];
         };
 
         return user;
@@ -32,6 +31,7 @@ module {
         health: Int;
         attack: Int;
         speed: Int;
+        owner: Principal;
     };
 
     public type User = {
@@ -39,10 +39,9 @@ module {
         username: Text;
         password: Text;
         rank: Text;
-        tokens: Int;
+        tokens: Float;
         rascals: [Rascal];
         defense: [Rascal];
-        sell: [Rascal];
     };
 
 }

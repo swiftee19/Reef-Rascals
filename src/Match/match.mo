@@ -8,6 +8,7 @@ import model "model";
 
 actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
+    var rascalMarket:[model.Rascal] = [];
 
     public query func getAllUser() : async [model.User] {
         var userArray: [model.User] = [];
@@ -63,119 +64,33 @@ actor {
         }
     };
 
-    public func addRascalToUser(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
+    public func sellRascal(rascal : model.Rascal) : async Text {
+        var check: ?model.User = users.get(rascal.owner);
 
         switch(check) {
             case(null) {
                 return "no user found";
             };
             case(?user) {
-                users.put(user.id, {
-                    id = user.id;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens;
-                    rascals = Array.append<model.Rascal>(user.rascals, [rascal]);
-                    defense = user.defense;
-                    sell = user.sell;
+                let newRascals = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id != rascal.id;
                 });
+                let newUSer = { user with rascals = newRascals };
+                users.put(user.id, user);
+                rascalMarket := Array.append<model.Rascal>(rascalMarket, [rascal]);
                 return "success";
             };
-        }
+        };
     };
 
-    public func addToDefense(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
-
-        switch(check) {
-            case(null) {
-                return "no user found";
-            };
-            case(?user) {
-                users.put(user.id, {
-                    id = user.id;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens - 1;
-                    rascals = user.rascals;
-                    defense = Array.append<model.Rascal>(user.defense, [rascal]);
-                    sell = user.sell;
-                });
-                return "success";
-            };
-        }
+    public func getMarket() : async [model.Rascal] {
+        return rascalMarket;
     };
 
-    public func removeFromDefense(key : Principal, rascal : model.Rascal) : async Text {
-        var check: ?model.User = users.get(key);
-
-        switch(check) {
-            case(null) {
-                return "no user found";
-            };
-            case(?user) {
-                users.put(user.id, {
-                    id = user.id;
-                    username = user.username;
-                    password = user.password;
-                    rank = user.rank;
-                    tokens = user.tokens - 1;
-                    rascals = user.rascals;
-                    defense = Array.filter<model.Rascal>(user.defense, func x = x.id != rascal.id );
-                    sell = user.sell;
-                });
-                return "success";
-            };
-        }
+    public func removeFromMarket(rascal : model.Rascal) : async Text {
+        rascalMarket := Array.filter<model.Rascal>(rascalMarket, func (x) {
+            x.id != rascal.id;
+        });
+        return "success";
     };
-
-    var default_rascal: [model.Rascal] = [
-        {
-            id = "tdawdad";
-            name = "Phanter";
-            level = 1;
-            rarity = "Common";
-            tribe = "beast";
-            imageUrl = "testo";
-            health = 100;
-            attack = 10;
-            speed = 10;
-        },
-        {
-            id = "tdawdad";
-            name = "Phantom";
-            level = 1;
-            rarity = "Rare";
-            tribe = "Shadow";
-            imageUrl = "testo";
-            health = 100;
-            attack = 10;
-            speed = 10;
-        },
-        {
-            id = "tdawdad";
-            name = "Pinka";
-            level = 1;
-            rarity = "Epic";
-            tribe = "Pig";
-            imageUrl = "testo";
-            health = 100;
-            attack = 10;
-            speed = 10;
-        },
-        {
-            id = "tdawdad";
-            name = "Pinka";
-            level = 1;
-            rarity = "Legendary";
-            tribe = "Pig";
-            imageUrl = "testo";
-            health = 100;
-            attack = 10;
-            speed = 10;
-        }
-    ];
 };
