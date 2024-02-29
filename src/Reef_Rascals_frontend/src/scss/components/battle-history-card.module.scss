@@ -60,8 +60,14 @@
     padding-right: 1rem;
     justify-content: end;
 
+    h2 {
+      text-align: end;
+    }
+
     p {
       text-align: end;
+      font-weight: 300;
+      font-size: 0.8rem;
     }
   }
 

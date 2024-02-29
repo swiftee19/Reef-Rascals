@@ -21,7 +21,7 @@ export class User {
     password: string;
     profilePictureUrl: string;
     dateJoined: Date;
-    tokens: bigint;
+    tokens: number;
     rascals: Rascal[];
     defense: Rascal[];
     sell : Rascal[];
@@ -35,7 +35,7 @@ export class User {
         this.password = "";
         this.profilePictureUrl = profilePictureUrl;
         this.dateJoined = dateJoined;
-        this.tokens = BigInt(tokens);
+        this.tokens = tokens;
         this.rascals = rascals;
         this.defense = defense;
         this.sell = sell;

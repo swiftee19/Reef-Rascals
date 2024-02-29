@@ -158,7 +158,10 @@ export default function ProfilePage() {
                                 {user.username}
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                Player ID: {user.id.toString()}
+                                Player ID:
+                            </p>
+                            <p className={`${styles.khula} ${styles.sm}`}>
+                                {user.id.toString()}
                             </p>
                             <RadialContainer>
                                 <div className={styles.userToken}>
