@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styles from "../scss/pages/profile-page.module.scss";
 import SidebarNav from "../components/sidebar-nav";
 import {League, LeagueThresholdNumber, User} from "../types/user";
@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {BattleHistory, BattleResult} from "../types/battle-history";
 import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
-import { Principal } from "@dfinity/principal";
+import {Principal} from "@dfinity/principal";
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -16,6 +16,8 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
+    const leftContainerRef = useRef(null);
+    const rightContainerRef = useRef(null);
 
     const rascal1: Rascal = new Rascal(
         "#10070111730",
@@ -28,7 +30,7 @@ export default function ProfilePage() {
         10,
         30
     );
-    
+
     const rascal2: Rascal = new Rascal(
         "#10070111730",
         "Captain Finbite",
@@ -40,7 +42,7 @@ export default function ProfilePage() {
         10,
         30
     );
-    
+
     const rascal3: Rascal = new Rascal(
         "#10070111730",
         "Ribble",
@@ -95,7 +97,7 @@ export default function ProfilePage() {
         [rascal1, rascal2, rascal3],
         [],
         League.Silver,
-        [battleHistory, battleHistory1],
+        [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
         267
     )
 
@@ -120,7 +122,8 @@ export default function ProfilePage() {
         if (victories + loses == 0) return setUserWinRate(0)
         else {
             const winRate = (victories / (victories + loses)) * 100
-            setUserWinRate(winRate)
+            const roundedWinRate = Math.round(winRate * 100) / 100
+            setUserWinRate(roundedWinRate)
         }
 
         setUserLeagueProgress(calculateLeagueSliderProgress())
@@ -139,6 +142,10 @@ export default function ProfilePage() {
                 setUserLeagueIcon("/gold-league-icon.png")
                 break
         }
+
+        if (rightContainerRef && leftContainerRef && rightContainerRef.current && leftContainerRef.current) {
+            rightContainerRef.current.style.height = `${leftContainerRef.current.clientHeight}px`
+        }
     }, [])
 
     return (
@@ -147,7 +154,7 @@ export default function ProfilePage() {
             <img className={styles.backdrop} src="/bg-aquarium.png" alt="image not found"/>
             <div className={styles.backdropOverlay}/>
             <div className={styles.mainContainer}>
-                <div className={styles.leftContainer}>
+                <div ref={leftContainerRef} className={styles.leftContainer}>
                     <div className={styles.userProfileContainer}>
                         <img className={styles.profilePicture} src="/Ganyu.jpg" alt={"Image not found"}/>
                         <div className={styles.userInfoContainer}>
@@ -269,7 +276,7 @@ export default function ProfilePage() {
                     </RadialContainer>
                 </div>
 
-                <div className={styles.rightContainer}>
+                <div ref={rightContainerRef} className={styles.rightContainer}>
                     {user.battleHistories.map((battle, index) =>
                         <>
                             <BattleHistoryCard battleHistory={battle}/>
