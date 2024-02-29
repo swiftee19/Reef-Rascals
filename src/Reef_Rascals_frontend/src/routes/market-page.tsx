@@ -50,7 +50,7 @@ export default function MarketPage() {
                         <RascalCard rascal={rascal1} />
                         <RascalCard rascal={rascal1} />
                         <RascalCard rascal={rascal1} />
-                        <RascalCard rascal={rascal1} />
+                        {/* <RascalCard rascal={rascal1} /> */}
                     </div>
                 </section>
             </div>

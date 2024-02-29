@@ -12,6 +12,11 @@
   gap: 10%;
   padding: 1rem;
 
+  @media (max-width: 800px) {
+    flex-direction: column;
+}
+
+
   .rankNumber {
     padding: 0;
     border: 1px solid colors.$light-blue;
