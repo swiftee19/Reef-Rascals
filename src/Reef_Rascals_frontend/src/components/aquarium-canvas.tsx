@@ -14,8 +14,8 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
     positions = rascals.map(() => ({
       x: Math.random() * (window.innerWidth - rascalSize * 2) + rascalSize,
       y: Math.random() * (window.innerHeight - rascalSize * 2) + rascalSize,
-      dx: Math.random() * 1 + 0.2,
-      dy: Math.random() * 1 + 0.2,
+      dx: Math.random() * 1 + 0.5,
+      dy: Math.random() * 1 + 0.5,
       flip: false,
     }));
   }, [rascals]);

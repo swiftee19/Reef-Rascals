@@ -1,0 +1,8 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.mainContainer {
+    background-color: colors.$dark-brown;
+    width: 100%;
+    height: 100%;
+}
