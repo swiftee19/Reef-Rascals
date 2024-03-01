@@ -28,6 +28,7 @@ export class User {
     rank: string;
     battleHistories: BattleHistory[];
     elo: bigint;
+    rascalFragment: bigint;
 
     constructor(id: Principal, username: string, profilePictureUrl: string, dateJoined: Date, tokens: number, rascals: Rascal[], defense: Rascal[], sell: Rascal[], league: League, battleHistories: BattleHistory[], elo: number) {
         this.id = id;
@@ -42,6 +43,7 @@ export class User {
         this.rank = league;
         this.battleHistories = battleHistories;
         this.elo = BigInt(elo);
+        this.rascalFragment = BigInt(0);
     }
 }
 

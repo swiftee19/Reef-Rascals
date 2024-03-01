@@ -22,6 +22,7 @@ module {
             dateJoined = "2021-01-01";
             battleHistories = [];
             elo = 1000;
+            rascalFragment = 0;
         };
 
         return user;
@@ -53,6 +54,7 @@ module {
         rank: Text;
         battleHistories: [BattleHistory];
         elo : Int;
+        rascalFragment: Int;
     };
 
     public type BattleHistory = {

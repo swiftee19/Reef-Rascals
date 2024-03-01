@@ -1,7 +1,6 @@
 import { Rarity, Rascal, RascalType } from '../types/rascal';
 
 const rascal1 = new Rascal(
-    "#000000000001",
     "Axolberry",
     2,
     "/rascals/axolberry.png",
@@ -14,7 +13,6 @@ const rascal1 = new Rascal(
 );
 
 const rascal2 = new Rascal(
-    "#000000000002",
     "Captain Finbite",
     2,
     "/rascals/captain-finbite.png",
@@ -27,7 +25,6 @@ const rascal2 = new Rascal(
 );
 
 const rascal3 = new Rascal(
-    "#000000000003",
     "Circus Clio",
     2,
     "/rascals/circus-clio.png",
@@ -40,7 +37,6 @@ const rascal3 = new Rascal(
 );
 
 const rascal4 = new Rascal(
-    "#000000000004",
     "Gloomy Bob",
     2,
     "/rascals/gloomy-bob.png",
@@ -53,7 +49,6 @@ const rascal4 = new Rascal(
 );
 
 const rascal5 = new Rascal(
-    "#000000000005",
     "King Octo",
     2,
     "/rascals/king-octo.png",
@@ -66,7 +61,6 @@ const rascal5 = new Rascal(
 );
 
 const rascal6 = new Rascal(
-    "#000000000006",
     "Marina Showlion",
     2,
     "/rascals/marina-showlion.png",
@@ -79,7 +73,6 @@ const rascal6 = new Rascal(
 );
 
 const rascal7 = new Rascal(
-    "#000000000007",
     "Party Spine",
     2,
     "/rascals/party-spine.png",
@@ -92,7 +85,6 @@ const rascal7 = new Rascal(
 );
 
 const rascal8 = new Rascal(
-    "#000000000008",
     "Ribble",
     2,
     "/rascals/ribble.png",
@@ -105,7 +97,6 @@ const rascal8 = new Rascal(
 );
 
 const rascal9 = new Rascal(
-    "#000000000009",
     "Snooze Puff",
     2,
     "/rascals/snooze-puff.png",
@@ -118,7 +109,6 @@ const rascal9 = new Rascal(
 );
 
 const rascal10 = new Rascal(
-    "#000000000010",
     "Twinkler",
     2,
     "/rascals/twinkler.png",

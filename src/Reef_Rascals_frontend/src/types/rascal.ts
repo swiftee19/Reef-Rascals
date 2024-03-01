@@ -1,4 +1,5 @@
 import { Principal } from "@dfinity/principal";
+import {v4 as uuidv4} from 'uuid';
 
 export const enum RascalType {
     Fearless = "Fearless",
@@ -24,8 +25,8 @@ export class Rascal {
     speed: bigint;
     owner: Principal;
 
-    constructor(id: string, name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number, owner: string) {
-        this.id = id;
+    constructor(name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number, owner: string) {
+        this.id = uuidv4();
         this.name = name;
         this.level = BigInt(level);
         this.imageUrl = imageUrl;

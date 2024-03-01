@@ -10,7 +10,6 @@ export default function AquariumPage(){
     const [isAquarium, setIsAquarium] = useState(true);
 
     const rascal1: Rascal = new Rascal(
-        "#10070111730",
         "Circus Clio",
         2,
         "/rascals/circus-clio.png",
@@ -23,7 +22,6 @@ export default function AquariumPage(){
     )
 
     const rascal2: Rascal = new Rascal(
-        "#10070111730",
         "Axolberry",
         2,
         "/rascals/axolberry.png",

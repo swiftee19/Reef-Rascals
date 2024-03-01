@@ -9,7 +9,6 @@ import rascalList from "../types/rascals";
 export default function MarketPage() {
 
     const rascal1: Rascal = new Rascal(
-        "#10070111730",
         "Ribble",
         2,
         "/rascals/ribble.png",
