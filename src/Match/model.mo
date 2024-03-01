@@ -17,6 +17,7 @@ module {
             tokens = 0.0;
             rascals = [];
             defense = [];
+            attack = [];
             profilePictureUrl = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
             dateJoined = "2021-01-01";
             battleHistories = [];
@@ -48,6 +49,7 @@ module {
         tokens: Float;
         rascals: [Rascal];
         defense: [Rascal];
+        attack: [Rascal];
         rank: Text;
         battleHistories: [BattleHistory];
         elo : Int;

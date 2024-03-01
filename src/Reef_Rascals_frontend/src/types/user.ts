@@ -24,6 +24,7 @@ export class User {
     tokens: number;
     rascals: Rascal[];
     defense: Rascal[];
+    attack: Rascal[];
     rank: string;
     battleHistories: BattleHistory[];
     elo: bigint;
@@ -37,6 +38,7 @@ export class User {
         this.tokens = tokens;
         this.rascals = rascals;
         this.defense = defense;
+        this.attack = [];
         this.rank = league;
         this.battleHistories = battleHistories;
         this.elo = BigInt(elo);
@@ -58,4 +60,8 @@ export function retrieveRascal(rascal: Rascal) {
 
 export function getElo(user: User) {
     return parseInt(user.elo.toString());
+}
+
+export function getInt(x: bigint) {
+    return Number(x);
 }
