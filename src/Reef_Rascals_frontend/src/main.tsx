@@ -10,38 +10,41 @@ import MarketPage from './routes/market-page';
 import MatchPage from './routes/match-page';
 import TestingPage from './routes/testing-page';
 import AquariumPage from './routes/aquarium-page';
+import { AuthContextProvider } from './middleware/middleware';
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <HomePage/>,
-        errorElement: <ErrorPage/>
+        element: <HomePage />,
+        errorElement: <ErrorPage />
     },
     {
         path: "/marketplace",
-        element: <MarketPage/>,
+        element: <MarketPage />,
     },
     {
         path: "/aquarium",
-        element: <AquariumPage/>,
+        element: <AquariumPage />,
     },
     {
         path: "/profile/:profileId",
-        element: <ProfilePage/>,
+        element: <ProfilePage />,
     },
     {
         path: "/match",
-        element: <MatchPage/>,
+        element: <MatchPage />,
     },
     {
         path: "/testing",
-        element: <TestingPage/>,
+        element: <TestingPage />,
     }
 ]);
 
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthContextProvider>
+            <RouterProvider router={router} />
+        </AuthContextProvider>
     </React.StrictMode>
 );
