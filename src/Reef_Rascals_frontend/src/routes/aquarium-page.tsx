@@ -44,7 +44,7 @@ export default function AquariumPage(){
         <>
             <SidebarNav/>
             <div className={styles.mainContainer}>
-                <img src="/bg-aquarium.png"/>
+                <img className={styles.background} src="/bg-aquarium.png"/>
                 <AquariumCanvas rascals={rascals}/>
 
                 <footer className={styles.aquariumBottom}>
