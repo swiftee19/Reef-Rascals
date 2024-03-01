@@ -18,17 +18,15 @@ actor {
         return userArray;
     };
 
-    public func register(key : Principal, email: Text, password : Text) : async Text {
-    var user: ?model.User = users.get(key); 
-
-        switch(users.get(key)) {
+    public func register(user: model.User) : async Text {
+        var check: ?model.User = users.get(user.id);
+        switch(check) {
             case(null) {
-                let account: model.User = model.newUser(key, email, password);
-                users.put(key, account);
+                users.put(user.id, user);
                 return "success";
             };
-            case(?User) {
-                return "already exist";
+            case(?user) {
+                return "user already exists";
             };
         };
     };

@@ -20,18 +20,6 @@ export default function MarketPage() {
         "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     )
 
-    const rascals: Rascal[] = []
-
-    async function getRascals() {
-        return await matchmaking.getMarket()
-    }
-
-    getRascals().then((rascals) => {
-        console.log(rascals)
-    })  
-
-    
-
     return (
         <>
             <SidebarNav />

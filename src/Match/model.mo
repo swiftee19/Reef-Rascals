@@ -4,6 +4,7 @@ import Nat "mo:base/Nat";
 import Array "mo:base/Array";
 import Result "mo:base/Result";
 import Int "mo:base/Int";
+import Time "mo:base/Time";
 
 module {
 
@@ -16,6 +17,10 @@ module {
             tokens = 0.0;
             rascals = [];
             defense = [];
+            profilePictureUrl = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
+            dateJoined = "2021-01-01";
+            battleHistories = [];
+            elo = 1000;
         };
 
         return user;
@@ -38,10 +43,23 @@ module {
         id: Principal;
         username: Text;
         password: Text;
-        rank: Text;
+        profilePictureUrl: Text;
+        dateJoined: Text;
         tokens: Float;
         rascals: [Rascal];
         defense: [Rascal];
+        rank: Text;
+        battleHistories: [BattleHistory];
+        elo : Int;
     };
+
+    public type BattleHistory = {
+        id: Text;
+        opponent: User;
+        result: Text;
+        date: Text;
+        usedRascal: [Rascal];
+        opponentRascal: [Rascal];
+    }
 
 }

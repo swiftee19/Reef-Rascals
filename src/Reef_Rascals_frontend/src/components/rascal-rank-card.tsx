@@ -1,4 +1,4 @@
-import { Rascal } from "../types/rascal";
+import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-rank-card.module.scss";
 import RarityLabel from "./rarity-label";
 
@@ -39,7 +39,7 @@ export default function RascalRankCard({ index, rascal }: { index: number, rasca
       </section>
 
       <div className={styles.rarityLabel}>
-        <RarityLabel rarity={rascal.rarity}/>
+        <RarityLabel rarity={rascal.rarity as Rarity}/>
       </div>
     </div>
   )
