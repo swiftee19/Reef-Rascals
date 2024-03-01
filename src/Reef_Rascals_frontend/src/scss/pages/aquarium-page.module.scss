@@ -13,18 +13,21 @@
 .aquariumContainer {
     position: relative;
     padding-inline: 6rem;
+    overflow: hidden;
 }
 
 .aquariumTop {
     position: absolute;
     display: flex;
     top: 2rem;
+    left: 6rem;
 }
 
 .aquariumBottom {
     overflow: hidden;
-    width: 300px;
+    width: 10%;
     position: fixed;
+    left: 6rem;
     bottom: 2rem;
     transition-duration: 0.25s;
 
@@ -36,4 +39,10 @@
         cursor: pointer;
         transform: scale(1.1);
     }
+}
+
+.aquariumCanvas {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
 }
