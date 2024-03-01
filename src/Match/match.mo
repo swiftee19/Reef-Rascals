@@ -10,11 +10,22 @@ actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
     var rascalMarket:[model.Rascal] = [];
 
-    public query func getAllUser() : async [model.User] {
+    public func getAllUser() : async [model.User] {
         var userArray: [model.User] = [];
         for ((key, value) in users.entries()) {
             userArray := Array.append<model.User>(userArray, [value]);
         };
+        return userArray;
+    };
+
+    public func getOpponents(user: model.User) : async [model.User] {
+        var userArray: [model.User] = [];
+        for ((key, value) in users.entries()) {
+            userArray := Array.append<model.User>(userArray, [value]);
+        };
+        userArray := Array.filter<model.User>(userArray, func (x) {
+            x.id != user.id;
+        });
         return userArray;
     };
 

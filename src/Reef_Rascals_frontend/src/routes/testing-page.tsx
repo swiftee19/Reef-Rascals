@@ -93,8 +93,9 @@ export default function TestingPage() {
         267
     )
 
-    async function save(user: User) {
-        saveUser(user)
+    async function save() {
+        let check = await matchmaking.register(user);
+        console.log(check);
     }
 
     async function get() {
@@ -111,7 +112,7 @@ export default function TestingPage() {
             <div className={styles.mainContainer}>
                 <SidebarNav />
                 <button onClick={()=> register}>save</button>
-                <button onClick={()=> save(user)}>save</button>
+                <button onClick={()=> save()}>Register</button>
                 <button onClick={()=> get()}>get</button>
             </div>
         </>
