@@ -25,7 +25,7 @@ export default function BattleHistoryCard({battleHistory}: { battleHistory: Batt
                         </>}
                     <div className={styles.opponentInfoContainer}>
                         <h2>{battleHistory.opponent.username}</h2>
-                        <p>{battleHistory.opponent.id.toString()}</p>
+                        <p>Opponent ID: {battleHistory.opponent.id.toString()}</p>
                     </div>
                 </div>
                 <p className={styles.time}>{battleHistory.date} {battleHistory.date}</p>

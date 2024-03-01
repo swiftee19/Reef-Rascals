@@ -11,7 +11,6 @@ export default function MatchPage() {
 
     let [inGame, setInGame] = useState(true);
 
-
     let users: User[] = [];
     async function searchForMatch() : Promise<User> {
         if(currUser === null) throw new Error("User not logged in");
