@@ -4,6 +4,7 @@ import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/market-page.module.scss";
 import { Rarity, Rascal, RascalType } from "../types/rascal";
+import rascalList from "../types/rascals";
 
 export default function MarketPage() {
 
@@ -20,6 +21,8 @@ export default function MarketPage() {
         "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     )
 
+    const rascals: Rascal[] = rascalList;
+
     return (
         <>
             <SidebarNav />
@@ -33,26 +36,26 @@ export default function MarketPage() {
                 </header>
 
                 <section className={styles.topContainer}>
-                    <h1>Top Selling</h1>
+                    <h1 className={styles.containerHeader}>Top Selling</h1>
                     <div className={styles.topSelling}>
-                        <RascalRankCard index={0} rascal={rascal1} />
-                        <RascalRankCard index={1} rascal={rascal1} />
-                        <RascalRankCard index={2} rascal={rascal1} />
-                        <RascalRankCard index={0} rascal={rascal1} />
-                        <RascalRankCard index={0} rascal={rascal1} />
-                        <RascalRankCard index={0} rascal={rascal1} />
+                        {
+                            rascals.map((rascal, index) => {
+                                if (index < 6) {
+                                    return <RascalRankCard key={rascal.id} rascal={rascal} index={index} />
+                                }
+                            })
+                        }
                     </div>
                 </section>
 
                 <section className={styles.recentContainer}>
-                    <h1>Recent Rascals</h1>
+                    <h1 className={styles.containerHeader}>Recent Rascals</h1>
                     <div className={styles.recentRascals}>
-                        <RascalCard rascal={rascal1} />
-                        <RascalCard rascal={rascal1} />
-                        <RascalCard rascal={rascal1} />
-                        <RascalCard rascal={rascal1} />
-                        <RascalCard rascal={rascal1} />
-                        {/* <RascalCard rascal={rascal1} /> */}
+                        {
+                            rascals.map((rascal) => {
+                                return <RascalCard key={rascal.id} rascal={rascal} />
+                            })
+                        }
                     </div>
                 </section>
             </div>

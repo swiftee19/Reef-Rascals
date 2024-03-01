@@ -10,7 +10,7 @@
 
 .cardTop {
     position: relative;
-    background-image: linear-gradient(to top, colors.$dark, colors.$dark-blue);
+    background-image: colors.$linear-gradient;
     padding: 3rem 2rem;
     display: flex;
     justify-content: center;
@@ -62,6 +62,22 @@
     gap: 1rem;
 }
 
+.brownTheme {
+    background-color: colors.$medium-brown;
+    border-color: colors.$cream-brown;
+    color: colors.$cream-brown;
+}
+.brownGradient {
+    background-image: colors.$brown-gradient;
+    border-color: colors.$cream-brown;
+}
+
+.blueTheme {
+    background-color: colors.$dark-blue;
+    border-color: colors.$light-blue;
+    color: colors.$light-blue;
+}
+
 .cardDetail {
     display: flex;
     flex-direction: column;
@@ -70,12 +86,10 @@
 
     h1 {
         font-family: fonts.$vt323;
-        color: colors.$light-blue;
         font-size: xx-large;
     }
     p {
         font-size: small;
-        color: colors.$light-blue;
     }
 }
 
@@ -87,10 +101,6 @@
 
     div {
         text-align: center;
-
-        p {
-            color: colors.$light-blue;
-        }
         .atkLbl, .hpLbl, .spdLbl {
             color: colors.$white;
             font-weight: 500;

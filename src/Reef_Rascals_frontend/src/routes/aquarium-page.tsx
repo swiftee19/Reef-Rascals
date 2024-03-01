@@ -50,13 +50,11 @@ export default function AquariumPage(){
                 <footer className={styles.aquariumBottom}>
                     <img src="/wood-round.png" alt="" />
                 </footer>
-                
+
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
                     <MyRascalPage/>
                 </section>
                 
-                
-
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
                 </header>

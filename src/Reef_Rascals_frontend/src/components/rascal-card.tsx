@@ -2,13 +2,13 @@ import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-card.module.scss";
 import RarityLabel from "./rarity-label";
 
-export default function RascalCard({ rascal }: { rascal: Rascal }) {
+export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, brownTheme?: boolean }) {
     return (
         <div className={styles.cardContainer}>
-            <div className={styles.cardTop}>
+            <div className={`${styles.cardTop} ${brownTheme && styles.brownGradient}`}>
                 <img className={styles.rascalImg} src={rascal.imageUrl} alt={rascal.name}/>
 
-                <div className={styles.cardPrice}>
+                <div className={`${styles.cardPrice} ${brownTheme && styles.brownTheme}`}>
                     <img src="/favicon.ico" alt="" />
                     <p>0.111</p>
                 </div>
@@ -18,14 +18,14 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
                 </div>
             </div>
 
-            <div className={styles.cardBottom}>
-                <div className={styles.cardDetail}>
+            <div className={`${styles.cardBottom} ${brownTheme && styles.brownTheme}`}>
+                <div className={`${styles.cardDetail} ${brownTheme ? styles.brownTheme : styles.blueTheme}`}>
                     <h1>{rascal.name}</h1>
                     <p>{rascal.tribe}</p>
                     <p>{rascal.id}</p>
                 </div>
 
-                <div className={styles.cardStats}>
+                <div className={`${styles.cardStats} ${brownTheme ? styles.brownTheme : styles.blueTheme}`}>
                     <div>
                         <p className={styles.atkLbl}>ATK</p>
                         <p>{rascal.attack.toString()}</p>
