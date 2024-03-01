@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { AuthClient } from "@dfinity/auth-client";
-import { redirect } from "react-router-dom";
+import { defaultOptions } from "../../index";
 
 
 export const AuthContext = createContext<any>(null);
@@ -22,22 +22,23 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
     const guestRoutes = ['', '/', '/marketplace', '/login']
 
-    useEffect(() => {
-        console.log(pathname);
+    const getUser = async () => {
+        const authClient = await AuthClient.create(defaultOptions.createOptions);
+        return setUser(authClient)
+    }
 
+    useEffect(() => {
         const pathnameSplit = pathname.split('/')
         const mainPathname = pathnameSplit[1]
 
-        console.log(pathnameSplit);
-        console.log("mainPathname: " + mainPathname);
-        console.log(user);
-
-        if (!user && !guestRoutes.includes(mainPathname)) {
-            console.log("redirecting...");
-            window.location.href = "/?" + tempCanisterId
+        // kalau user belum log in atau tidak terautentikasi
+        if (!user || !user?.isAuthenticated) {
+            // coba get user
+            getUser()
+            // kalau user mengakses route yang tidak untuk public
+            if (!guestRoutes.includes(mainPathname)) window.location.href = "/?" + tempCanisterId
         }
-
-    }, [pathname])
+    }, [pathname, user])
 
     return (
         <AuthContext.Provider value={{ user, updateUser }}>
