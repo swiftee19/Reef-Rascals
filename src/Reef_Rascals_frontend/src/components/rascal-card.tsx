@@ -1,4 +1,4 @@
-import { Rascal } from "../types/rascal";
+import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-card.module.scss";
 import RarityLabel from "./rarity-label";
 
@@ -14,7 +14,7 @@ export default function RascalCard({ rascal }: { rascal: Rascal }) {
                 </div>
 
                 <div className={styles.cardRarity}>
-                    <RarityLabel rarity={rascal.rarity}/>
+                    <RarityLabel rarity={rascal.rarity as Rarity}/>
                 </div>
             </div>
 

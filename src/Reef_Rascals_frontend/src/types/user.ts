@@ -20,37 +20,42 @@ export class User {
     username: string;
     password: string;
     profilePictureUrl: string;
-    dateJoined: Date;
+    dateJoined: string;
     tokens: number;
     rascals: Rascal[];
     defense: Rascal[];
-    rank: League;
+    rank: string;
     battleHistories: BattleHistory[];
-    elo: number;
+    elo: bigint;
 
     constructor(id: Principal, username: string, profilePictureUrl: string, dateJoined: Date, tokens: number, rascals: Rascal[], defense: Rascal[], sell: Rascal[], league: League, battleHistories: BattleHistory[], elo: number) {
         this.id = id;
         this.username = username;
         this.password = "";
         this.profilePictureUrl = profilePictureUrl;
-        this.dateJoined = dateJoined;
+        this.dateJoined = dateJoined.toLocaleTimeString();
         this.tokens = tokens;
         this.rascals = rascals;
         this.defense = defense;
         this.rank = league;
         this.battleHistories = battleHistories;
-        this.elo = elo;
+        this.elo = BigInt(elo);
     }
+}
 
-    saveUser() {
-        matchmaking.updateUser(this.id, this);
-    }
+export function saveUser(user: User) {
+    let check = matchmaking.updateUser(user.id, user);
+    console.log(check);
+}
 
-    sellRascal(rascal: Rascal) {
-        matchmaking.sellRascal(rascal)
-    }
+export function sellRascal(rascal: Rascal) {
+    matchmaking.sellRascal(rascal)
+}
 
-    retrieveRascal(rascal: Rascal) {
-        matchmaking.removeFromMarket(rascal)
-    }
+export function retrieveRascal(rascal: Rascal) {
+    matchmaking.removeFromMarket(rascal)
+}
+
+export function getElo(user: User) {
+    return parseInt(user.elo.toString());
 }

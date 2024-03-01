@@ -1,13 +1,14 @@
 import React, {useRef} from 'react';
 import styles from "../scss/pages/profile-page.module.scss";
 import SidebarNav from "../components/sidebar-nav";
-import {League, LeagueThresholdNumber, User} from "../types/user";
+import {League, LeagueThresholdNumber, User, getElo, saveUser} from "../types/user";
 import RadialContainer from "../components/radial-container";
 import {useEffect, useState} from "react";
 import {BattleHistory, BattleResult} from "../types/battle-history";
 import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
+import { Int } from '@dfinity/candid/lib/cjs/idl';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -74,7 +75,7 @@ export default function ProfilePage() {
 
     const battleHistory: BattleHistory = {
         result: BattleResult.Lose,
-        date: new Date(),
+        date: new Date().toLocaleTimeString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2],
@@ -83,7 +84,7 @@ export default function ProfilePage() {
 
     const battleHistory1: BattleHistory = {
         result: BattleResult.Win,
-        date: new Date(),
+        date: new Date().toLocaleTimeString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2, rascal1],
@@ -107,9 +108,9 @@ export default function ProfilePage() {
     const calculateLeagueSliderProgress = () => {
         switch (user.rank) {
             case League.Bronze:
-                return (user.elo / LeagueThresholdNumber.Silver) * 100
+                return (getElo(user)  / LeagueThresholdNumber.Silver) * 100
             case League.Silver:
-                return (user.elo / LeagueThresholdNumber.Gold) * 100
+                return (getElo(user) / LeagueThresholdNumber.Gold) * 100
             case League.Gold:
                 return 100
         }
@@ -129,7 +130,7 @@ export default function ProfilePage() {
             setUserWinRate(roundedWinRate)
         }
 
-        setUserLeagueProgress(calculateLeagueSliderProgress())
+        setUserLeagueProgress(calculateLeagueSliderProgress() as number)
 
         switch (user.rank) {
             case League.Bronze:
@@ -162,7 +163,7 @@ export default function ProfilePage() {
                         <img className={styles.profilePicture} src="/Ganyu.jpg" alt={"Image not found"}/>
                         <div className={styles.userInfoContainer}>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                Date Joined: {user.dateJoined.toDateString()}
+                                Date Joined: {user.dateJoined}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
                                 {user.username}
@@ -272,7 +273,7 @@ export default function ProfilePage() {
                                     />
                                 </div>
                                 <p style={{color: leagueFontColor}}>
-                                    {user.elo}/{LeagueThresholdNumber[user.rank] + 100}
+                                    {getElo(user)}/{LeagueThresholdNumber[user.rank as League] + 100}
                                 </p>
                             </div>
                         </div>

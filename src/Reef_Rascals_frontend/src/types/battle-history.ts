@@ -9,8 +9,8 @@ export enum BattleResult {
 export type BattleHistory = {
     id: string;
     opponent: User;
-    result: BattleResult;
-    date: Date;
+    result: string;
+    date: string;
     usedRascal: Rascal[];
     opponentRascal: Rascal[];
 }

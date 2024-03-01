@@ -17,8 +17,8 @@ export class Rascal {
     name: string;
     level: bigint;
     imageUrl: string;
-    tribe: RascalType;
-    rarity: Rarity;
+    tribe: string;
+    rarity: string;
     health: bigint;
     attack: bigint;
     speed: bigint;
