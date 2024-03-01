@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Rascal } from '../types/rascal';
-import { User, getInt } from '../types/user';
+import { User, getInt, saveUser } from '../types/user';
 
 interface AquariumCanvasProps {
     user1 : User;
@@ -8,6 +8,9 @@ interface AquariumCanvasProps {
 }
 
 const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: AquariumCanvasProps) => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const rascalSize = window.innerWidth * 0.06;
+
     let attackRascals = user1.attack;
     let defenseRascals = user1.defense;
 
@@ -19,6 +22,23 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
     var attacCurr = 0;
     var defenseCurr = 0;
     let animationId: number;
+
+    function reward(user: User) {
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        if (randomNumber <= 5) {
+            user.rascalFragment += BigInt(3);
+        } else if (randomNumber <= 25) {
+            user.rascalFragment += BigInt(2);
+        } else {
+            user.rascalFragment += BigInt(1);
+        }
+
+        saveUser(user);
+    }
+
+    function saveBattle() {
+        
+    }
 
     const battle = () => {
         var attacker = attackRascals[attacCurr];
@@ -50,6 +70,8 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
         i++;
         requestAnimationFrame(battle);
     }
+
+    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0 }} />;
 };
 
 export default AquariumCanvas;
