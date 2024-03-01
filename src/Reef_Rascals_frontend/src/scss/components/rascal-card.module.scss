@@ -2,6 +2,7 @@
 @use "../fonts";
 
 .cardContainer {
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,7 +10,7 @@
 
 .cardTop {
     position: relative;
-    background-color: linear-gradient(to top, colors.$dark-blue, colors.$light-blue);
+    background-image: linear-gradient(to top, colors.$dark, colors.$dark-blue);
     padding: 3rem 2rem;
     display: flex;
     justify-content: center;

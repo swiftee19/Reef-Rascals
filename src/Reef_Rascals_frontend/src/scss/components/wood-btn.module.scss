@@ -2,13 +2,13 @@
 @use "../fonts";
 
 .woodBtn {
-    width: 275px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
 
     img {
+        width: 100%;
         position: relative;
     }
     p {
