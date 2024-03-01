@@ -24,8 +24,6 @@ export default function MatchPage() {
     let userCurrRascal = 0;
     let opponentCurrRascal = 0;
 
-    
-
     return (
         <>
             <div className={styles.mainContainer}>
