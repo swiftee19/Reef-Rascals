@@ -8,7 +8,7 @@ import {BattleHistory, BattleResult} from "../types/battle-history";
 import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
-import { Int } from '@dfinity/candid/lib/cjs/idl';
+import {Int} from '@dfinity/candid/lib/cjs/idl';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -17,8 +17,6 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
-    const leftContainerRef = useRef<HTMLDivElement>(null);
-    const rightContainerRef = useRef<HTMLDivElement>(null);
 
     const rascal1: Rascal = new Rascal(
         "#10070111730",
@@ -108,7 +106,7 @@ export default function ProfilePage() {
     const calculateLeagueSliderProgress = () => {
         switch (user.rank) {
             case League.Bronze:
-                return (getElo(user)  / LeagueThresholdNumber.Silver) * 100
+                return (getElo(user) / LeagueThresholdNumber.Silver) * 100
             case League.Silver:
                 return (getElo(user) / LeagueThresholdNumber.Gold) * 100
             case League.Gold:
@@ -146,10 +144,6 @@ export default function ProfilePage() {
                 setUserLeagueIcon("/gold-league-icon.png")
                 break
         }
-
-        if (rightContainerRef && leftContainerRef && rightContainerRef.current && leftContainerRef.current) {
-            rightContainerRef.current.style.height = `${leftContainerRef.current.clientHeight}px`
-        }
     }, [])
 
     return (
@@ -158,12 +152,12 @@ export default function ProfilePage() {
             <img className={styles.backdrop} src="/bg-aquarium.png" alt="image not found"/>
             <div className={styles.backdropOverlay}/>
             <div className={styles.mainContainer}>
-                <div ref={leftContainerRef} className={styles.leftContainer}>
+                <div className={styles.leftContainer}>
                     <div className={styles.userProfileContainer}>
                         <img className={styles.profilePicture} src="/Ganyu.jpg" alt={"Image not found"}/>
                         <div className={styles.userInfoContainer}>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                Date Joined: {user.dateJoined}
+                                Date Joined: {new Date(user.dateJoined).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
                                 {user.username}
@@ -280,7 +274,7 @@ export default function ProfilePage() {
                     </RadialContainer>
                 </div>
 
-                <div ref={rightContainerRef} className={styles.rightContainer}>
+                <div className={styles.rightContainer}>
                     {user.battleHistories.map((battle, index) =>
                         <>
                             <BattleHistoryCard battleHistory={battle}/>

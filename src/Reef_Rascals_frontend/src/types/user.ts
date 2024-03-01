@@ -33,7 +33,7 @@ export class User {
         this.username = username;
         this.password = "";
         this.profilePictureUrl = profilePictureUrl;
-        this.dateJoined = dateJoined.toLocaleTimeString();
+        this.dateJoined = dateJoined.toString();
         this.tokens = tokens;
         this.rascals = rascals;
         this.defense = defense;
