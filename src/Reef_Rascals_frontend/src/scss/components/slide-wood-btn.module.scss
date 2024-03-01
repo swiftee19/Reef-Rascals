@@ -20,6 +20,12 @@
         font-family: fonts.$vt323;
         font-weight: 200;
         color: colors.$light-brown;
+
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.1);
+            transition-duration: 0.3s;
+        }
     }
 }
 
@@ -28,4 +34,10 @@
     overflow: hidden;
     width: 52%;
     left: -1rem;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.slide {
+    transform: translateX(calc(100% + 1rem))
 }
