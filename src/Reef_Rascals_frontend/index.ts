@@ -31,7 +31,8 @@ const authLogin = () =>{
 }
 
 const init = async () => {
-    const authClient = await AuthClient.create(defaultOptions.createOptions);
+    // const authClient = await AuthClient.create(defaultOptions.createOptions);
+    const authClient = await AuthClient.create();
 
     // check to see if user has previously logged in
     if (await authClient.isAuthenticated()) {
