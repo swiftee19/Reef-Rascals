@@ -8,7 +8,7 @@ interface AquariumCanvasProps {
 const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rascalSize = window.innerWidth * 0.06;
-  let positions: { x: number; y: number; dx: number; dy: number; flip: boolean }[] = [];
+  let positions: { x: number; y: number; dx: number; dy: number; flip: boolean; rotation: number; changeDirectionTime: number }[] = [];
 
   useEffect(() => {
     positions = rascals.map(() => ({
@@ -17,8 +17,10 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
       dx: Math.random() * 1 + 0.5,
       dy: Math.random() * 1 + 0.5,
       flip: false,
+      rotation: Math.random() * Math.PI * 2,
+      changeDirectionTime: Math.random() * 5000 + 5000,
     }));
-  }, [rascals]);
+  }, [rascals, rascalSize]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -35,18 +37,17 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       rascals.forEach((rascal, index) => {
-        const { x, y, dx, dy, flip } = positions[index];
+        const { x, y, dx, dy, flip, rotation } = positions[index];
 
         const rascalImg = new Image();
         rascalImg.src = rascal.imageUrl;
 
         context.save();
+        context.translate(x, y);
         if (flip) {
           context.scale(-1, 1);
-          context.drawImage(rascalImg, -x - rascalSize, y - rascalSize, rascalSize * 2, rascalSize * 2);
-        } else {
-          context.drawImage(rascalImg, x - rascalSize, y - rascalSize, rascalSize * 2, rascalSize * 2);
         }
+        context.drawImage(rascalImg, -rascalSize, -rascalSize, rascalSize * 2, rascalSize * 2);
         context.restore();
 
         positions[index] = {
@@ -55,6 +56,8 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
           dx,
           dy,
           flip,
+          rotation,
+          changeDirectionTime: positions[index].changeDirectionTime,
         };
 
         if (x + dx > canvas.width - rascalSize || x + dx < rascalSize) {
@@ -71,20 +74,26 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
 
     animate();
 
-    const directionChangeInterval = setInterval(() => {
-      positions.forEach((position) => {
+    const directionChangeIntervals: NodeJS.Timeout[] = [];
+    rascals.forEach((_, index) => {
+      const interval = setInterval(() => {
         const randomDirection = Math.random();
+        const rotationChange = (Math.random() - 0.5) * Math.PI / 4;
         if (randomDirection < 0.5) {
-          position.dx = -position.dx;
-          position.flip = !position.flip;
+          positions[index].dx = -positions[index].dx;
+          positions[index].flip = !positions[index].flip;
         } else {
-          position.dy = -position.dy;
+          positions[index].dy = -positions[index].dy;
         }
-      });
-    }, Math.random() * 5000 + 5000);
+        positions[index].rotation += rotationChange;
+      }, Math.random() * 5000 + 5000);
+      directionChangeIntervals.push(interval);
+    });
 
-    return () => clearInterval(directionChangeInterval);
-  }, [rascals, positions]);
+    return () => {
+      directionChangeIntervals.forEach(interval => clearInterval(interval));
+    };
+  }, [rascals, positions, rascalSize]);
 
   return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0 }} />;
 };

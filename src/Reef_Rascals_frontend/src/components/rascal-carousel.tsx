@@ -15,6 +15,9 @@ const rascalsList = [
 ];
 
 export default function RascalCarousel({speed, flip}: {speed: number, flip: boolean}) {
+
+    const rascals = rascalsList;
+
     return (
         <div className={styles.carouselContainer}>
             <div className={`${styles.carouselTrack} ${flip ? styles.flip : ''}`} style={{ animationDuration: `${speed}s` }}>                {

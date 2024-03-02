@@ -2,6 +2,7 @@ import {Rascal} from "./rascal";
 import {BattleHistory} from "./battle-history";
 import { matchmaking } from "../../../declarations/matchmaking";
 import { Principal } from "@dfinity/principal";
+import rascalList, { CommonRascal, epicRascal, legendRascal, rareRascal } from "./rascals";
 
 export enum League {
     Bronze = "Bronze",
@@ -66,4 +67,20 @@ export function getElo(user: User) {
 
 export function getInt(x: bigint) {
     return Number(x);
+}
+
+export function gacha(user: User) {
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    if(randomNumber <= 1) {
+        user.rascals.push(legendRascal[Math.floor(Math.random() * legendRascal.length)]);
+    } else if (randomNumber <= 5) {
+        user.rascals.push(epicRascal[Math.floor(Math.random() * epicRascal.length)]);
+    } else if (randomNumber <= 35) {
+        user.rascals.push(rareRascal[Math.floor(Math.random() * rareRascal.length)]);
+    } else {
+        user.rascals.push(CommonRascal[Math.floor(Math.random() * CommonRascal.length)]);
+    }
+
+    saveUser(user);
 }

@@ -1,5 +1,6 @@
 import {Rascal} from "./rascal";
 import {User} from "./user";
+import {v4 as uuidv4} from 'uuid';
 
 export enum BattleResult {
     Win = "Win",
@@ -14,8 +15,8 @@ export class BattleHistory {
     usedRascal: Rascal[];
     opponentRascal: Rascal[];
 
-    constructor(id: string, opponent: User, result: string, usedRascal: Rascal[], opponentRascal: Rascal[]) {
-        this.id = id;
+    constructor(opponent: User, result: string, usedRascal: Rascal[], opponentRascal: Rascal[]) {
+        this.id = `#${uuidv4().slice(0, 8).toUpperCase()}`;
         this.opponent = opponent;
         this.result = result;
         this.date = new Date().toString();

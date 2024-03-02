@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Rascal } from '../types/rascal';
 import { User, getInt, saveUser } from '../types/user';
+import { BattleHistory } from '../types/battle-history';
 
 interface AquariumCanvasProps {
     user1 : User;
@@ -36,8 +37,9 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
         saveUser(user);
     }
 
-    function saveBattle() {
-        
+    function saveBattle(user: User, opponent: User, result: string) {
+        user.battleHistories.push(new BattleHistory(opponent, result, attackRascals, defenseRascals));
+        saveUser(user);
     }
 
     const battle = () => {
@@ -50,6 +52,8 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
         if(getInt(defender.health) <= 0){
             defenseCurr++;
             if(defenseCurr >= defenseRascals.length){
+                reward(user1);
+                saveBattle(user1, user2, "Win");
                 cancelAnimationFrame(animationId);
                 return;
             }
@@ -62,6 +66,7 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
         if(getInt(attacker.health) <= 0){
             attacCurr++;
             if(attacCurr >= attackRascals.length){
+                saveBattle(user1, user2, "Lose");
                 cancelAnimationFrame(animationId);
                 return;
             }
