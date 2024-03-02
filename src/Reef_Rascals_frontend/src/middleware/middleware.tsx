@@ -5,14 +5,17 @@ import {
   useEffect,
   useState,
 } from "react";
-import { AuthClient } from "@dfinity/auth-client";
+import { AuthClient, LocalStorage } from "@dfinity/auth-client";
 import { defaultOptions } from "../../index";
+import { Actor, HttpAgent } from "@dfinity/agent";
 
 export const AuthContext = createContext<any>(null);
 export const useAuthContext = () => useContext(AuthContext);
 
-
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+  const localStorage = new LocalStorage();
+  console.log(localStorage);
+
   const [user, setUser] = useState<AuthClient | null>(null);
   const updateUser = (newUser: AuthClient | null) => {
     if (newUser) {
@@ -28,13 +31,25 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const guestRoutes = ["", "/", "/marketplace", "/login"];
 
   const login = async () => {
-    const authClient = await AuthClient.create(defaultOptions.createOptions);
+    const authClient = await AuthClient.create();
+
     authClient.login({
       // 7 days in nanoseconds
       maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000),
       onSuccess: async () => {
         console.log("successfully logged in");
-        setUser(authClient)
+        setUser(authClient);
+        
+        const identity = await authClient.getIdentity();
+        console.log("identity: " + identity);
+        console.log("principal:" + identity.getPrincipal());
+
+        // const actor = Actor.createActor(idlFactory, {
+        //   agent: new HttpAgent({
+        //     identity,
+        //   }),
+        //   canisterId,
+        // });
       },
     });
   };
