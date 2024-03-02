@@ -1,0 +1,18 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.woodContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .background {
+        height: 3rem;
+    }
+}
+
+.icon {
+    position: absolute;
+    left: 2rem;
+}

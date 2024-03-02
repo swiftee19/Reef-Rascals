@@ -5,6 +5,7 @@ import SlideWoodBtn from "../components/slide-wood-btn";
 import styles from "../scss/pages/aquarium-page.module.scss";
 import { Rarity, Rascal, RascalType } from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
+import WoodStats from "../components/wood-stats";
 
 export default function AquariumPage(){
     const [isAquarium, setIsAquarium] = useState(true);
@@ -55,6 +56,11 @@ export default function AquariumPage(){
                 
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
+                    <div className={styles.aquariumStats}>
+                        <WoodStats image="/favicon.ico"/>
+                        <WoodStats image="/favicon.ico"/>
+                        <WoodStats image="/favicon.ico"/>
+                    </div>
                 </header>
             </div>
         </>

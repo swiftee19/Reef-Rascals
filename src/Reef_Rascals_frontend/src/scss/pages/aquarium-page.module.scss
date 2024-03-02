@@ -23,8 +23,17 @@
 .aquariumTop {
     position: absolute;
     display: flex;
+    justify-content: space-between;
     top: 2rem;
     left: 6rem;
+    width: 90%;
+}
+
+.aquariumStats {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .myRascalPage {
