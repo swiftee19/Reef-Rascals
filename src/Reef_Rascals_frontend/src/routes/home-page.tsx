@@ -54,7 +54,7 @@ export default function HomePage() {
           />
           <img id="logo" className={styles.logo} src="/logo-full.png" alt="" />
           <img id="frontImg" src="/bg-parallax-front.png" alt="" />
-          {!authContext.user && (
+          {!authContext.principal && (
             <>
               <div className={styles.loginBtn}>
                 <WoodButton btnText="Login" onClick={goLogin} />

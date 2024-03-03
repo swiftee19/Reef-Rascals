@@ -5,21 +5,23 @@ import {
   useEffect,
   useState,
 } from "react";
-import { AuthClient, LocalStorage } from "@dfinity/auth-client";
-import { defaultOptions } from "../../index";
-import { Actor, HttpAgent } from "@dfinity/agent";
+import { AuthClient } from "@dfinity/auth-client";
+import { handleAuthenticated } from "../../index";
+import { _SERVICE } from "../../../declarations/matchmaking/matchmaking.did";
 
 export const AuthContext = createContext<any>(null);
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const localStorage = new LocalStorage();
-  console.log(localStorage);
-
   const [user, setUser] = useState<AuthClient | null>(null);
-  const updateUser = (newUser: AuthClient | null) => {
+  const [principal, setPrincipal] = useState<string | null>(null);
+
+  const updateUser = async (newUser: AuthClient) => {
+    let updatedUser: AuthClient;
+
     if (newUser) {
-      setUser(newUser);
+      updatedUser = newUser;
+      setUser(updatedUser);
     }
   };
 
@@ -28,7 +30,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   let routeSplit = currentRoute.split("?");
   let tempCanisterId = routeSplit[1];
 
-  const guestRoutes = ["", "/", "/marketplace", "/login"];
+  const guestRoutes = ["", "/", "marketplace"];
 
   const login = async () => {
     const authClient = await AuthClient.create();
@@ -37,39 +39,34 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       // 7 days in nanoseconds
       maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000),
       onSuccess: async () => {
+        handleAuthenticated(authClient);
         console.log("successfully logged in");
-        setUser(authClient);
-        
-        const identity = await authClient.getIdentity();
-        console.log("identity: " + identity);
-        console.log("principal:" + identity.getPrincipal());
-
-        // const actor = Actor.createActor(idlFactory, {
-        //   agent: new HttpAgent({
-        //     identity,
-        //   }),
-        //   canisterId,
-        // });
+        updateUser(authClient);
       },
     });
   };
 
   useEffect(() => {
-    const pathnameSplit = pathname.split("/");
-    const mainPathname = pathnameSplit[1];
+    const principal = localStorage.getItem("ic-principal");
+    if (principal) setPrincipal(principal);
+  }, []);
 
-    console.log(user);
+  useEffect(() => {
+    // const pathnameSplit = pathname.split("/");
+    // const mainPathname = pathnameSplit[1];
 
-    // kalau user belum log in atau tidak terautentikasi
-    if (!user || !user?.isAuthenticated) {
-      // kalau user mengakses route yang tidak untuk public
-      if (!guestRoutes.includes(mainPathname))
-        window.location.href = "/?" + tempCanisterId;
-    }
+    // console.log(user);
+
+    // // kalau user belum log in atau tidak terautentikasi
+    // if (!user || !user?.isAuthenticated) {
+    //   // kalau user mengakses route yang tidak untuk public
+    //   if (!guestRoutes.includes(mainPathname))
+    //     window.location.href = "/?" + tempCanisterId;
+    // }
   }, [pathname, user]);
 
   return (
-    <AuthContext.Provider value={{ user, updateUser, login }}>
+    <AuthContext.Provider value={{ login, principal }}>
       {children}
     </AuthContext.Provider>
   );

@@ -9,6 +9,7 @@ import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {Int} from '@dfinity/candid/lib/cjs/idl';
+import { useAuthContext } from '../middleware/middleware';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -17,6 +18,8 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
+
+    const authContext = useAuthContext();
 
     const rascal1: Rascal = new Rascal(
         "#10070111730",
@@ -166,7 +169,7 @@ export default function ProfilePage() {
                                 Player ID:
                             </p>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                {user.id.toString()}
+                                {authContext.principal}
                             </p>
                             <RadialContainer>
                                 <div className={styles.userToken}>
