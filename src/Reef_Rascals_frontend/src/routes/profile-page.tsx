@@ -238,6 +238,7 @@ export default function ProfilePage() {
                             <h2>
                                 Your Current League
                             </h2>
+                            <div className={styles.line}/>
                             <div className={styles.leagueInfoContainer}>
                                 <img src="/silver-league-icon.png" alt={"Image not found"}/>
                                 <div className={styles.leagueInfo}>
