@@ -1,13 +1,13 @@
-import { useState } from "react";
+import {useState} from "react";
 import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
 import styles from "../scss/pages/aquarium-page.module.scss";
-import { Rarity, Rascal, RascalType } from "../types/rascal";
+import {Rarity, Rascal, RascalType} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
 
-export default function AquariumPage(){
+export default function AquariumPage() {
     const [isAquarium, setIsAquarium] = useState(true);
 
     const rascal1: Rascal = new Rascal(
@@ -39,6 +39,16 @@ export default function AquariumPage(){
         setIsAquarium(!isAquarium);
     }
 
+    const findMatch = () => {
+        const currentRoute = window.location.href;
+        // console.log(currentRoute)
+        const routeSplit = currentRoute.split("?")
+        // console.log(routeSplit)
+        const tempCanisterId = routeSplit[1];
+        const canisterId = "?" + tempCanisterId
+        window.location.href = "/match" + canisterId;
+    }
+
     return (
         <>
             <SidebarNav/>
@@ -46,18 +56,20 @@ export default function AquariumPage(){
                 <img className={styles.background} src="/bg-aquarium.png"/>
                 <AquariumCanvas rascals={rascals}/>
 
-                <footer className={styles.aquariumBottom}>
-                    <img src="/wood-round.png" alt="" />
+                <footer className={styles.aquariumBottom} onClick={() => {
+                    findMatch()
+                }}>
+                    <img src="/wood-round.png" alt=""/>
                 </footer>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
                     <MyRascalPage/>
                 </section>
-                
+
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
                     <div className={styles.aquariumStats}>
-                        <WoodStats image="/raslet.png" color="colors.$green-raslet"  curr={5} max={7}/>
+                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={5} max={7}/>
                         <WoodStats image="/rascal-egg-top.png" curr={10}/>
                         <WoodStats image="/favicon.ico" curr={0.2}/>
                     </div>
