@@ -8,6 +8,7 @@ import {BattleHistory, BattleResult} from "../types/battle-history";
 import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
+import {useAuthContext} from "../middleware/middleware";
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -20,7 +21,6 @@ export default function ProfilePage() {
     const authContext = useAuthContext();
 
     const rascal1: Rascal = new Rascal(
-        "#10070111730",
         "Axolberry",
         3,
         "/rascals/axolberry.png",
@@ -33,7 +33,6 @@ export default function ProfilePage() {
     );
 
     const rascal2: Rascal = new Rascal(
-        "#10070111730",
         "Captain Finbite",
         6,
         "/rascals/captain-finbite.png",
@@ -46,7 +45,6 @@ export default function ProfilePage() {
     );
 
     const rascal3: Rascal = new Rascal(
-        "#10070111730",
         "Ribble",
         2,
         "/rascals/ribble.png",
