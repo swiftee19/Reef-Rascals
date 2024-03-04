@@ -9,6 +9,7 @@ import HomePage from './routes/home-page';
 import MarketPage from './routes/market-page';
 import MatchPage from './routes/match-page';
 import AquariumPage from './routes/aquarium-page';
+import RascalDetailPage from './routes/rascal-detail-page';
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/marketplace",
         element: <MarketPage/>,
+    },
+    {
+        path: "/details/:rascalId",
+        element: <RascalDetailPage/>,
     },
     {
         path: "/aquarium",

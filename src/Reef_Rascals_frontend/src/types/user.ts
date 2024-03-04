@@ -2,7 +2,7 @@ import {Rascal} from "./rascal";
 import {BattleHistory} from "./battle-history";
 import { matchmaking } from "../../../declarations/matchmaking";
 import { Principal } from "@dfinity/principal";
-import rascalList, { CommonRascal, epicRascal, legendRascal, rareRascal } from "./rascals";
+import rascalList, { CommonRascal, epicRascal, legendRascal, rareRascal } from "./rascal-dummy";
 
 export enum League {
     Bronze = "Bronze",

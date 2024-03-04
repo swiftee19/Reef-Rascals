@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Rarity, Rascal, RascalType } from "../types/rascal";
-import rascalList from "../types/rascals";
+import rascalList from "../types/rascal-dummy";
 import RascalCard from "../components/rascal-card";
 import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";

@@ -3,8 +3,13 @@ import styles from "../scss/components/rascal-card.module.scss";
 import RarityLabel from "./rarity-label";
 
 export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, brownTheme?: boolean }) {
+    
+    const gotoRascalDetail = () => {
+        
+    }
+    
     return (
-        <div className={styles.cardContainer}>
+        <div className={styles.cardContainer} onClick={gotoRascalDetail}>
             <div className={`${styles.cardTop} ${brownTheme && styles.brownGradient}`}>
                 <img className={styles.rascalImg} src={rascal.imageUrl} alt={rascal.name}/>
 

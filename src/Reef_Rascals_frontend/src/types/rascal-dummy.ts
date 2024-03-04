@@ -1,4 +1,4 @@
-import { Rarity, Rascal, RascalType } from '../types/rascal';
+import { Rarity, Rascal, RascalType } from './rascal';
 
 const rascal1 = new Rascal(
     "Axolberry",
