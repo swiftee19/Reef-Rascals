@@ -8,11 +8,10 @@ import Time "mo:base/Time";
 
 module {
 
-    public func newUser(inputPrincipal: Principal, inputUsername: Text, inputPassword: Text) : User {
+    public func newUser(inputPrincipal: Principal, inputUsername: Text) : User {
         var user = {
             id = inputPrincipal;
             username = inputUsername;
-            password = inputPassword;
             rank = "Bronze";
             tokens = 0.0;
             rascals = [];
@@ -44,7 +43,6 @@ module {
     public type User = {
         id: Principal;
         username: Text;
-        password: Text;
         profilePictureUrl: Text;
         dateJoined: Text;
         tokens: Float;

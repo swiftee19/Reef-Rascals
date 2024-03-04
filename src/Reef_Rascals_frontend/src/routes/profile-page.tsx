@@ -17,6 +17,7 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
+    const [username, setUsername] = useState("")
 
     const authContext = useAuthContext();
 
@@ -56,19 +57,20 @@ export default function ProfilePage() {
         "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
     );
 
-    const opponent = new User(
-        Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        "Alexander Ryan Alex",
-        "/Ganyu.jpg",
-        new Date(),
-        0.123,
-        [],
-        [],
-        [],
-        League.Silver,
-        [],
-        243
-    )
+    const opponent = {
+        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
+        username: "Alexander Ryan Alex",
+        profilePictureUrl: "/Ganyu.jpg",
+        dateJoined: new Date().toString(),
+        tokens: 0.123,
+        rascals: [],
+        defense: [],
+        attack: [],
+        rank: League.Silver,
+        battleHistories: [],
+        elo: BigInt(243),
+        rascalFragment: BigInt(0)
+    }
 
     const battleHistory: BattleHistory = {
         result: BattleResult.Lose,
@@ -88,19 +90,20 @@ export default function ProfilePage() {
         usedRascal: [rascal2, rascal2, rascal3]
     }
 
-    const user = new User(
-        Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        "Alexander Irvin Ryan",
-        "/Ganyu.jpg",
-        new Date(),
-        0.123,
-        [rascal1, rascal2, rascal3],
-        [rascal1, rascal2, rascal3],
-        [],
-        League.Silver,
-        [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
-        267
-    )
+    const user = {
+        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
+        username: "Alexander Irvin Ryan",
+        profilePictureUrl: "/Ganyu.jpg",
+        dateJoined: new Date().toString(),
+        tokens: 0,
+        rascals: [rascal1, rascal2, rascal3],
+        defense: [rascal1, rascal2, rascal3],
+        attack: [],
+        rank: League.Silver,
+        battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
+        elo: BigInt(267),
+        rascalFragment: BigInt(0)
+    }
 
     const calculateLeagueSliderProgress = () => {
         switch (user.rank) {
@@ -114,6 +117,8 @@ export default function ProfilePage() {
     }
 
     useEffect(() => {
+        setUsername(user.username);
+
         const victories = user.battleHistories.filter(battle => battle.result == BattleResult.Win).length
         setUserVictories(victories)
 
@@ -145,6 +150,21 @@ export default function ProfilePage() {
         }
     }, [])
 
+    const handleUsernameChange = (e: any) => {
+        setUsername(e.target.value);
+    }
+
+    const handleChange = () => {
+        
+        saveUser(user);
+    }
+
+    const handleEnterKeyPress = (event: any) => {
+        if (event.key === 'Enter') {
+            saveUser({ ...user, username: username });
+        }
+    }
+
     return (
         <>
             <SidebarNav/>
@@ -159,7 +179,7 @@ export default function ProfilePage() {
                                 Date Joined: {new Date(user.dateJoined).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                {user.username}
+                                <input type="text" value={username} onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress} />
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
                                 Player ID:

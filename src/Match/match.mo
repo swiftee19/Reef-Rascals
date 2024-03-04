@@ -10,6 +10,18 @@ actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
     var rascalMarket:[model.Rascal] = [];
 
+    public func getUser(key : Principal) : async Result.Result<model.User, Text> {
+        var user: ?model.User = users.get(key);
+        switch(user) {
+            case(?User) {
+                return #ok(User);
+            };
+            case(null) {
+                return #err("no user found");
+            };
+        };
+    };
+
     public func getAllUser() : async [model.User] {
         var userArray: [model.User] = [];
         for ((key, value) in users.entries()) {
@@ -42,22 +54,22 @@ actor {
         };
     };
 
-    public func login(key : Principal, password : Text) : async Text {
-        var user: ?model.User = users.get(key);
-        switch(user) {
-            case(?User) {
-                var user: model.User = User;
-                if(user.password == password) {
-                    return "success";
-                } else {
-                    return "failure";
-                };
-            };
-            case(null) {
-                return "failure";
-            };
-        };
-    };
+    // public func login(key : Principal, password : Text) : async Text {
+    //     var user: ?model.User = users.get(key);
+    //     switch(user) {
+    //         case(?User) {
+    //             var user: model.User = User;
+    //             if(user.pri == password) {
+    //                 return "success";
+    //             } else {
+    //                 return "failure";
+    //             };
+    //         };
+    //         case(null) {
+    //             return "failure";
+    //         };
+    //     };
+    // };
 
     public func updateUser(key : Principal, user : model.User) : async Text {
         var check: ?model.User = users.get(key);
