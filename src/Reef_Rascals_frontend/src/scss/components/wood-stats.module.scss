@@ -12,7 +12,43 @@
     }
 }
 
+.iconContainer {
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconBack {
+    position: absolute;
+    height: 4rem;
+}
 .icon {
     position: absolute;
-    left: 2rem;
+    width: 2.5rem;
 }
+.progressBar {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    border-radius: 5rem;
+    background-color: colors.$dark-brown;
+
+    .progress {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-radius: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        
+        p {
+            font-family: fonts.$vt323;
+            font-size: 1.5rem;
+        }
+    }
+}
+

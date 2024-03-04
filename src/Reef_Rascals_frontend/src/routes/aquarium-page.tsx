@@ -57,9 +57,9 @@ export default function AquariumPage(){
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
                     <div className={styles.aquariumStats}>
-                        <WoodStats image="/favicon.ico"/>
-                        <WoodStats image="/favicon.ico"/>
-                        <WoodStats image="/favicon.ico"/>
+                        <WoodStats image="/raslet.png" color="colors.$green-raslet"  curr={5} max={7}/>
+                        <WoodStats image="/rascal-egg-top.png" curr={10}/>
+                        <WoodStats image="/favicon.ico" curr={0.2}/>
                     </div>
                 </header>
             </div>
