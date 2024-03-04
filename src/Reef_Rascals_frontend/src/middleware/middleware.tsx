@@ -1,73 +1,62 @@
 import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
+    ReactNode,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
 } from "react";
-import { AuthClient } from "@dfinity/auth-client";
-import { handleAuthenticated } from "../../index";
-import { _SERVICE } from "../../../declarations/matchmaking/matchmaking.did";
+import {AuthClient} from "@dfinity/auth-client";
+import {handleAuthenticated, localStorage} from "../../index";
 
 export const AuthContext = createContext<any>(null);
 export const useAuthContext = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<AuthClient | null>(null);
-  const [principal, setPrincipal] = useState<string | null>(null);
+const guestRoutes = ["", "/", "marketplace"];
+export const AuthContextProvider = ({children}: { children: ReactNode }) => {
+    const [principal, setPrincipal] = useState<string | null>(null);
 
-  const updateUser = async (newUser: AuthClient) => {
-    let updatedUser: AuthClient;
+    const getPrincipal = async () : Promise<string | null> => {
+        const principal = await localStorage.get("principal");
+        if (principal != null) setPrincipal(principal);
 
-    if (newUser) {
-      updatedUser = newUser;
-      setUser(updatedUser);
+        return principal;
     }
-  };
 
-  let pathname = window.location.pathname;
-  let currentRoute = window.location.href;
-  let routeSplit = currentRoute.split("?");
-  let tempCanisterId = routeSplit[1];
+    const login = async () => {
+        const authClient = await AuthClient.create();
 
-  const guestRoutes = ["", "/", "marketplace"];
+        await authClient.login({
+            // 7 days in nanoseconds
+            maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000),
+            onSuccess: async () => {
+                await handleAuthenticated(authClient);
+                console.log("successfully logged in");
+            },
+        });
+    };
 
-  const login = async () => {
-    const authClient = await AuthClient.create();
+    useEffect(() => {
+        if (principal == null) {
+            getPrincipal().then((result) => {
+                const pathname = window.location.pathname;
+                const pathnameSplit = pathname.split("/");
+                const mainPathname = pathnameSplit[1];
 
-    authClient.login({
-      // 7 days in nanoseconds
-      maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000),
-      onSuccess: async () => {
-        handleAuthenticated(authClient);
-        console.log("successfully logged in");
-        updateUser(authClient);
-      },
-    });
-  };
+                const currentRoute = window.location.href;
+                const routeSplit = currentRoute.split("?")
+                const tempCanisterId = routeSplit[1];
+                const canisterId = "?" + tempCanisterId
 
-  useEffect(() => {
-    const principal = localStorage.getItem("ic-principal");
-    if (principal) setPrincipal(principal);
-  }, []);
+                if (result == null && !guestRoutes.includes(mainPathname)) {
+                    window.location.href = "/" + canisterId;
+                }
+            })
+        }
+    }, []);
 
-  useEffect(() => {
-    // const pathnameSplit = pathname.split("/");
-    // const mainPathname = pathnameSplit[1];
-
-    // console.log(user);
-
-    // // kalau user belum log in atau tidak terautentikasi
-    // if (!user || !user?.isAuthenticated) {
-    //   // kalau user mengakses route yang tidak untuk public
-    //   if (!guestRoutes.includes(mainPathname))
-    //     window.location.href = "/?" + tempCanisterId;
-    // }
-  }, [pathname, user]);
-
-  return (
-    <AuthContext.Provider value={{ login, principal }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider value={{login, principal}}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
