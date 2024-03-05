@@ -27,13 +27,9 @@ export default function SidebarNav() {
 
     useEffect(() => {
         const currentRoute = window.location.href;
-        // console.log(currentRoute)
         const routeSplit = currentRoute.split("?")
-        // console.log(routeSplit)
         const tempCanisterId = routeSplit[1];
         setCanisterId("?" + tempCanisterId)
-
-        // getPrincipal()
     }, []);
 
     return (

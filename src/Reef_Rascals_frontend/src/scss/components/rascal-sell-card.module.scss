@@ -1,0 +1,126 @@
+@use "../colors";
+@use "../fonts";
+
+.cardContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: colors.$dark-blue;
+  color: colors.$light-blue;
+  border-radius: 5px;
+  border: 1px solid colors.$light-blue;
+  gap: 1rem;
+  padding: 1rem;
+
+//   &:hover {
+//     transform: scale(1.02);
+//     transition: transform 0.3s ease;
+//   }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+
+  .rankNumber {
+    padding: 0;
+    border: 1px solid colors.$light-blue;
+    border-radius: 100%;
+
+    h1 {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  
+  .rascalImg {
+    width: 5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+}
+
+.cardDetail {
+  h2 {
+    color: colors.$light-blue;
+    font-family: fonts.$vt323;
+    font-size: xx-large;
+  }
+
+  .cardPrice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      width: 2rem;
+    }
+  }
+}
+
+.rarityLabel {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.cardAtributes {
+  flex-wrap: wrap;
+}
+
+.cardStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  div {
+      text-align: center;
+      p {
+          color: colors.$light-blue;
+      }
+      .atkLbl, .hpLbl, .spdLbl {
+          color: colors.$white;
+          font-weight: 500;
+          width: 2.5rem;
+          border-radius: 5px;
+      }
+      .atkLbl {
+          background-color: colors.$soft-red;
+      }
+      .hpLbl {
+          background-color: colors.$turqouise;
+      }
+      .spdLbl {
+          background-color: colors.$yellow;
+      }
+  }
+}
+
+.sellBtn {
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    position: absolute;
+    right: 1rem;
+    text-transform: uppercase;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.greenBg {
+    border: 1px solid colors.$light-blue;
+}
+
+.orangeBg {
+    background-color: colors.$light-orange;
+}

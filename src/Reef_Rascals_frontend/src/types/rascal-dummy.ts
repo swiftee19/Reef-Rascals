@@ -6,9 +6,9 @@ const rascal1 = new Rascal(
     "/rascals/axolberry.png",
     RascalType.Chubby,
     Rarity.Epic,
+    200,
     20,
     10,
-    30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 
@@ -18,9 +18,9 @@ const rascal2 = new Rascal(
     "/rascals/captain-finbite.png",
     RascalType.Fearless,
     Rarity.Legend,
+    100,
+    40,
     20,
-    10,
-    30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 
@@ -30,7 +30,7 @@ const rascal3 = new Rascal(
     "/rascals/circus-clio.png",
     RascalType.Chubby,
     Rarity.Common,
-    20,
+    200,
     10,
     30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
@@ -42,7 +42,7 @@ const rascal4 = new Rascal(
     "/rascals/gloomy-bob.png",
     RascalType.Chubby,
     Rarity.Common,
-    20,
+    200,
     10,
     30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
@@ -54,9 +54,9 @@ const rascal5 = new Rascal(
     "/rascals/king-octo.png",
     RascalType.Fearless,
     Rarity.Rare,
-    20,
-    10,
-    30,
+    100,
+    40,
+    35,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 
@@ -66,9 +66,9 @@ const rascal6 = new Rascal(
     "/rascals/marina-showlion.png",
     RascalType.Fearless,
     Rarity.Rare,
+    100,
+    40,
     20,
-    10,
-    30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 
@@ -78,9 +78,9 @@ const rascal7 = new Rascal(
     "/rascals/party-spine.png",
     RascalType.Fearless,
     Rarity.Common,
+    100,
+    40,
     20,
-    10,
-    30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 
@@ -90,7 +90,7 @@ const rascal8 = new Rascal(
     "/rascals/ribble.png",
     RascalType.Chubby,
     Rarity.Legend,
-    20,
+    200,
     10,
     30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
@@ -102,7 +102,7 @@ const rascal9 = new Rascal(
     "/rascals/snooze-puff.png",
     RascalType.Chubby,
     Rarity.Rare,
-    20,
+    200,
     10,
     30,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
@@ -114,9 +114,9 @@ const rascal10 = new Rascal(
     "/rascals/twinkler.png",
     RascalType.Fearless,
     Rarity.Epic,
-    20,
-    10,
+    100,
     30,
+    20,
     "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
 );
 

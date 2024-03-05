@@ -23,6 +23,10 @@ const router = createBrowserRouter([
         element: <MarketPage/>,
     },
     {
+        path: "/details/:rascalId",
+        element: <RascalDetailPage/>,
+    },
+    {
         path: "/aquarium",
         element: <AquariumPage/>,
     },
