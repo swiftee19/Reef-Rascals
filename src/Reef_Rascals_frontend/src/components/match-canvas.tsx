@@ -1,28 +1,55 @@
-import React, { useEffect, useRef } from 'react';
-import { Rascal } from '../types/rascal';
-import { User, getInt, saveUser } from '../types/user';
-import { BattleHistory } from '../types/battle-history';
+import React, {useEffect, useRef} from 'react';
+import {Rascal} from '../types/rascal';
+import {User, getInt, saveUser} from '../types/user';
+import {BattleHistory} from '../types/battle-history';
 
-interface AquariumCanvasProps {
-    user1 : User;
-    user2 : User;
+interface MatchCanvasProps {
+    user1: User;
+    user2: User;
 }
 
-const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: AquariumCanvasProps) => {
+const getRandomBoolean = () => Math.random() < 0.5;
+
+const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProps) => {
+    user1.attack = user1.rascals;
+    user2.defense = user2.rascals;
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06;
 
-    let attackRascals = user1.attack;
-    let defenseRascals = user1.defense;
-
-    function attack(attack: Rascal, defense: Rascal) {
-        defense.health = BigInt(getInt(defense.health) - getInt(attack.attack));
+    let positions: {
+        x_left: number;
+        y_left: number;
+        x_right: number;
+        y_right: number;
     }
 
-    var i = 0;
-    var attacCurr = 0;
-    var defenseCurr = 0;
+    let i = 0;
+    let attackCurr = 0;
+    let defenseCurr = 0;
     let animationId: number;
+
+    let attackRascals = user1.attack;
+    let defenseRascals = user2.defense;
+
+    function initializePositions() {
+        positions = {
+            x_left: window.innerWidth * 0.25 - rascalSize,
+            y_left: window.innerHeight * 0.5,
+            x_right: window.innerWidth * 0.75 - rascalSize,
+            y_right: window.innerHeight * 0.5
+        }
+    }
+
+    function attack(attack: Rascal, defense: Rascal): number {
+        const deviationSign = getRandomBoolean() ? 1 : -1;
+        const deviationValue = Math.random() * 2 * deviationSign;
+        const finalValue = getInt(attack.attack) + parseInt(String(deviationValue));
+
+        defense.health = BigInt(getInt(defense.health) - finalValue);
+
+        return finalValue;
+    }
 
     function reward(user: User) {
         const randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -42,41 +69,89 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ user1, user2 }: Aquariu
         saveUser(user);
     }
 
-    const battle = () => {
-        var attacker = attackRascals[attacCurr];
-        var defender = defenseRascals[defenseCurr];
-        if(i % getInt(attacker.speed) === 0){
-            attack(attacker, defender);
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas?.getContext('2d');
+
+        if (!canvas || !context) {
+            return;
         }
 
-        if(getInt(defender.health) <= 0){
-            defenseCurr++;
-            if(defenseCurr >= defenseRascals.length){
-                reward(user1);
-                saveBattle(user1, user2, "Win");
-                cancelAnimationFrame(animationId);
-                return;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const animate = () => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            let attacker = attackRascals[attackCurr];
+            let defender = defenseRascals[defenseCurr];
+
+            const rascalImgAttacker = new Image();
+            rascalImgAttacker.src = attacker.imageUrl;
+            const rascalImgDefender = new Image();
+            rascalImgDefender.src = defender.imageUrl;
+
+            context.save();
+            context.drawImage(rascalImgAttacker, positions.x_left, positions.y_left, rascalSize * 2, rascalSize * 2);
+            context.restore();
+
+            context.save();
+            context.translate(positions.x_right + rascalSize * 2, 0);
+            context.scale(-1, 1);
+            context.drawImage(rascalImgDefender, 0, positions.y_right, rascalSize * 2, rascalSize * 2);
+            context.restore();
+
+            if (i % getInt(attacker.speed) === 0) {
+                const attackValue = attack(attacker, defender);
+
+                // Display the attack number
+                context.save();
+                context.fillStyle = 'red';
+                context.font = '32px Poppins';
+                context.fillText(`Attack: ${attackValue}`, positions.x_left, positions.y_left - 10);
+                context.restore();
             }
-        }
 
-        if(i % getInt(defender.speed) === 0){
-            attack(defender, attacker);
-        }
-
-        if(getInt(attacker.health) <= 0){
-            attacCurr++;
-            if(attacCurr >= attackRascals.length){
-                saveBattle(user1, user2, "Lose");
-                cancelAnimationFrame(animationId);
-                return;
+            if (getInt(defender.health) <= 0) {
+                defenseCurr++;
+                if (defenseCurr >= defenseRascals.length) {
+                    reward(user1);
+                    saveBattle(user1, user2, "Win");
+                    cancelAnimationFrame(animationId);
+                    return;
+                }
             }
+
+            if (i % getInt(defender.speed) === 0) {
+                const attackValue = attack(defender, attacker);
+
+                // Display the attack number
+                context.save();
+                context.fillStyle = 'red';
+                context.font = '32px Poppins';
+                context.fillText(`Attack: ${attackValue}`, positions.x_right + rascalSize * 2, positions.y_right - 10);
+                context.restore();
+            }
+
+            if (getInt(attacker.health) <= 0) {
+                attackCurr++;
+                if (attackCurr >= attackRascals.length) {
+                    saveBattle(user1, user2, "Lose");
+                    cancelAnimationFrame(animationId);
+                    return;
+                }
+            }
+
+            i++;
+
+            window.requestAnimationFrame(animate);
         }
+        animate();
+    }, []);
 
-        i++;
-        requestAnimationFrame(battle);
-    }
+    initializePositions();
 
-    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0 }} />;
+    return <canvas ref={canvasRef} style={{position: 'fixed', top: 0, left: 0}}/>;
 };
 
-export default AquariumCanvas;
+export default MatchCanvas;

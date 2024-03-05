@@ -18,8 +18,7 @@ export enum LeagueThresholdNumber{
 
 export class User {
     id: Principal;
-    username: string;
-    password: string;
+    username: string;    
     profilePictureUrl: string;
     dateJoined: string;
     tokens: number;
@@ -31,19 +30,18 @@ export class User {
     elo: bigint;
     rascalFragment: bigint;
 
-    constructor(id: Principal, username: string, profilePictureUrl: string, dateJoined: Date, tokens: number, rascals: Rascal[], defense: Rascal[], sell: Rascal[], league: League, battleHistories: BattleHistory[], elo: number) {
+    constructor(id: Principal) {
         this.id = id;
-        this.username = username;
-        this.password = "";
-        this.profilePictureUrl = profilePictureUrl;
-        this.dateJoined = dateJoined.toString();
-        this.tokens = tokens;
-        this.rascals = rascals;
-        this.defense = defense;
+        this.username = "Rascals Warrior";
+        this.profilePictureUrl = "";
+        this.dateJoined = new Date().toString();
+        this.tokens = 0;
+        this.rascals = [];
+        this.defense = [];
         this.attack = [];
-        this.rank = league;
-        this.battleHistories = battleHistories;
-        this.elo = BigInt(elo);
+        this.rank = League.Bronze;
+        this.battleHistories = [];
+        this.elo = BigInt(0);
         this.rascalFragment = BigInt(0);
     }
 }
