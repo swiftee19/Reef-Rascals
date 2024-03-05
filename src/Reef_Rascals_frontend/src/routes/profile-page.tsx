@@ -9,6 +9,8 @@ import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {useAuthContext} from "../middleware/middleware";
+import { matchmaking } from '../../../declarations/matchmaking';
+import { getCurrentUser } from '../types/auth';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -18,8 +20,11 @@ export default function ProfilePage() {
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
     const [username, setUsername] = useState("")
+    const [loading, setLoading] = useState(true)
+
 
     const authContext = useAuthContext();
+    const [currUser, setCurrUser] = useState<User | null>(null)
 
     const rascal1: Rascal = new Rascal(
         "Axolberry",
@@ -69,6 +74,7 @@ export default function ProfilePage() {
         rank: League.Silver,
         battleHistories: [],
         elo: BigInt(243),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
@@ -102,6 +108,7 @@ export default function ProfilePage() {
         rank: League.Silver,
         battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
         elo: BigInt(267),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
@@ -116,53 +123,65 @@ export default function ProfilePage() {
         }
     }
 
+    async function userSetUp() {
+        const user = await getCurrentUser()
+        if(user) {
+            setCurrUser(user)
+        }
+    }
+
+    userSetUp()
+
     useEffect(() => {
-        setUsername(user.username);
+        if(currUser) {
+            const battleArray : BattleHistory[] = currUser.battleHistories
+            
+            if(battleArray.length == 0) {
+                setUserWinRate(0)
+            } else {
+                const victories = battleArray.filter(battle => battle.result == BattleResult.Win).length
+                setUserVictories(victories)
+                
+                const loses = battleArray.filter(battle => battle.result == BattleResult.Lose).length
+                setUserLoses(loses)
 
-        const victories = user.battleHistories.filter(battle => battle.result == BattleResult.Win).length
-        setUserVictories(victories)
+                const winRate = (victories / (victories + loses)) * 100
+                const roundedWinRate = Math.round(winRate * 100) / 100
+                setUserWinRate(roundedWinRate)
+            }
 
-        const loses = user.battleHistories.filter(battle => battle.result == BattleResult.Lose).length
-        setUserLoses(loses)
+            setUserLeagueProgress(calculateLeagueSliderProgress() as number)
 
-        if (victories + loses == 0) return setUserWinRate(0)
-        else {
-            const winRate = (victories / (victories + loses)) * 100
-            const roundedWinRate = Math.round(winRate * 100) / 100
-            setUserWinRate(roundedWinRate)
+            switch (currUser.rank) {
+                case League.Bronze:
+                    setLeagueFontColor("#CD7F32")
+                    setUserLeagueIcon("/bronze-league-icon.png")
+                    break
+                case League.Silver:
+                    setLeagueFontColor("#C0C0C0")
+                    setUserLeagueIcon("/silver-league-icon.png")
+                    break
+                case League.Gold:
+                    setLeagueFontColor("#FFD700")
+                    setUserLeagueIcon("/gold-league-icon.png")
+                    break
+            }
+            setLoading(false)
         }
-
-        setUserLeagueProgress(calculateLeagueSliderProgress() as number)
-
-        switch (user.rank) {
-            case League.Bronze:
-                setLeagueFontColor("#CD7F32")
-                setUserLeagueIcon("/bronze-league-icon.png")
-                break
-            case League.Silver:
-                setLeagueFontColor("#C0C0C0")
-                setUserLeagueIcon("/silver-league-icon.png")
-                break
-            case League.Gold:
-                setLeagueFontColor("#FFD700")
-                setUserLeagueIcon("/gold-league-icon.png")
-                break
-        }
-    }, [])
+    }, [currUser])
 
     const handleUsernameChange = (e: any) => {
         setUsername(e.target.value);
-    }
-
-    const handleChange = () => {
-
-        saveUser(user);
     }
 
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
             saveUser({...user, username: username});
         }
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -176,11 +195,10 @@ export default function ProfilePage() {
                         <img className={styles.profilePicture} src="/Ganyu.jpg" alt={"Image not found"}/>
                         <div className={styles.userInfoContainer}>
                             <p className={`${styles.khula} ${styles.sm}`}>
-                                Date Joined: {new Date(user.dateJoined).toLocaleDateString()}
+                                Date Joined: {new Date(currUser?.dateJoined!).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                <input className={styles.username} type="text" value={username}
-                                       onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress}/>
+                                <input type="text" value={currUser?.username} onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress} />
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
                                 Player ID:

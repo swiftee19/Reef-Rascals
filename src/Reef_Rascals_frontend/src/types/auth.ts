@@ -1,4 +1,7 @@
+import { Principal } from "@dfinity/principal";
+import { matchmaking } from "../../../declarations/matchmaking";
 import { User } from "./user";
+import { useAuthContext } from "../middleware/middleware";
 
 class AuthManager {
     private static instance: AuthManager;
@@ -29,3 +32,14 @@ class AuthManager {
 }
 
 export const authManager = AuthManager.getInstance();
+
+export async function getCurrentUser() {
+    const principal = Principal.fromText(useAuthContext().principal);
+    const result = await matchmaking.getUser(principal);
+    if (result.length === 1) {
+        const user: User = result[0];
+        return user;
+    } else {
+        console.log("Result is empty");
+    }
+}
