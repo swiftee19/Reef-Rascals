@@ -11,6 +11,7 @@ import {Principal} from "@dfinity/principal";
 import {useAuthContext} from "../middleware/middleware";
 import {matchmaking} from '../../../declarations/matchmaking';
 import {getCurrentUser} from '../types/auth';
+import LoadingPage from "../components/loading-page";
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -181,7 +182,11 @@ export default function ProfilePage() {
     }
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <>
+                <LoadingPage/>
+            </>
+        );
     }
 
     return (
