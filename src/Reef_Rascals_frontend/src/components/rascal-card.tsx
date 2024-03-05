@@ -3,6 +3,10 @@ import styles from "../scss/components/rascal-card.module.scss";
 import RarityLabel from "./rarity-label";
 
 export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, brownTheme?: boolean }) {
+
+    if (!rascal) {
+        return <div>Rascal data not available</div>;
+    }
     
     const gotoRascalDetail = () => {
         window.location.href = `/details/${rascal.id}`;
