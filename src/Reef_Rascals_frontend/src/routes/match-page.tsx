@@ -8,44 +8,11 @@ import MatchCanvas from "../components/match-canvas";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {BattleHistory, BattleResult} from "../types/battle-history";
+import rascalList from '../types/rascal-dummy';
 
 export default function MatchPage() {
 
-    const rascal1: Rascal = new Rascal(
-        "Axolberry",
-        3,
-        "/rascals/axolberry.png",
-        RascalType.Chubby,
-        Rarity.Common,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
-
-    const rascal2: Rascal = new Rascal(
-        "Captain Finbite",
-        6,
-        "/rascals/captain-finbite.png",
-        RascalType.Fearless,
-        Rarity.Epic,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
-
-    const rascal3: Rascal = new Rascal(
-        "Ribble",
-        2,
-        "/rascals/ribble.png",
-        RascalType.Fearless,
-        Rarity.Rare,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
+    const rascals: Rascal[] = rascalList
 
     const opponent = {
         id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
@@ -53,8 +20,8 @@ export default function MatchPage() {
         profilePictureUrl: "/Ganyu.jpg",
         dateJoined: new Date().toString(),
         tokens: 0.123,
-        rascals: [rascal2, rascal2, rascal3],
-        defense: [rascal2, rascal1, rascal3],
+        rascals: rascals.slice(0, 3),
+        defense: rascals.slice(0, 3),
         attack: [],
         rank: League.Silver,
         battleHistories: [],
@@ -68,8 +35,8 @@ export default function MatchPage() {
         date: new Date().toLocaleTimeString(),
         id: "#18222212730",
         opponent: opponent,
-        opponentRascal: [rascal1, rascal2],
-        usedRascal: [rascal2, rascal1, rascal3]
+        opponentRascal: rascals.slice(0, 3),
+        usedRascal: rascals.slice(0, 3)
     }
 
     const battleHistory1: BattleHistory = {
@@ -77,8 +44,8 @@ export default function MatchPage() {
         date: new Date().toLocaleTimeString(),
         id: "#18222212730",
         opponent: opponent,
-        opponentRascal: [rascal1, rascal2, rascal1],
-        usedRascal: [rascal2, rascal2, rascal3]
+        opponentRascal: rascals.slice(0, 3),
+        usedRascal: rascals.slice(0, 3)
     }
 
     const user = {
@@ -87,8 +54,8 @@ export default function MatchPage() {
         profilePictureUrl: "/Ganyu.jpg",
         dateJoined: new Date().toString(),
         tokens: 0.123,
-        rascals: [rascal1, rascal2, rascal3],
-        defense: [rascal1, rascal2, rascal3],
+        rascals: rascals.slice(4, 7),
+        defense: rascals.slice(4, 7),
         attack: [],
         rank: League.Silver,
         battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
@@ -97,11 +64,8 @@ export default function MatchPage() {
         rascalFragment: BigInt(0)
     }
 
-
     let currUser = authManager.getCurrentUser();
-
     let [inGame, setInGame] = useState(true);
-
     let users: User[] = [];
 
     async function searchForMatch(): Promise<User> {
@@ -112,17 +76,13 @@ export default function MatchPage() {
         return randomOpponent;
     }
 
-    let i = 0;
-    let userCurrRascal = 0;
-    let opponentCurrRascal = 0;
-
     return (
         <>
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-bottom.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
             <div className={styles.mainContainer}>
-                <MatchCanvas user1={user} user2={opponent}/>
+                <MatchCanvas player={user} opponent={opponent}/>
             </div>
         </>
     )

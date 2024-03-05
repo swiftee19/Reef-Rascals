@@ -13,13 +13,12 @@ export const useAuthContext = () => useContext(AuthContext);
 
 const guestRoutes = ["", "/", "marketplace"];
 export const AuthContextProvider = ({children}: { children: ReactNode }) => {
-    const [principal, setPrincipal] = useState<string | null>(null);
-    // const [principal, setPrincipal] = useState<string | null>("null");
+    // const [principal, setPrincipal] = useState<string | null>(null);
+    const [principal, setPrincipal] = useState<string | null>("null");
 
     const getPrincipal = async () : Promise<string | null> => {
         const principal = await localStorage.get("principal");
         if (principal != null) setPrincipal(principal);
-
         return principal;
     }
 

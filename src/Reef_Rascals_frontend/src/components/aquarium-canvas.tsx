@@ -68,7 +68,6 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
           positions[index].dy = -dy;
         }
       });
-
       window.requestAnimationFrame(animate);
     };
 
