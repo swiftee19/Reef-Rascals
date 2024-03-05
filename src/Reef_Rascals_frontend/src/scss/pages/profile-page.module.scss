@@ -76,6 +76,21 @@
   width: fit-content;
 }
 
+.nameInput {
+  width: max-content;
+  font-size: 2rem;
+  color: colors.$white;
+  background: none;
+  border: none;
+  transition: 300ms;
+
+  &:hover {
+    cursor: pointer;
+    color: colors.$light-blue;
+    transform: scale(1.1) translateX(0.5rem);
+  }
+}
+
 .backdrop {
   position: fixed;
   top: 0;

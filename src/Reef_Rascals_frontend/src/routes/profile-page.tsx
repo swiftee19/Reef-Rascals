@@ -9,8 +9,8 @@ import BattleHistoryCard from "../components/battle-history-card";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {useAuthContext} from "../middleware/middleware";
-import { matchmaking } from '../../../declarations/matchmaking';
-import { getCurrentUser } from '../types/auth';
+import {matchmaking} from '../../../declarations/matchmaking';
+import {getCurrentUser} from '../types/auth';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -125,7 +125,7 @@ export default function ProfilePage() {
 
     async function userSetUp() {
         const user = await getCurrentUser()
-        if(user) {
+        if (user) {
             setCurrUser(user)
         }
     }
@@ -133,15 +133,15 @@ export default function ProfilePage() {
     userSetUp()
 
     useEffect(() => {
-        if(currUser) {
-            const battleArray : BattleHistory[] = currUser.battleHistories
-            
-            if(battleArray.length == 0) {
+        if (currUser) {
+            const battleArray: BattleHistory[] = currUser.battleHistories
+
+            if (battleArray.length == 0) {
                 setUserWinRate(0)
             } else {
                 const victories = battleArray.filter(battle => battle.result == BattleResult.Win).length
                 setUserVictories(victories)
-                
+
                 const loses = battleArray.filter(battle => battle.result == BattleResult.Lose).length
                 setUserLoses(loses)
 
@@ -198,7 +198,8 @@ export default function ProfilePage() {
                                 Date Joined: {new Date(currUser?.dateJoined!).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                <input type="text" value={currUser?.username} onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress} />
+                                <input className={styles.nameInput} type="text" value={currUser?.username}
+                                       onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress}/>
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
                                 Player ID:
