@@ -1,5 +1,6 @@
 import {AuthClient, LocalStorage} from "@dfinity/auth-client";
-import {createActor} from "../declarations/matchmaking";
+import {createActor, matchmaking} from "../declarations/matchmaking";
+import { User } from "./src/types/user";
 
 // One day in nanoseconds
 const days = BigInt(1);
@@ -43,13 +44,22 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     },
   });
 
-  await localStorage.set("principal", identity.getPrincipal() as unknown as string)
+  const principal = identity.getPrincipal();
+  const result = await matchmaking.getUser(principal);
+
+  if (result.length === 1) {
+    const user: User = result[0];
+    console.log(user);
+  } else {
+    const user = new User(principal);
+    matchmaking.register(user);
+  }
+
+  await localStorage.set("principal", principal as unknown as string)
 };
 
 const init = async () => {
   const authClient = await AuthClient.create();
-
-  // check to see if user has previously logged in
   if (await authClient.isAuthenticated()) {
     await handleAuthenticated(authClient);
   } else {

@@ -10,14 +10,16 @@ actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
     var rascalMarket:[model.Rascal] = [];
 
-    public func getUser(key : Principal) : async Result.Result<model.User, Text> {
+    public func getUser(key : Principal) : async [model.User] {
+        var userArray: [model.User] = [];
         var user: ?model.User = users.get(key);
         switch(user) {
-            case(?User) {
-                return #ok(User);
+            case(?user) {
+                userArray := Array.append<model.User>(userArray, [user]);
+                return userArray;
             };
             case(null) {
-                return #err("no user found");
+                return userArray;
             };
         };
     };
