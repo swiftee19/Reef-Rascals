@@ -11,6 +11,7 @@ import MatchPage from './routes/match-page';
 import AquariumPage from './routes/aquarium-page';
 import { AuthContextProvider } from './middleware/middleware';
 import RascalDetailPage from './routes/rascal-detail-page';
+import LoadingPage from "./components/loading-page";
 
 const router = createBrowserRouter([
     {
