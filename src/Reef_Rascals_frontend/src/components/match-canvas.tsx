@@ -8,6 +8,15 @@ interface MatchCanvasProps {
     user2: User;
 }
 
+interface HealthBarProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    maxHealth: number;
+    currentHealth: number;
+}
+
 const getRandomBoolean = () => Math.random() < 0.5;
 
 function reward(user: User) {
@@ -28,6 +37,23 @@ function saveBattle(user: User, opponent: User, result: string) {
     saveUser(user);
 }
 
+function drawHealthBar(context: CanvasRenderingContext2D, healthBarProps: HealthBarProps) {
+    const {x, y, width, height, maxHealth, currentHealth} = healthBarProps;
+
+    // Draw background
+    context.save();
+    context.fillStyle = 'gray';
+    context.fillRect(x, y, width, height);
+    context.restore();
+
+    // Draw health
+    context.save();
+    context.fillStyle = 'green';
+    const healthWidth = ((currentHealth / maxHealth) * width) > 0 ? ((currentHealth / maxHealth) * width) : 0;
+    context.fillRect(x, y, healthWidth, height);
+    context.restore();
+}
+
 function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x: number, y: number, size: number, isFlipped: boolean) {
     const rascalImg = new Image();
     rascalImg.src = rascal.imageUrl;
@@ -44,6 +70,21 @@ function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x: number
     }
 }
 
+function drawRascalWithHealthBar(
+    context: CanvasRenderingContext2D,
+    rascal: Rascal,
+    x: number,
+    y: number,
+    size: number,
+    isFlipped: boolean,
+    healthBarProps: HealthBarProps
+) {
+    // Draw Rascal image
+    drawRascal(context, rascal, x, y, size, isFlipped);
+
+    // Draw Health bar
+    drawHealthBar(context, healthBarProps);
+}
 
 class BattleRascal {
     rascal: Rascal;
@@ -78,6 +119,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06 * 3;
+    const boomImageDuration = 200
 
     const startPositions = {
         x_left: window.innerWidth * 0.25 - (rascalSize / 2),
@@ -94,12 +136,27 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
     })
 
     let i = 0;
-    let currentAttackingRascalIndex = 0;
-    let currentDefendingRascalIndex = 0;
+    let currentAttackingRascalIndex = 0
+    let currentDefendingRascalIndex = 0
     const baseSpeed = 1;
-    const entropy = 1.1;
+    const entropy = 0.7;
 
     let moveSpeed = baseSpeed
+    let clearBoomImage = false;
+    let damage = 0
+
+    let attacker = attackingRascals.at(currentAttackingRascalIndex);
+    let defender = defendingRascals.at(currentDefendingRascalIndex);
+    let attackerMaxHealth = getInt(attacker!.rascal.health);
+    let defenderMaxHealth = getInt(defender!.rascal.health);
+
+    function drawDamageText(context: CanvasRenderingContext2D, text: string, x: number, y: number) {
+        context.save();
+        context.fillStyle = 'white';
+        context.font = '5rem Poppins bold';
+        context.fillText(text, x, y);
+        context.restore();
+    }
 
     function drawBoom(context: CanvasRenderingContext2D, x: number, y: number, size: number) {
         const boomImg = new Image();
@@ -108,6 +165,34 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
         context.save();
         context.drawImage(boomImg, x, y, size, size);
         context.restore();
+    }
+
+    function checkRascalCondition() {
+        if (getInt(defender!.rascal.health) <= 0) {
+            i = 0
+            currentDefendingRascalIndex += 1
+
+            if (currentDefendingRascalIndex >= defendingRascals.length) {
+                reward(user1);
+                saveBattle(user1, user2, "Win");
+                return;
+            }
+
+            defender = defendingRascals.at(currentDefendingRascalIndex);
+            defenderMaxHealth = getInt(defender!.rascal.health);
+        }
+
+        if (getInt(attacker!.rascal.health) <= 0) {
+            i = 0
+            currentAttackingRascalIndex += 1
+            if (currentAttackingRascalIndex >= attackingRascals.length) {
+                saveBattle(user1, user2, "Lose");
+                return;
+            }
+
+            attacker = attackingRascals.at(currentAttackingRascalIndex);
+            attackerMaxHealth = getInt(attacker!.rascal.health);
+        }
     }
 
     useEffect(() => {
@@ -122,111 +207,112 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
         canvas.height = window.innerHeight;
 
         const animate = () => {
-
             context.clearRect(0, 0, canvas.width, canvas.height);
-            let attacker = attackingRascals[currentAttackingRascalIndex];
-            let defender = defendingRascals[currentDefendingRascalIndex];
+            if (attacker && defender) {
+                // Draw attacking and defending Rascals with health bars
+                drawRascalWithHealthBar(context, attacker.rascal, attacker.x, attacker.y, rascalSize, false, {
+                    x: attacker.x,
+                    y: attacker.y + rascalSize + 5,
+                    width: rascalSize,
+                    height: 10,
+                    maxHealth: attackerMaxHealth,
+                    currentHealth: getInt(attacker.rascal.health),
+                });
 
-            drawRascal(context, attacker.rascal, attacker.x, attacker.y, rascalSize, false);
-            drawRascal(context, defender.rascal, defender.x, defender.y, rascalSize, true);
+                drawRascalWithHealthBar(context, defender.rascal, defender.x, defender.y, rascalSize, true, {
+                    x: defender.x,
+                    y: defender.y + rascalSize + 5,
+                    width: rascalSize,
+                    height: 10,
+                    maxHealth: defenderMaxHealth,
+                    currentHealth: getInt(defender.rascal.health),
+                });
 
-            if (attacker.isAttacking || defender.isAttacking || attacker.isReturningAfterAttacking || defender.isReturningAfterAttacking) {
-                i = i
+                if (attacker.isAttacking || defender.isAttacking || attacker.isReturningAfterAttacking || defender.isReturningAfterAttacking) {
+                    i = i
 
-                if (attacker.isAttacking) {
-                    if (attacker.x + (rascalSize * 0.8) < defender.x) {
-                        moveSpeed += entropy
-                        attacker.x += moveSpeed;
-                    } else {
-                        drawBoom(context, defender.x, defender.y, rascalSize)
-                        moveSpeed = baseSpeed
-                        attacker.isAttacking = false
-                        attacker.isReturningAfterAttacking = true
-                    }
-                } else if (attacker.isReturningAfterAttacking) {
-                    if (attacker.x > startPositions.x_left) {
-                        moveSpeed = moveSpeed + entropy
-                        attacker.x -= moveSpeed;
-                    } else {
-                        attacker.isReturningAfterAttacking = false
-                        moveSpeed = baseSpeed
-                    }
-                } else if (defender.isAttacking) {
-                    if (defender.x > attacker.x + (rascalSize * 0.8)) {
-                        moveSpeed += entropy
-                        defender.x -= moveSpeed;
-                    } else {
-                        drawBoom(context, attacker.x, attacker.y, rascalSize)
-                        moveSpeed = baseSpeed
-                        defender.isAttacking = false
-                        defender.isReturningAfterAttacking = true
-                    }
-                } else if (defender.isReturningAfterAttacking) {
-                    if (defender.x < startPositions.x_right) {
-                        moveSpeed = moveSpeed + entropy
-                        defender.x += moveSpeed;
-                    } else {
-                        defender.isReturningAfterAttacking = false
-                        moveSpeed = baseSpeed
-                    }
-                }
-            } else {
-                i += 1
+                    if (attacker.isAttacking) {
+                        if (attacker.x + (rascalSize * 0.8) < defender.x) {
+                            moveSpeed += entropy
+                            attacker.x += moveSpeed;
+                        } else {
+                            setTimeout(
+                                () => {
+                                    clearBoomImage = true
+                                }, boomImageDuration
+                            )
+                            moveSpeed = baseSpeed
+                            attacker.isAttacking = false
+                            attacker.isReturningAfterAttacking = true
 
-                if (i % getInt(attacker.rascal.speed) === 0) {
-                    attacker.isAttacking = true;
-                }
-                if (i % getInt(defender.rascal.speed) === 0) {
-                    defender.isAttacking = true;
+                            damage = attacker.attack(defender.rascal)
+                            checkRascalCondition()
+                        }
+                    } else if (attacker.isReturningAfterAttacking) {
+                        if (!clearBoomImage) {
+                            drawBoom(context, defender.x - (rascalSize / 2), defender.y, rascalSize)
+                        }
+                        drawDamageText(context, damage.toString(), defender.x - (0.2 * rascalSize), defender.y - (0.3 * rascalSize))
+
+                        if (attacker.x > startPositions.x_left) {
+                            moveSpeed = moveSpeed + entropy
+                            attacker.x -= moveSpeed;
+                        } else {
+                            attacker.isReturningAfterAttacking = false
+                            moveSpeed = baseSpeed
+                            clearBoomImage = false
+                            damage = 0
+                        }
+                    } else if (defender.isAttacking) {
+                        if (defender.x > attacker.x + (rascalSize * 0.8)) {
+                            moveSpeed += entropy
+                            defender.x -= moveSpeed;
+                        } else {
+                            setTimeout(
+                                () => {
+                                    clearBoomImage = true
+                                }, boomImageDuration
+                            )
+                            moveSpeed = baseSpeed
+                            defender.isAttacking = false
+                            defender.isReturningAfterAttacking = true
+
+                            damage = defender.attack(attacker.rascal)
+                            checkRascalCondition()
+                        }
+                    } else if (defender.isReturningAfterAttacking) {
+                        if (!clearBoomImage) {
+                            drawBoom(context, attacker.x + (rascalSize / 2), attacker.y, rascalSize)
+                        }
+                        drawDamageText(context, damage.toString(), attacker.x + rascalSize, attacker.y - (0.3 * rascalSize))
+
+
+                        if (defender.x < startPositions.x_right) {
+                            moveSpeed = moveSpeed + entropy
+                            defender.x += moveSpeed;
+                        } else {
+                            defender.isReturningAfterAttacking = false
+                            moveSpeed = baseSpeed
+                            clearBoomImage = false
+                            damage = 0
+                        }
+                    }
+                } else {
+                    i += 1
+
+                    if (i % (100 - getInt(attacker.rascal.speed)) === 0) {
+                        attacker.isAttacking = true;
+                    }
+                    if (i % (100 - getInt(defender.rascal.speed)) === 0) {
+                        defender.isAttacking = true;
+                    }
                 }
             }
 
-
-            // if (i % getInt(attacker.speed) === 0) {
-            //     const attackValue = attack(attacker, defender);
-            //
-            //     // Display the attack number
-            //     context.save();
-            //     context.fillStyle = 'red';
-            //     context.font = '3rem Poppins bold';
-            //     context.fillText(`Attack: ${attackValue}`, positions.x_left, positions.y_left - 10);
-            //     context.restore();
-            // }
-            //
-            // if (getInt(defender.health) <= 0) {
-            //     defenseCurr++;
-            //     if (defenseCurr >= defenseRascals.length) {
-            //         reward(user1);
-            //         saveBattle(user1, user2, "Win");
-            //         return;
-            //     }
-            // }
-            //
-            // if (i % getInt(defender.speed) === 0) {
-            //     const attackValue = attack(defender, attacker);
-            //
-            //     // Display the attack number
-            //     context.save();
-            //     context.fillStyle = 'red';
-            //     context.font = '3rem Poppins bold';
-            //     context.fillText(`Attack: ${attackValue}`, positions.x_right, positions.y_right - 10);
-            //     context.restore();
-            // }
-            //
-            // if (getInt(attacker.health) <= 0) {
-            //     attackCurr++;
-            //     if (attackCurr >= attackRascals.length) {
-            //         saveBattle(user1, user2, "Lose");
-            //         return;
-            //     }
-            // }
-            //
-            // i++;
-            //
             window.requestAnimationFrame(animate);
         }
         animate();
-    }, [canvasRef, attackingRascals, defendingRascals, rascalSize, user1, user2]);
+    }, [canvasRef]);
 
     return <canvas ref={canvasRef} style={{position: 'fixed', top: 0, left: 0}}/>;
 };
