@@ -28,7 +28,7 @@ export default function BattleHistoryCard({battleHistory}: { battleHistory: Batt
                         <p>Opponent ID: {battleHistory.opponent.id.toString()}</p>
                     </div>
                 </div>
-                <p className={styles.time}>{battleHistory.date} {battleHistory.date}</p>
+                <p className={styles.time}>{new Date(battleHistory.date).toLocaleDateString()} {new Date(battleHistory.date).toLocaleTimeString()}</p>
                 <div className={styles.rascalsContainer}>
                     <div className={styles.rascalsLeftContainer}>
                         {battleHistory.usedRascal.map((rascal, index) =>

@@ -78,7 +78,7 @@ export default function ProfilePage() {
 
     const battleHistory: BattleHistory = {
         result: BattleResult.Lose,
-        date: new Date().toLocaleTimeString(),
+        date: new Date().toString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2],
@@ -87,7 +87,7 @@ export default function ProfilePage() {
 
     const battleHistory1: BattleHistory = {
         result: BattleResult.Win,
-        date: new Date().toLocaleTimeString(),
+        date: new Date().toString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2, rascal1],
@@ -176,7 +176,7 @@ export default function ProfilePage() {
 
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
-            saveUser({ ...user, username: username });
+            saveUser({...user, username: username});
         }
     }
 

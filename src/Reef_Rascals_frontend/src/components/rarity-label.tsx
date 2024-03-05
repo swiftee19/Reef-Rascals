@@ -2,7 +2,7 @@ import { Rarity } from "../types/rascal";
 import styles from "../scss/components/rarity-label.module.scss";
 import { useEffect, useState } from "react";
 
-export default function RarityLabel({ rarity }: { rarity: Rarity }) {
+export default function RarityLabel({ rarity, short}: { rarity: Rarity, short: boolean}) {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function RarityLabel({ rarity }: { rarity: Rarity }) {
   }
 
   const rarityType = (): string => {
-    if (windowWidth <= 1500) {
+    if (short && windowWidth <= 1500) {
       return rarity.charAt(0);
     } else {
       return rarity;
@@ -42,7 +42,7 @@ export default function RarityLabel({ rarity }: { rarity: Rarity }) {
 
   return (
     <div className={rarityColor(rarity)}>
-      <p className={windowWidth <= 1500 ? styles.shortLabel : ''}>
+      <p className={short && windowWidth <= 1500 ? styles.shortLabel : ''}>
         {rarityType()}
       </p>
     </div>

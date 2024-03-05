@@ -3,8 +3,13 @@ import styles from "../scss/components/rascal-rank-card.module.scss";
 import RarityLabel from "./rarity-label";
 
 export default function RascalRankCard({ index, rascal }: { index: number, rascal: Rascal }) {
+  
+  const gotoRascalDetail = () => {
+    window.location.href = `/details/${rascal.id}`;
+  }
+  
   return (
-    <div className={styles.cardContainer}>
+    <div className={styles.cardContainer} onClick={gotoRascalDetail}>
       <div className={styles.rankNumber}>
         <h1>{index + 1}</h1>
       </div>
@@ -39,7 +44,7 @@ export default function RascalRankCard({ index, rascal }: { index: number, rasca
       </section>
 
       <div className={styles.rarityLabel}>
-        <RarityLabel rarity={rascal.rarity as Rarity}/>
+        <RarityLabel rarity={rascal.rarity as Rarity} short={true}/>
       </div>
     </div>
   )

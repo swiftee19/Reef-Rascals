@@ -8,6 +8,8 @@ interface MatchCanvasProps {
     user2: User;
 }
 
+const getRandomBoolean = () => Math.random() < 0.5;
+
 const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProps) => {
     user1.attack = user1.rascals;
     user2.defense = user2.rascals;
@@ -39,8 +41,14 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
         }
     }
 
-    function attack(attack: Rascal, defense: Rascal) {
-        defense.health = BigInt(getInt(defense.health) - getInt(attack.attack));
+    function attack(attack: Rascal, defense: Rascal): number {
+        const deviationSign = getRandomBoolean() ? 1 : -1;
+        const deviationValue = Math.random() * 2 * deviationSign;
+        const finalValue = getInt(attack.attack) + parseInt(String(deviationValue));
+
+        defense.health = BigInt(getInt(defense.health) - finalValue);
+
+        return finalValue;
     }
 
     function reward(user: User) {
@@ -94,7 +102,14 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
             context.restore();
 
             if (i % getInt(attacker.speed) === 0) {
-                attack(attacker, defender);
+                const attackValue = attack(attacker, defender);
+
+                // Display the attack number
+                context.save();
+                context.fillStyle = 'red';
+                context.font = '32px Poppins';
+                context.fillText(`Attack: ${attackValue}`, positions.x_left, positions.y_left - 10);
+                context.restore();
             }
 
             if (getInt(defender.health) <= 0) {
@@ -108,7 +123,14 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({user1, user2}: MatchCanvasProp
             }
 
             if (i % getInt(defender.speed) === 0) {
-                attack(defender, attacker);
+                const attackValue = attack(defender, attacker);
+
+                // Display the attack number
+                context.save();
+                context.fillStyle = 'red';
+                context.font = '32px Poppins';
+                context.fillText(`Attack: ${attackValue}`, positions.x_right + rascalSize * 2, positions.y_right - 10);
+                context.restore();
             }
 
             if (getInt(attacker.health) <= 0) {
