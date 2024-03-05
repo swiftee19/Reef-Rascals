@@ -21,15 +21,13 @@ export class BattleRascal {
     y: number;
     isAttacking: boolean;
     isReturningAfterAttacking: boolean;
-    isBeingAttacked: boolean;
 
-    constructor(rascal: Rascal, x: number, y: number, isAttacking: boolean, isReturningAfterAttacking: boolean, isBeingAttacked: boolean) {
+    constructor(rascal: Rascal, x: number, y: number, isAttacking: boolean, isReturningAfterAttacking: boolean) {
         this.rascal = rascal;
         this.x = x;
         this.y = y;
         this.isAttacking = isAttacking;
         this.isReturningAfterAttacking = isReturningAfterAttacking;
-        this.isBeingAttacked = isBeingAttacked;
     }
 
     attack = (defender: Rascal) => {

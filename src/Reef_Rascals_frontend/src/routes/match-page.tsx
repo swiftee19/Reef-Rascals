@@ -13,7 +13,6 @@ import rascalList from '../types/rascal-dummy';
 export default function MatchPage() {
 
     const rascals: Rascal[] = rascalList
-
     const opponent = {
         id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
         username: "Alexander Ryan Alex",
@@ -83,6 +82,14 @@ export default function MatchPage() {
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
             <div className={styles.mainContainer}>
                 <MatchCanvas player={user} opponent={opponent}/>
+            </div>
+            <div className={styles.topPart}>
+                <div className={styles.topLeft}>
+
+                </div>
+                <div className={styles.topRight}>
+                    
+                </div>
             </div>
         </>
     )

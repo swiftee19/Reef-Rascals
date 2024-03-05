@@ -21,10 +21,10 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
         y_right: window.innerHeight * 0.5 - (rascalSize / 2),
     }
     const attackingRascals: BattleRascal[] = player.attack.map((rascal) => {
-        return new BattleRascal(rascal, startPositions.x_left, startPositions.y_left, false, false, false);
+        return new BattleRascal(rascal, startPositions.x_left, startPositions.y_left, false, false);
     })
     const defendingRascals: BattleRascal[] = opponent.defense.map((rascal) => {
-        return new BattleRascal(rascal, startPositions.x_right, startPositions.y_right, false, false, false);
+        return new BattleRascal(rascal, startPositions.x_right, startPositions.y_right, false, false);
     })
 
     let i = 0;
@@ -100,7 +100,6 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
             current.isAttacking = false
             current.isReturningAfterAttacking = true
             damage = current.attack(target.rascal)
-            target.isBeingAttacked = true
             checkRascalCondition()
         }
     }
@@ -121,7 +120,6 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
             current.x += moveSpeed;
         } else {
             current.isReturningAfterAttacking = false
-            target.isBeingAttacked = false
             moveSpeed = baseSpeed
             clearBoomImage = false
             damage = 0
