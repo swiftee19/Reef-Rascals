@@ -74,7 +74,7 @@ export default function ProfilePage() {
 
     const battleHistory: BattleHistory = {
         result: BattleResult.Lose,
-        date: new Date().toLocaleTimeString(),
+        date: new Date().toString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2],
@@ -83,7 +83,7 @@ export default function ProfilePage() {
 
     const battleHistory1: BattleHistory = {
         result: BattleResult.Win,
-        date: new Date().toLocaleTimeString(),
+        date: new Date().toString(),
         id: "#18222212730",
         opponent: opponent,
         opponentRascal: [rascal1, rascal2, rascal1],
@@ -155,13 +155,13 @@ export default function ProfilePage() {
     }
 
     const handleChange = () => {
-        
+
         saveUser(user);
     }
 
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
-            saveUser({ ...user, username: username });
+            saveUser({...user, username: username});
         }
     }
 
@@ -179,7 +179,8 @@ export default function ProfilePage() {
                                 Date Joined: {new Date(user.dateJoined).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                <input type="text" value={username} onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress} />
+                                <input className={styles.username} type="text" value={username}
+                                       onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress}/>
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>
                                 Player ID:
