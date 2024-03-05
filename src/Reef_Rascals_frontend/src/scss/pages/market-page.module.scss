@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .headerContainer {
@@ -17,8 +18,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 2rem 0;
+    width: 80vw;
+    position: fixed;
     z-index: 100;
-    width: 90%;
+    background-image: colors.$dark-fade-gradient;
 
     h1 {
         color: colors.$white;
@@ -62,6 +65,7 @@
     background-color: colors.$dark-blue;
     border-radius: 5px;
     width: 90%;
+    margin-top: 10rem;
 }
 
 .containerHeader {
@@ -69,15 +73,6 @@
 }
 
 .topSelling {
-    // display: flex;
-    // flex-wrap: wrap;
-    // gap: 1rem;
-
-    // > * {
-    //     flex: 0 1 calc(50% - 1rem);
-    //     align-self: stretch;
-    // }
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -110,5 +105,42 @@
 
     @media (max-width: 720px) {
         grid-template-columns: 1fr;
+    }
+}
+
+.rightContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.sellBtn {
+    color: colors.$light-blue;
+    border: 1px solid colors.$light-blue;
+    background-color: colors.$dark-blue;
+    border-radius: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 2rem;
+
+    &:hover {
+        background-image: colors.$radial-gradient;
+        cursor: pointer;
+    }
+}
+
+.myICP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    color: colors.$light-blue;
+    background-color: colors.$dark-blue;
+    border-radius: 5px;
+    border: 1px solid colors.$light-blue;
+    gap: 1rem;
+
+    img {
+        height: 40px;
     }
 }
