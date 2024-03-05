@@ -17,21 +17,17 @@ export default function AquariumPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [currUser, setCurrUser] = useState<User | null>(null);
     const [rascals, setRascals] = useState<Rascal[]>([]);
+    const [isLoadingRascals, setIsLoadingRascals] = useState(true);
 
     async function userSetUp() {
         const user = await getCurrentUser()
         if(user) {
             setCurrUser(user)
+            setRascals(user.rascals)
+            setIsLoadingRascals(false)
+            console.log("rascals", rascals)
         }
     }
-
-    userSetUp()
-
-    useEffect(() => {
-        if(currUser) {
-            setRascals(currUser.rascals)
-        }
-    }, [currUser]);
 
     const togglePage = () => {
         setIsAquarium(!isAquarium);
@@ -45,6 +41,13 @@ export default function AquariumPage() {
         window.location.href = "/match" + canisterId;
     }
 
+    if(isLoadingRascals) {
+        userSetUp()
+        return <div>Loading...</div>
+    }
+
+    var arrayRascals = Array.from(rascals)
+
     return (
         <>
             <SidebarNav/>
@@ -52,14 +55,14 @@ export default function AquariumPage() {
                 <img className={styles.background} src="/bg-aquarium.png"/>
                 <AquariumCanvas rascals={rascals}/>
 
-                <footer className={styles.aquariumBottom} onClick={() => {
-                    findMatch()
+                <footer className={styles.aquariumBottom} onClick={(e) => {
+                    findMatch();
                 }}>
                     <img src="/wood-round.png" alt=""/>
                 </footer>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    <MyRascalPage/>
+                    <MyRascalPage {...arrayRascals}/>
                 </section>
 
                 <header className={styles.aquariumTop}>
