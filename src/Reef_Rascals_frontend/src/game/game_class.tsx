@@ -1,6 +1,19 @@
 import { Rascal } from "../types/rascal";
-import { getInt } from "../types/user";
+import { User, getInt } from "../types/user";
 import { getRandomBoolean } from "./game_helper";
+
+export interface MatchCanvasProps {
+    player: User;
+    opponent: User;
+}
+export interface HealthBarProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    maxHealth: number;
+    currentHealth: number;
+}
 
 export class BattleRascal {
     rascal: Rascal;
@@ -8,13 +21,15 @@ export class BattleRascal {
     y: number;
     isAttacking: boolean;
     isReturningAfterAttacking: boolean;
+    isBeingAttacked: boolean;
 
-    constructor(rascal: Rascal, x: number, y: number, isAttacking: boolean, isReturningAfterAttacking: boolean) {
+    constructor(rascal: Rascal, x: number, y: number, isAttacking: boolean, isReturningAfterAttacking: boolean, isBeingAttacked: boolean) {
         this.rascal = rascal;
         this.x = x;
         this.y = y;
         this.isAttacking = isAttacking;
         this.isReturningAfterAttacking = isReturningAfterAttacking;
+        this.isBeingAttacked = isBeingAttacked;
     }
 
     attack = (defender: Rascal) => {
