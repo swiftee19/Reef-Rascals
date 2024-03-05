@@ -1,0 +1,124 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.mainContainer {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .backgroundImg {
+        position: absolute;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.rascalContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.rascalImg {
+    display: flex;
+    flex-direction: column;
+    color: colors.$white;
+    width: 25%;
+}
+
+.backdropOverlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.rascalDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 50%;
+}
+
+.detailBox {
+    background-image: colors.$radial-gradient;
+    border-radius: 5px;
+    border: 1px solid colors.$light-blue;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.buyBtn {
+    background-image: colors.$turqouise-gradient;
+    text-align: center;
+    color: colors.$white;
+    padding: 0.5rem;
+    border-radius: 5rem;
+    border: 1px solid colors.$light-blue;
+}
+
+.retreiveBtn {
+    background-image: colors.$orange-gradient;
+    text-align: center;
+    color: colors.$white;
+    padding: 0.5rem;
+    border-radius: 5rem;
+    border: 1px solid colors.$light-blue;
+}
+
+
+.rascalIdentity {
+    color: colors.$white;
+    h1 {
+        font-family: fonts.$vt323;
+        font-size: 3rem;
+    };
+}
+
+.ownerBtns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+
+.cardStats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    color: colors.$light-blue;
+
+    div {
+        text-align: center;
+        .atkLbl, .hpLbl, .spdLbl {
+            color: colors.$white;
+            font-weight: 500;
+            width: 2.5rem;
+            border-radius: 5px;
+        }
+        .atkLbl {
+            background-color: colors.$soft-red;
+        }
+        .hpLbl {
+            background-color: colors.$turqouise;
+        }
+        .spdLbl {
+            background-color: colors.$yellow;
+        }
+    }
+}

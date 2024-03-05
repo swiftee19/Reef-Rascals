@@ -5,7 +5,7 @@ import RarityLabel from "./rarity-label";
 export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, brownTheme?: boolean }) {
     
     const gotoRascalDetail = () => {
-        
+        window.location.href = `/details/${rascal.id}`;
     }
     
     return (
@@ -19,7 +19,7 @@ export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, bro
                 </div>
 
                 <div className={styles.cardRarity}>
-                    <RarityLabel rarity={rascal.rarity as Rarity}/>
+                    <RarityLabel rarity={rascal.rarity as Rarity} short={true}/>
                 </div>
             </div>
 

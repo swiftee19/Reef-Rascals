@@ -12,10 +12,14 @@
   gap: 1rem;
   padding: 1rem;
 
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+
   @media (max-width: 800px) {
     flex-direction: column;
-}
-
+  }
 
   .rankNumber {
     padding: 0;
