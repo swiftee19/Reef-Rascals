@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
@@ -6,44 +6,40 @@ import styles from "../scss/pages/aquarium-page.module.scss";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
+import { useAuthContext } from "../middleware/middleware";
+import { getCurrentUser } from "../types/auth";
+import { User } from "../types/user";
 
 export default function AquariumPage() {
     const [isAquarium, setIsAquarium] = useState(true);
+    const authContext = useAuthContext();
+    const [principal, setPrincipal] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [currUser, setCurrUser] = useState<User | null>(null);
+    const [rascals, setRascals] = useState<Rascal[]>([]);
 
-    const rascal1: Rascal = new Rascal(
-        "Circus Clio",
-        2,
-        "/rascals/circus-clio.png",
-        RascalType.Fearless,
-        Rarity.Common,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    )
+    async function userSetUp() {
+        const user = await getCurrentUser()
+        if(user) {
+            setCurrUser(user)
+        }
+    }
 
-    const rascal2: Rascal = new Rascal(
-        "Axolberry",
-        2,
-        "/rascals/axolberry.png",
-        RascalType.Fearless,
-        Rarity.Common,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    )
+    userSetUp()
 
-    const rascals = [rascal1, rascal2];
+    useEffect(() => {
+        if(currUser) {
+            setRascals(currUser.rascals)
+        }
+    }, [currUser]);
+
     const togglePage = () => {
         setIsAquarium(!isAquarium);
     }
 
     const findMatch = () => {
         const currentRoute = window.location.href;
-        // console.log(currentRoute)
         const routeSplit = currentRoute.split("?")
-        // console.log(routeSplit)
         const tempCanisterId = routeSplit[1];
         const canisterId = "?" + tempCanisterId
         window.location.href = "/match" + canisterId;

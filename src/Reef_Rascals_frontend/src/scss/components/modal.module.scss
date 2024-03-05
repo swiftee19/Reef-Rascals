@@ -1,0 +1,60 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.sellModal {
+    background-color: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sellContent {
+    background-color: colors.$dark-blue;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid colors.$light-blue;
+    border-radius: 10px;
+    position: relative;
+    padding: 2rem;
+    gap: 2rem;
+
+    .closeBtn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+
+        svg {
+            width: 40px;
+            height: 40px;
+            color: colors.$light-blue;
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.title {
+    color: colors.$white;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    gap: 1rem;
+    padding: 0 2rem;
+    width: 90%;
+}

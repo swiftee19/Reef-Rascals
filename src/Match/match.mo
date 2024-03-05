@@ -4,6 +4,7 @@ import Result "mo:base/Result";
 import Text "mo:base/Text";
 import Array "mo:base/Array";
 import Iter "mo:base/Iter";
+import Random "mo:base/Random";
 import model "model";
 
 actor {
@@ -115,5 +116,62 @@ actor {
             x.id != rascal.id;
         });
         return "success";
+    };
+
+    public func initRascal(key : Principal) : async Text {
+        var user: ?model.User = users.get(key);
+        switch(user) {
+            case(?user) {
+                var rascal1: model.Rascal = {
+                    id = "Axolberry";
+                    name = "Axolberry";
+                    owner = key;
+                    price = 20;
+                    level = 3;
+                    attack = 10;
+                    health = 30;
+                    speed = 10;
+                    imageUrl = "/rascals/axolberry.png";
+                    tribe = "Chubby";
+                    rarity = "Common";
+                };
+
+                var rascal2: model.Rascal = {
+                    id = "Captain Finbite";
+                    name = "Captain Finbite";
+                    owner = key;
+                    price = 20;
+                    level = 6;
+                    attack = 10;
+                    health = 30;
+                    speed = 10;
+                    imageUrl = "/rascals/captain-finbite.png";
+                    tribe = "Fearless";
+                    rarity = "Epic";
+                };
+
+                var rascal3: model.Rascal = {
+                    id = "Ribble";
+                    name = "Ribble";
+                    owner = key;
+                    price = 20;
+                    level = 2;
+                    attack = 10;
+                    health = 30;
+                    speed = 10;
+                    imageUrl = "/rascals/ribble.png";
+                    tribe = "Fearless";
+                    rarity = "Rare";
+                };
+
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal1, rascal2, rascal3]);
+                let newUSer = { user with rascals = newRascals };
+                users.put(key, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "failed"
+            };
+        };
     };
 };
