@@ -28,6 +28,7 @@ export class User {
     rank: string;
     battleHistories: BattleHistory[];
     elo: bigint;
+    raslet: bigint;
     rascalFragment: bigint;
 
     constructor(id: Principal) {
@@ -42,6 +43,7 @@ export class User {
         this.rank = League.Bronze;
         this.battleHistories = [];
         this.elo = BigInt(0);
+        this.raslet = BigInt(0);
         this.rascalFragment = BigInt(0);
     }
 }

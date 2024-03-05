@@ -10,6 +10,7 @@ import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {useAuthContext} from "../middleware/middleware";
 import { matchmaking } from '../../../declarations/matchmaking';
+import { getCurrentUser } from '../types/auth';
 
 export default function ProfilePage() {
     const [userVictories, setUserVictories] = useState(0)
@@ -73,6 +74,7 @@ export default function ProfilePage() {
         rank: League.Silver,
         battleHistories: [],
         elo: BigInt(243),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
@@ -106,6 +108,7 @@ export default function ProfilePage() {
         rank: League.Silver,
         battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
         elo: BigInt(267),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
@@ -121,12 +124,9 @@ export default function ProfilePage() {
     }
 
     async function userSetUp() {
-        const result = await matchmaking.getUser(Principal.fromText(authContext.principal));
-        if (result.length === 1) {
-            const user: User = result[0];
-            setCurrUser(user);
-        } else {
-            console.log("Result is empty");
+        const user = await getCurrentUser()
+        if(user) {
+            setCurrUser(user)
         }
     }
 
@@ -135,7 +135,7 @@ export default function ProfilePage() {
     useEffect(() => {
         if(currUser) {
             const battleArray : BattleHistory[] = currUser.battleHistories
-
+            
             if(battleArray.length == 0) {
                 setUserWinRate(0)
             } else {

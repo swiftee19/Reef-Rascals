@@ -59,6 +59,7 @@ export default function MatchPage() {
         rank: League.Silver,
         battleHistories: [],
         elo: BigInt(243),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
@@ -92,6 +93,7 @@ export default function MatchPage() {
         rank: League.Silver,
         battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
         elo: BigInt(267),
+        raslet: BigInt(0),
         rascalFragment: BigInt(0)
     }
 
