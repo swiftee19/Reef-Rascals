@@ -9,7 +9,75 @@ import model "model";
 
 actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
-    var rascalMarket:[model.Rascal] = [];
+
+    let rascal1 = {
+        id = "Axolberry";
+        name = "Axolberry";
+        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        price = 2.32;
+        level = 3;
+        attack = 10;
+        health = 30;
+        speed = 10;
+        imageUrl = "/rascals/axolberry.png";
+        tribe = "Chubby";
+        rarity = "Common";
+    };
+
+    let rascal2 = {
+        id = "Captain Finbite";
+        name = "Captain Finbite";
+        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        price = 0.22;
+        level = 6;
+        attack = 10;
+        health = 30;
+        speed = 10;
+        imageUrl = "/rascals/captain-finbite.png";
+        tribe = "Fearless";
+        rarity = "Epic";
+    };
+
+    let rascal3 = {
+        id = "Ribble";
+        name = "Ribble";
+        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        price = 1.30;
+        level = 2;
+        attack = 10;
+        health = 30;
+        speed = 10;
+        imageUrl = "/rascals/ribble.png";
+        tribe = "Fearless";
+        rarity = "Rare";
+    };
+
+    var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
+
+    public func getRascal(id : Text, owner:Principal) : async [model.Rascal] {
+        var userCheck: ?model.User = users.get(owner);
+
+        switch(userCheck) {
+            case(?user) {
+                var userRascal: [model.Rascal] = [];
+                var marketCheck: [model.Rascal] = [];
+
+                marketCheck := Array.filter<model.Rascal>(rascalMarket, func (x) {
+                    x.id == id;
+                });
+
+                userRascal := Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id == id;
+                });
+
+                marketCheck := Array.append<model.Rascal>(marketCheck, userRascal);
+                return marketCheck;
+            };
+            case(null) {
+                return [];
+            };
+        };
+    };
 
     public func getUser(key : Principal) : async [model.User] {
         var userArray: [model.User] = [];

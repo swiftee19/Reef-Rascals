@@ -26,7 +26,7 @@ export default function AquariumPage() {
             setCurrUser(user)
             setRascals(user.rascals)
             setIsLoadingRascals(false)
-            console.log("rascals", rascals)
+            console.log("rascals", user.rascals)
         }
     }
 

@@ -12,10 +12,12 @@ import rascalList from '../types/rascal-dummy';
 import HealthStats from '../components/health-stats';
 import { FightingRascals } from '../components/fighting-rascals';
 import { useParams } from 'react-router';
+import LoadingPage from '../components/loading-page';
 
 export default function MatchPage() {
     const { defenderID } = useParams();
     const [defender, setDefender] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     async function getDefender() {
@@ -23,10 +25,16 @@ export default function MatchPage() {
             const user = await matchmaking.getUser(Principal.fromText(defenderID));
             if(user){
                 setDefender(user[0]);
+                setIsLoading(false);
             } else {
                 console.log("user not found");
             }
         }
+    }
+
+    if(isLoading) {
+        getDefender();
+        return <LoadingPage/>
     }
     
     const rascals: Rascal[] = rascalList

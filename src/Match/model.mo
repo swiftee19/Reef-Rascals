@@ -32,13 +32,13 @@ module {
     public type Rascal = {
         id: Text;
         name: Text;
-        level: Int;
+        level: Nat;
         imageUrl: Text;
         tribe : Text;
         rarity: Text;
-        health: Int;
-        attack: Int;
-        speed: Int;
+        health: Nat;
+        attack: Nat;
+        speed: Nat;
         owner: Principal;
         price: Float;
     };
