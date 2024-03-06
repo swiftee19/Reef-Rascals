@@ -24,6 +24,7 @@ export class Rascal {
     attack: bigint;
     speed: bigint;
     owner: Principal;
+    price: number;
 
     constructor(name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number, owner: string) {
         this.id = `#${uuidv4().slice(0, 8).toUpperCase()}`;
@@ -36,5 +37,6 @@ export class Rascal {
         this.attack = BigInt(attack);
         this.speed = BigInt(speed);
         this.owner = Principal.fromText(owner);
+        this.price = 0.111;
     }
 }

@@ -57,23 +57,6 @@ actor {
         };
     };
 
-    // public func login(key : Principal, password : Text) : async Text {
-    //     var user: ?model.User = users.get(key);
-    //     switch(user) {
-    //         case(?User) {
-    //             var user: model.User = User;
-    //             if(user.pri == password) {
-    //                 return "success";
-    //             } else {
-    //                 return "failure";
-    //             };
-    //         };
-    //         case(null) {
-    //             return "failure";
-    //         };
-    //     };
-    // };
-
     public func updateUser(key : Principal, user : model.User) : async Text {
         var check: ?model.User = users.get(key);
 

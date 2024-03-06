@@ -5,6 +5,7 @@ import Array "mo:base/Array";
 import Result "mo:base/Result";
 import Int "mo:base/Int";
 import Time "mo:base/Time";
+import Float "mo:base/Float";
 
 module {
 
@@ -39,6 +40,7 @@ module {
         attack: Int;
         speed: Int;
         owner: Principal;
+        price: Float;
     };
 
     public type User = {

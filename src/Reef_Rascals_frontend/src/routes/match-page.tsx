@@ -11,9 +11,24 @@ import {BattleHistory, BattleResult} from "../types/battle-history";
 import rascalList from '../types/rascal-dummy';
 import HealthStats from '../components/health-stats';
 import { FightingRascals } from '../components/fighting-rascals';
+import { useParams } from 'react-router';
 
 export default function MatchPage() {
+    const { defenderID } = useParams();
+    const [defender, setDefender] = useState<User | null>(null);
 
+
+    async function getDefender() {
+        if(defenderID) {
+            const user = await matchmaking.getUser(Principal.fromText(defenderID));
+            if(user){
+                setDefender(user[0]);
+            } else {
+                console.log("user not found");
+            }
+        }
+    }
+    
     const rascals: Rascal[] = rascalList
     const opponent = {
         id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),

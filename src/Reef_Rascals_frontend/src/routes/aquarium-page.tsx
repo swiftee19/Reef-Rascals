@@ -42,10 +42,10 @@ export default function AquariumPage() {
         window.location.href = "/match" + canisterId;
     }
 
-    // if(isLoadingRascals) {
-    //     userSetUp()
-    //     return <LoadingPage/>
-    // }
+    if(isLoadingRascals) {
+        userSetUp()
+        return <LoadingPage/>
+    }
 
     return (
         <>
