@@ -2,16 +2,44 @@ import { useState } from 'react';
 import RarityLabel from '../components/rarity-label';
 import SidebarNav from '../components/sidebar-nav';
 import styles from '../scss/pages/rascal-detail-page.module.scss';
-import { Rarity } from '../types/rascal';
+import { Rarity, Rascal } from '../types/rascal';
 import rascalList from '../types/rascal-dummy';
 import InputPriceModal from '../components/input-price-modal';
+import { useParams } from 'react-router';
+import { matchmaking } from '../../../declarations/matchmaking';
+import { AuthContext, useAuthContext } from '../middleware/middleware';
+import LoadingPage from '../components/loading-page';
 
 export default function RascalDetailPage() {
     const [isSell, setIsSell] = useState(false);
-    const rascal = rascalList[0]
+    const [rascal, setRascal] = useState<Rascal>({} as Rascal);
+    const [isLoading, setIsLoading] = useState(true);
+    const param = useParams();
+    const rascalId = param.rascalId;
+    const userId = useAuthContext().principal;
+
+    const fetchRascal = async () => {
+        if(rascalId) {
+            const data = await matchmaking.getRascal(rascalId,userId);
+            if(data) {
+                setRascal(data[0]);
+                setIsLoading(false);
+            }
+        }
+    }
 
     const handleSell = () => {
         setIsSell(!isSell);
+    }
+
+    async function sellRascal(price: number) {
+        rascal.price = price;
+        matchmaking.sellRascal(rascal);
+    }
+
+    if(isLoading) {
+        fetchRascal();
+        return <LoadingPage/>
     }
 
     return(
@@ -72,7 +100,7 @@ export default function RascalDetailPage() {
             </div>
 
             {
-                isSell && <InputPriceModal closeModal={handleSell}/>
+                isSell && <InputPriceModal closeModal={handleSell} sellRascal={sellRascal}/>
             }
         </>
     )

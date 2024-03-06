@@ -53,10 +53,6 @@ export function saveUser(user: User) {
     console.log(check);
 }
 
-export function sellRascal(rascal: Rascal) {
-    matchmaking.sellRascal(rascal)
-}
-
 export function retrieveRascal(rascal: Rascal) {
     matchmaking.removeFromMarket(rascal)
 }
@@ -67,6 +63,11 @@ export function getElo(user: User) {
 
 export function getInt(x: bigint) {
     return Number(x);
+}
+
+export async function sellRascal(price: number, rascal: Rascal) {
+    rascal.price = price;
+    matchmaking.sellRascal(rascal);
 }
 
 export function gacha(user: User) {

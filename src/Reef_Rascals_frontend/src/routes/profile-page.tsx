@@ -29,7 +29,6 @@ export default function ProfilePage() {
 
     const rascal1: Rascal = new Rascal(
         "Axolberry",
-        3,
         "/rascals/axolberry.png",
         RascalType.Chubby,
         Rarity.Common,
@@ -41,7 +40,6 @@ export default function ProfilePage() {
 
     const rascal2: Rascal = new Rascal(
         "Captain Finbite",
-        6,
         "/rascals/captain-finbite.png",
         RascalType.Fearless,
         Rarity.Epic,
@@ -53,7 +51,6 @@ export default function ProfilePage() {
 
     const rascal3: Rascal = new Rascal(
         "Ribble",
-        2,
         "/rascals/ribble.png",
         RascalType.Fearless,
         Rarity.Rare,

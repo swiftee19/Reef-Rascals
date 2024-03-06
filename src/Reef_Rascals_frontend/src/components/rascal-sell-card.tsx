@@ -3,6 +3,7 @@ import styles from "../scss/components/rascal-sell-card.module.scss";
 import RarityLabel from "./rarity-label";
 import { useEffect, useState } from "react";
 import InputPriceModal from "./input-price-modal";
+import { matchmaking } from "../../../declarations/matchmaking";
 
 export default function RascalSellCard({rascal }: { rascal: Rascal }) {
     const [canisterId, setCanisterId] = useState("")
@@ -14,6 +15,11 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
 
     const sellModal = () => {
         setIsSell(!isSell);
+    }
+
+    async function sellRascal(price: number) {
+        rascal.price = price;
+        matchmaking.sellRascal(rascal);
     }
 
     useEffect(() => {
@@ -71,7 +77,7 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
 
             {
                 isSell &&
-                <InputPriceModal closeModal={sellModal}/>
+                <InputPriceModal closeModal={sellModal} sellRascal={sellRascal}/>
             }
         </div>
     )
