@@ -80,6 +80,13 @@
     border: 1px solid colors.$light-blue;
 }
 
+.buyBtn, .retreiveBtn {
+    &:hover {
+        cursor: pointer;
+        transform: translate(2px, 2px);
+        transition: transform 0.3s ease;
+    }
+}
 
 .rascalIdentity {
     color: colors.$white;
@@ -88,7 +95,6 @@
         font-size: 3rem;
     };
 }
-
 .ownerBtns {
     display: grid;
     grid-template-columns: 1fr 1fr;

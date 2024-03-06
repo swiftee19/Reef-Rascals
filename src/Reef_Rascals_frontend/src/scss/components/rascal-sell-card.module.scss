@@ -76,7 +76,7 @@
 
 .cardStats {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   gap: 1rem;
 
@@ -103,14 +103,24 @@
   }
 }
 
+.buttonContainer {
+  // position: absolute;
+  display: flex;
+  // flex-direction: column;
+  gap: 0.5rem;
+  right: 1rem;
+  bottom: 1rem;
+  margin-top: 1rem;
+}
+
 .sellBtn {
     color: white;
     font-weight: bold;
-    padding: 0.5rem 1rem;
     border-radius: 5px;
-    position: absolute;
-    right: 1rem;
+    // position: absolute;
+    // right: 1rem;
     text-transform: uppercase;
+    padding: 0.2rem 1rem;
 
     &:hover {
         cursor: pointer;

@@ -24,7 +24,7 @@ export default function RascalDetailPage() {
                             <div className={styles.rascalIdentity}>
                                 <h1>{rascal.name}</h1>
                                 <p>{rascal.tribe}</p>
-                                <p>{rascal.id}</p>
+                                <p>#{rascal.id}</p>
                             </div>
                             <div className={styles.rarityContainer}>
                                 <RarityLabel rarity={rascal.rarity as Rarity} short={false}/>

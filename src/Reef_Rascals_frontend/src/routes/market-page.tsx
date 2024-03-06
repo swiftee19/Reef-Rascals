@@ -6,24 +6,11 @@ import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/market-page.module.scss";
 import Modal from "../components/modal";
-import { matchmaking } from "../../../declarations/matchmaking";
-import LoadingPage from "../components/loading-page";
 
 export default function MarketPage() {
     const [search, setSearch] = useState("");
     const [sellModal, setSellModal] = useState(false);
-    const [filteredRascals, setFilteredRascals] = useState<Rascal[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    async function getRascals() {
-        const rascals = await matchmaking.getMarket();
-        if(rascals){
-            setFilteredRascals(rascals);
-            setIsLoading(false);
-        } else {
-            console.log("rascals not found");
-        }
-    }
+    const [filteredRascals, setFilteredRascals] = useState<Rascal[]>(rascalList);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchText = event.target.value.toLowerCase();
@@ -36,11 +23,6 @@ export default function MarketPage() {
     };
 
     const topSelling = rascalList.slice(0, 6)
-
-    if(isLoading) {
-        getRascals();
-        return <LoadingPage/>
-    }
 
     return (
         <>
