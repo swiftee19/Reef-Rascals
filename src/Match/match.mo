@@ -54,6 +54,37 @@ actor {
 
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
 
+    public func buyRacal(rascal : model.Rascal, buyer : Principal) : async Text {
+        var check: ?model.User = users.get(buyer);
+        switch(check) {
+            case(?user) {
+                var userRascal: [model.Rascal] = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id == rascal.id;
+                });
+
+                if(Array.size(userRascal) > 0) {
+                    return "you already have this rascal";
+                };
+
+                if(user.tokens < rascal.price) {
+                    return "insufficient balance";
+                };
+
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
+                var newUSer = { user with rascals = newRascals};
+                newUSer := { newUSer with balance = user.tokens - rascal.price };
+                users.put(buyer, newUSer);
+                rascalMarket := Array.filter<model.Rascal>(rascalMarket, func (x) {
+                    x.id != rascal.id;
+                });
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func checkRascalStatus (rascal : model.Rascal) : async Text {
         var check: [model.Rascal] = Array.filter<model.Rascal>(rascalMarket, func (x) {
             x.id == rascal.id;

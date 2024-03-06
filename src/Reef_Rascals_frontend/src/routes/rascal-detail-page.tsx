@@ -49,6 +49,16 @@ export default function RascalDetailPage() {
         }
     }
 
+    async function buyRascal() {
+        const x = await matchmaking.buyRacal(rascal,Principal.fromText(userId));
+        if(x){
+            window.location.reload();
+            console.log("Rascal is bought", x);
+        } else {
+            console.log("Rascal is not bought", x);
+        }
+    }
+
     if(isLoading) {
         fetchRascal();
         return <LoadingPage/>
@@ -91,7 +101,7 @@ export default function RascalDetailPage() {
                             </div>
                         </div>
 
-                        <div className={styles.buyBtn}>
+                        <div className={styles.buyBtn} onClick={buyRascal}>
                             <p>Buy Now</p>
                         </div>
 
