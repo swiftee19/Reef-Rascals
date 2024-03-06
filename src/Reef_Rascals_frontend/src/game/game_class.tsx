@@ -1,6 +1,19 @@
 import { Rascal } from "../types/rascal";
-import { getInt } from "../types/user";
+import { User, getInt } from "../types/user";
 import { getRandomBoolean } from "./game_helper";
+
+export interface MatchCanvasProps {
+    player: User;
+    opponent: User;
+}
+export interface HealthBarProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    maxHealth: number;
+    currentHealth: number;
+}
 
 export class BattleRascal {
     rascal: Rascal;

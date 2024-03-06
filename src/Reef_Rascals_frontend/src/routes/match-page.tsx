@@ -9,11 +9,12 @@ import {Rarity, Rascal, RascalType} from "../types/rascal";
 import {Principal} from "@dfinity/principal";
 import {BattleHistory, BattleResult} from "../types/battle-history";
 import rascalList from '../types/rascal-dummy';
+import HealthStats from '../components/health-stats';
+import { FightingRascals } from '../components/fighting-rascals';
 
 export default function MatchPage() {
 
     const rascals: Rascal[] = rascalList
-
     const opponent = {
         id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
         username: "Alexander Ryan Alex",
@@ -77,13 +78,21 @@ export default function MatchPage() {
     }
 
     return (
-        <>
+        <div className={styles.pageContainer}>
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-bottom.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
             <div className={styles.mainContainer}>
                 <MatchCanvas player={user} opponent={opponent}/>
             </div>
-        </>
+            <div className={styles.topPart}>
+                <HealthStats progress={50} maximum={Number(user.rascals.at(0)!.health)}/>
+                <HealthStats progress={50} maximum={Number(opponent.defense.at(1)!.health)} isFlipped={true}/>
+            </div>
+            <div className={styles.bottomPart}>
+                <FightingRascals rascals={user.rascals} />
+                <FightingRascals rascals={opponent.defense} isFlipped={true}/>
+            </div>
+        </div>
     )
 }

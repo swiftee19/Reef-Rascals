@@ -1,19 +1,7 @@
 import { BattleHistory } from "../types/battle-history";
 import { Rascal } from "../types/rascal";
 import { User, saveUser } from "../types/user";
-
-export interface MatchCanvasProps {
-    player: User;
-    opponent: User;
-}
-export interface HealthBarProps {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    maxHealth: number;
-    currentHealth: number;
-}
+import { HealthBarProps } from "./game_class";
 
 export const getRandomBoolean = () => Math.random() < 0.5;
 export function reward(user: User) {
@@ -48,7 +36,7 @@ export function drawHealthBar(context: CanvasRenderingContext2D, healthBarProps:
     context.restore();
 }
 
-export function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x: number, y: number, size: number, isFlipped: boolean) {
+export function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x: number, y: number, size: number, isFlipped: boolean, isBeingAttacked: boolean) {
     const rascalImg = new Image();
     rascalImg.src = rascal.imageUrl;
 
@@ -60,6 +48,13 @@ export function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x:
         context.save();
         context.scale(-1, 1);
         context.drawImage(rascalImg, -x - size, y, size, size);
+        context.restore();
+    }
+
+    if(isBeingAttacked) {
+        context.save();
+        context.fillStyle = 'red';
+        context.fillRect(x, y - 10, size, 5);
         context.restore();
     }
 }
@@ -88,8 +83,9 @@ export function drawRascalWithHealthBar(
     y: number,
     size: number,
     isFlipped: boolean,
+    isBeingAttacked: boolean,
     healthBarProps: HealthBarProps
 ) {
-    drawRascal(context, rascal, x, y, size, isFlipped);
+    drawRascal(context, rascal, x, y, size, isFlipped, isBeingAttacked);
     drawHealthBar(context, healthBarProps);
 }

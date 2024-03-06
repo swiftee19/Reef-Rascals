@@ -11,7 +11,7 @@ import {handleAuthenticated, localStorage} from "../../index";
 export const AuthContext = createContext<any>(null);
 export const useAuthContext = () => useContext(AuthContext);
 
-const guestRoutes = ["", "/", "marketplace"];
+const guestRoutes = ["", "/", "marketplace", "loading"];
 export const AuthContextProvider = ({children}: { children: ReactNode }) => {
     const [principal, setPrincipal] = useState<string | null>(null);
     // const [principal, setPrincipal] = useState<string | null>("null");

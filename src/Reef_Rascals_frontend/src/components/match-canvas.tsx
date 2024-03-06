@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Rascal} from '../types/rascal';
 import {User, getInt, saveUser} from '../types/user';
-import { HealthBarProps, MatchCanvasProps, drawBoom, drawDamageText, drawHealthBar, drawRascal, drawRascalWithHealthBar, getRandomBoolean, reward, saveBattle } from '../game/game_helper';
-import { BattleRascal } from '../game/game_class';
+import { drawBoom, drawDamageText, drawHealthBar, drawRascal, drawRascalWithHealthBar, getRandomBoolean, reward, saveBattle } from '../game/game_helper';
+import { BattleRascal, MatchCanvasProps } from '../game/game_class';
 
 const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvasProps) => {
     player.attack = player.rascals;
@@ -43,7 +43,6 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
     function checkRascalCondition() {
         if (getInt(defender!.rascal.health) <= 0) {
             i = 0
-            
             currDefIdx += 1
             if (currDefIdx >= defendingRascals.length) {
                 reward(player);
@@ -66,7 +65,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
     }
 
     function drawRascals(context: CanvasRenderingContext2D, attacker: BattleRascal, defender: BattleRascal) {
-        drawRascalWithHealthBar(context, attacker.rascal, attacker.x, attacker.y, rascalSize, false, {
+        drawRascalWithHealthBar(context, attacker.rascal, attacker.x, attacker.y, rascalSize, false, false, {
             x: attacker.x,
             y: attacker.y + rascalSize + 5,
             width: rascalSize,
@@ -74,7 +73,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
             maxHealth: attackerMaxHealth,
             currentHealth: getInt(attacker.rascal.health),
         });
-        drawRascalWithHealthBar(context, defender.rascal, defender.x, defender.y, rascalSize, true, {
+        drawRascalWithHealthBar(context, defender.rascal, defender.x, defender.y, rascalSize, true, false, {
             x: defender.x,
             y: defender.y + rascalSize + 5,
             width: rascalSize,

@@ -9,6 +9,7 @@ import WoodStats from "../components/wood-stats";
 import { useAuthContext } from "../middleware/middleware";
 import { getCurrentUser } from "../types/auth";
 import { User } from "../types/user";
+import LoadingPage from "../components/loading-page";
 
 export default function AquariumPage() {
     const [isAquarium, setIsAquarium] = useState(true);
@@ -41,10 +42,10 @@ export default function AquariumPage() {
         window.location.href = "/match" + canisterId;
     }
 
-    if(isLoadingRascals) {
-        userSetUp()
-        return <div>Loading...</div>
-    }
+    // if(isLoadingRascals) {
+    //     userSetUp()
+    //     return <LoadingPage/>
+    // }
 
     return (
         <>
