@@ -80,7 +80,7 @@
     height: 100%;
   }
 
-  .egg {
+  .eggButton {
     overflow: hidden;
     width: 60%;
     position: absolute;
@@ -219,4 +219,24 @@
       }
     }
   }
+}
+
+@keyframes expandGlow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
+.glowEffect {
+  animation: expandGlow 2s ease-out forwards; // Adjust the duration as needed
+  animation-delay: 0.5s; // Adjust the delay as needed
+  pointer-events: none; // Prevent interaction during the animation
+  width: 40%;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 5px colors.$yellow, 0 0 30px 20px colors.$soft-red;
 }

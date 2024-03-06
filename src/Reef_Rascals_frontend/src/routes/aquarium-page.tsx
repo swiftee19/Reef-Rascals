@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {MutableRefObject, Ref, RefObject, useEffect, useRef, useState} from "react";
 import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
@@ -12,6 +12,8 @@ import {User} from "../types/user";
 import LoadingPage from "../components/loading-page";
 
 export default function AquariumPage() {
+    const eggGachaRef = useRef<HTMLImageElement | null>(null);
+
     const [isAquarium, setIsAquarium] = useState(true);
     const authContext = useAuthContext();
     const [principal, setPrincipal] = useState<string | null>(null);
@@ -20,6 +22,8 @@ export default function AquariumPage() {
     const [rascals, setRascals] = useState<Rascal[]>([]);
     const [isLoadingRascals, setIsLoadingRascals] = useState(true);
     const [showGachaModal, setShowGachaModal] = useState(false)
+    const [glowAnimation, setGlowAnimation] = useState(false);
+    const [isGettingNewRascalFromBackend, setIsGettingNewRascalFromBackend] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -51,6 +55,12 @@ export default function AquariumPage() {
         setShowGachaModal(false);
     };
 
+    const removeEgg = () => {
+        if (eggGachaRef.current) {
+            eggGachaRef.current.style.display = "none";
+        }
+    }
+
     // Add an event listener to the entire document
     document.addEventListener('click', function (event) {
         const clickedElement = event.target;
@@ -62,7 +72,18 @@ export default function AquariumPage() {
         }
     });
 
-    if(isLoadingRascals) {
+    const handleGacha = () => {
+        setGlowAnimation(true);
+
+        // Reset the glow animation after 2 seconds
+        setTimeout(() => {
+            setGlowAnimation(false);
+            removeEgg();
+            // get random rascal and show rascal
+        }, 2000);
+    };
+
+    if (isLoadingRascals) {
         userSetUp()
         return <LoadingPage/>
     }
@@ -71,13 +92,17 @@ export default function AquariumPage() {
         <>
             {showGachaModal &&
                 <>
-                    <div className={styles.gachaModalContainer}>
+                    <div className={`${styles.gachaModalContainer}`}>
                         <div className={styles.gachaModal}>
                             {
                                 currUser?.raslet && currUser.raslet >= 10 ?
                                     <>
                                         <h1>Hatch your Rascal</h1>
-                                        <img className={styles.egg} src="/rascal-egg.png"/>
+                                        <img ref={eggGachaRef}
+                                             className={`${glowAnimation ? "" : styles.egg} ${glowAnimation && styles.glowEffect}`}
+                                             src="/rascal-egg.png" onClick={() => {
+                                            handleGacha()
+                                        }}/>
                                     </> :
                                     <>
                                         <h1 className={styles.invalidRasletText}>Not enough raslet</h1>
@@ -107,7 +132,7 @@ export default function AquariumPage() {
                     handleShowGacha()
                 }}>
                     <img className={styles.background} src="/wood-plain-elipse.png"/>
-                    <img className={styles.egg} src="/rascal-egg.png"/>
+                    <img className={styles.eggButton} src="/rascal-egg.png"/>
                     <h2>Hatch</h2>
                 </div>
 
