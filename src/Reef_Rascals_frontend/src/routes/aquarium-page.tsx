@@ -19,6 +19,7 @@ export default function AquariumPage() {
     const [currUser, setCurrUser] = useState<User | null>(null);
     const [rascals, setRascals] = useState<Rascal[]>([]);
     const [isLoadingRascals, setIsLoadingRascals] = useState(true);
+    const [showGachaModal, setShowGachaModal] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -42,6 +43,25 @@ export default function AquariumPage() {
         window.location.href = "/match" + canisterId;
     }
 
+    const handleShowGacha = () => {
+        setShowGachaModal(true)
+    }
+
+    const handleCloseGachaModal = () => {
+        setShowGachaModal(false);
+    };
+
+    // Add an event listener to the entire document
+    document.addEventListener('click', function (event) {
+        const clickedElement = event.target;
+        if (!(clickedElement instanceof HTMLElement)) return;
+        const className = clickedElement.className;
+
+        if (className === styles.gachaModalContainer) {
+            handleCloseGachaModal();
+        }
+    });
+
     if(isLoadingRascals) {
         userSetUp()
         return <LoadingPage/>
@@ -49,6 +69,29 @@ export default function AquariumPage() {
 
     return (
         <>
+            {showGachaModal &&
+                <>
+                    <div className={styles.gachaModalContainer}>
+                        <div className={styles.gachaModal}>
+                            {
+                                currUser?.raslet && currUser.raslet >= 10 ?
+                                    <>
+                                        <h1>Hatch your Rascal</h1>
+                                        <img className={styles.egg} src="/rascal-egg.png"/>
+                                    </> :
+                                    <>
+                                        <h1 className={styles.invalidRasletText}>Not enough raslet</h1>
+                                        <div className={styles.invalidRasletSymbolContainer}>
+                                            <img className={styles.invalidEggTop} src="/rascal-egg-top.png"/>
+                                            <img className={styles.invalidEggBottom} src="/rascal-egg-bottom.png"/>
+                                        </div>
+                                    </>
+                            }
+                        </div>
+                    </div>
+                </>
+            }
+
             <SidebarNav/>
             <div className={styles.mainContainer}>
                 <img className={styles.background} src="/bg-aquarium.png"/>
@@ -60,9 +103,12 @@ export default function AquariumPage() {
                     <img src="/wood-round.png" alt=""/>
                 </footer>
 
-                <div className={styles.gachaButton}>
-                    <img className={styles.background} src="/wood-plain-elipse.png" />
+                <div className={styles.gachaButton} onClick={() => {
+                    handleShowGacha()
+                }}>
+                    <img className={styles.background} src="/wood-plain-elipse.png"/>
                     <img className={styles.egg} src="/rascal-egg.png"/>
+                    <h2>Hatch</h2>
                 </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>

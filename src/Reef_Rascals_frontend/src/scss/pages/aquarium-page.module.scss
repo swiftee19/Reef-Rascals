@@ -94,6 +94,15 @@
     border-radius: 50%;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.9);
   }
+
+  h2 {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: colors.$radial-gradient;
+  }
 }
 
 .aquariumBottom {
@@ -118,4 +127,96 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
+}
+
+
+@keyframes glowAndGrow {
+  0%, 100% {
+    box-shadow: 0 0 10px 5px colors.$yellow, 0 0 20px 15px colors.$soft-red;
+  }
+  50% {
+    box-shadow: 0 0 10px 5px colors.$yellow, 0 0 30px 20px colors.$soft-red;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px 5px colors.$yellow, 0 0 20px 15px colors.$soft-red;
+  }
+  50% {
+    box-shadow: 0 0 10px 5px colors.$yellow, 0 0 30px 20px colors.$soft-red;
+    transform: scale(1.1);
+  }
+}
+
+.gachaModalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  .gachaModal {
+    position: absolute;
+    background-color: colors.$dark;
+    border: 0.5rem solid colors.$black;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 65%;
+
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+
+    h1 {
+      text-align: center;
+      color: colors.$yellow;
+      font-size: 2.5rem;
+    }
+
+    .egg {
+      width: 40%;
+      border-radius: 50%;
+      animation: glowAndGrow 2s infinite;
+      transition: 300ms;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        animation: glow 2s infinite;
+      }
+    }
+
+    .invalidRasletText {
+      color: colors.$gray;
+    }
+
+    .invalidRasletSymbolContainer {
+      display: flex;
+      gap: 1rem;
+      height: 100%;
+      align-items: end;
+      justify-content: center;
+
+      .invalidEggTop {
+        width: 30%;
+        filter: grayscale(90%);
+      }
+
+      .invalidEggBottom {
+        width: 30%;
+        filter: grayscale(90%);
+      }
+    }
+  }
 }
