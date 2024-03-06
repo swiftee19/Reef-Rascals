@@ -10,20 +10,23 @@ import {Principal} from "@dfinity/principal";
 import {BattleHistory, BattleResult} from "../types/battle-history";
 import rascalList from '../types/rascal-dummy';
 import HealthStats from '../components/health-stats';
-import { FightingRascals } from '../components/fighting-rascals';
-import { useParams } from 'react-router';
+import {FightingRascals} from '../components/fighting-rascals';
+import {useParams} from 'react-router';
 import LoadingPage from '../components/loading-page';
 
 export default function MatchPage() {
-    const { defenderID } = useParams();
+    const params = useParams();
+    const opponentId: string = params.opponentId as string;
+
+    const {defenderID} = useParams();
     const [defender, setDefender] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
 
     async function getDefender() {
-        if(defenderID) {
+        if (defenderID) {
             const user = await matchmaking.getUser(Principal.fromText(defenderID));
-            if(user){
+            if (user) {
                 setDefender(user[0]);
                 setIsLoading(false);
             } else {
@@ -32,11 +35,11 @@ export default function MatchPage() {
         }
     }
 
-    if(isLoading) {
+    if (isLoading) {
         getDefender();
         return <LoadingPage/>
     }
-    
+
     const rascals: Rascal[] = rascalList
     const opponent = {
         id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
@@ -113,7 +116,7 @@ export default function MatchPage() {
                 <HealthStats progress={50} maximum={Number(opponent.defense.at(1)!.health)} isFlipped={true}/>
             </div>
             <div className={styles.bottomPart}>
-                <FightingRascals rascals={user.rascals} />
+                <FightingRascals rascals={user.rascals}/>
                 <FightingRascals rascals={opponent.defense} isFlipped={true}/>
             </div>
         </div>
