@@ -14,7 +14,7 @@ export const useAuthContext = () => useContext(AuthContext);
 const guestRoutes = ["", "/", "marketplace", "loading", "details"];
 export const AuthContextProvider = ({children}: { children: ReactNode }) => {
     // const [principal, setPrincipal] = useState<string | null>(null);
-    const [principal, setPrincipal] = useState<string | null>("null");
+    const [principal, setPrincipal] = useState<string | null>(null);
 
     const getPrincipal = async () : Promise<string | null> => {
         const principal = await localStorage.get("principal");
@@ -34,6 +34,27 @@ export const AuthContextProvider = ({children}: { children: ReactNode }) => {
             },
         });
     };
+
+    useEffect(() => {
+        if (principal == null) {
+            getPrincipal()
+        }
+    }, [localStorage]);
+
+    useEffect(() => {
+        const pathname = window.location.pathname;
+        const pathnameSplit = pathname.split("/");
+        const mainPathname = pathnameSplit[1];
+
+        const currentRoute = window.location.href;
+        const routeSplit = currentRoute.split("?")
+        const tempCanisterId = routeSplit[1];
+        const canisterId = "?" + tempCanisterId
+
+        if (principal == null && !guestRoutes.includes(mainPathname)) {
+            window.location.href = "/" + canisterId;
+        }
+    }, [principal]);
 
     useEffect(() => {
         if (principal == null) {

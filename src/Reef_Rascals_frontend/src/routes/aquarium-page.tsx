@@ -6,9 +6,9 @@ import styles from "../scss/pages/aquarium-page.module.scss";
 import {Rarity, Rascal, RascalType} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
-import { useAuthContext } from "../middleware/middleware";
-import { getCurrentUser } from "../types/auth";
-import { User } from "../types/user";
+import {useAuthContext} from "../middleware/middleware";
+import {getCurrentUser} from "../types/auth";
+import {User} from "../types/user";
 import LoadingPage from "../components/loading-page";
 
 export default function AquariumPage() {
@@ -22,7 +22,7 @@ export default function AquariumPage() {
 
     async function userSetUp() {
         const user = await getCurrentUser()
-        if(user) {
+        if (user) {
             setCurrUser(user)
             setRascals(user.rascals)
             setIsLoadingRascals(false)
@@ -59,6 +59,11 @@ export default function AquariumPage() {
                 }}>
                     <img src="/wood-round.png" alt=""/>
                 </footer>
+
+                <div className={styles.gachaButton}>
+                    <img className={styles.background} src="/wood-plain-elipse.png" />
+                    <img className={styles.egg} src="/rascal-egg.png"/>
+                </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
                     <MyRascalPage {...rascals as Array<Rascal>}/>
