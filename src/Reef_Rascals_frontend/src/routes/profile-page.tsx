@@ -125,48 +125,44 @@ export default function ProfilePage() {
         const user = await getCurrentUser()
         if (user) {
             setCurrUser(user)
+            if (currUser) {
+                const battleArray: BattleHistory[] = currUser.battleHistories
+    
+                if (battleArray.length == 0) {
+                    setUserWinRate(0)
+                } else {
+                    const victories = battleArray.filter(battle => battle.result == BattleResult.Win).length
+                    setUserVictories(victories)
+    
+                    const loses = battleArray.filter(battle => battle.result == BattleResult.Lose).length
+                    setUserLoses(loses)
+    
+                    const winRate = (victories / (victories + loses)) * 100
+                    const roundedWinRate = Math.round(winRate * 100) / 100
+                    setUserWinRate(roundedWinRate)
+                }
+    
+                setUserLeagueProgress(calculateLeagueSliderProgress() as number)
+    
+                switch (currUser.rank) {
+                    case League.Bronze:
+                        setLeagueFontColor("#CD7F32")
+                        setUserLeagueIcon("/bronze-league-icon.png")
+                        break
+                    case League.Silver:
+                        setLeagueFontColor("#C0C0C0")
+                        setUserLeagueIcon("/silver-league-icon.png")
+                        break
+                    case League.Gold:
+                        setLeagueFontColor("#FFD700")
+                        setUserLeagueIcon("/gold-league-icon.png")
+                        break
+                }
+
+                setLoading(false)
+            }
         }
     }
-
-    userSetUp()
-
-    useEffect(() => {
-        if (currUser) {
-            const battleArray: BattleHistory[] = currUser.battleHistories
-
-            if (battleArray.length == 0) {
-                setUserWinRate(0)
-            } else {
-                const victories = battleArray.filter(battle => battle.result == BattleResult.Win).length
-                setUserVictories(victories)
-
-                const loses = battleArray.filter(battle => battle.result == BattleResult.Lose).length
-                setUserLoses(loses)
-
-                const winRate = (victories / (victories + loses)) * 100
-                const roundedWinRate = Math.round(winRate * 100) / 100
-                setUserWinRate(roundedWinRate)
-            }
-
-            setUserLeagueProgress(calculateLeagueSliderProgress() as number)
-
-            switch (currUser.rank) {
-                case League.Bronze:
-                    setLeagueFontColor("#CD7F32")
-                    setUserLeagueIcon("/bronze-league-icon.png")
-                    break
-                case League.Silver:
-                    setLeagueFontColor("#C0C0C0")
-                    setUserLeagueIcon("/silver-league-icon.png")
-                    break
-                case League.Gold:
-                    setLeagueFontColor("#FFD700")
-                    setUserLeagueIcon("/gold-league-icon.png")
-                    break
-            }
-            setLoading(false)
-        }
-    }, [currUser])
 
     const handleUsernameChange = (e: any) => {
         setUsername(e.target.value);
@@ -179,6 +175,7 @@ export default function ProfilePage() {
     }
 
     if (loading) {
+        userSetUp()
         return (
             <>
                 <LoadingPage/>

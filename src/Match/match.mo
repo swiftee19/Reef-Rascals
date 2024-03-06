@@ -11,7 +11,7 @@ actor {
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
 
     let rascal1 = {
-        id = "Axolberry";
+        id = "12B9210424B";
         name = "Axolberry";
         owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
         price = 2.32;
@@ -25,7 +25,7 @@ actor {
     };
 
     let rascal2 = {
-        id = "Captain Finbite";
+        id = "12B92123110B";
         name = "Captain Finbite";
         owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
         price = 0.22;
@@ -39,7 +39,7 @@ actor {
     };
 
     let rascal3 = {
-        id = "Ribble";
+        id = "12B9213210B";
         name = "Ribble";
         owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
         price = 1.30;
@@ -54,17 +54,95 @@ actor {
 
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
 
+    public func addRascal(rascal : model.Rascal, owner : Principal) : async Text {
+        var check: ?model.User = users.get(owner);
+        switch(check) {
+            case(?user) {
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
+                let newUSer = { user with rascals = newRascals };
+                users.put(owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
+    public func buyRacal(rascal : model.Rascal, buyer : Principal) : async Text {
+        var check: ?model.User = users.get(buyer);
+        switch(check) {
+            case(?user) {
+                var userRascal: [model.Rascal] = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id == rascal.id;
+                });
+
+                if(Array.size(userRascal) > 0) {
+                    return "you already have this rascal";
+                };
+
+                if(user.tokens < rascal.price) {
+                    return "insufficient balance";
+                };
+
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
+                var newUSer = { user with rascals = newRascals};
+                newUSer := { newUSer with balance = user.tokens - rascal.price };
+                users.put(buyer, newUSer);
+                rascalMarket := Array.filter<model.Rascal>(rascalMarket, func (x) {
+                    x.id != rascal.id;
+                });
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
+    public func checkRascalStatus (rascal : model.Rascal) : async Text {
+        var check: [model.Rascal] = Array.filter<model.Rascal>(rascalMarket, func (x) {
+            x.id == rascal.id;
+        });
+
+        if(Array.size(check) > 0) {
+            return "sale";
+        };
+
+        var userCheck: ?model.User = users.get(rascal.owner);
+        
+        switch(userCheck) {
+            case(?user) {
+                var userRascal: [model.Rascal] = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id == rascal.id;
+                });
+
+                check := Array.append<model.Rascal>(check, userRascal);
+
+                if(Array.size(check) > 0) {
+                    return "notSale";
+                };
+
+                return "no rascal found"; 
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func getRascal(id : Text, owner:Principal) : async [model.Rascal] {
         var userCheck: ?model.User = users.get(owner);
+
+        var marketCheck: [model.Rascal] = [];
+
+        marketCheck := Array.filter<model.Rascal>(rascalMarket, func (x) {
+            x.id == id;
+        });
 
         switch(userCheck) {
             case(?user) {
                 var userRascal: [model.Rascal] = [];
-                var marketCheck: [model.Rascal] = [];
-
-                marketCheck := Array.filter<model.Rascal>(rascalMarket, func (x) {
-                    x.id == id;
-                });
 
                 userRascal := Array.filter<model.Rascal>(user.rascals, func (x) {
                     x.id == id;
@@ -74,7 +152,7 @@ actor {
                 return marketCheck;
             };
             case(null) {
-                return [];
+                return marketCheck;
             };
         };
     };
@@ -125,14 +203,14 @@ actor {
         };
     };
 
-    public func updateUser(key : Principal, user : model.User) : async Text {
-        var check: ?model.User = users.get(key);
+    public func updateUser(user : model.User) : async Text {
+        var check: ?model.User = users.get(user.id);
 
         switch(check) {
             case(null) {
                 return "no user found";
             };
-            case(?user) {
+            case(?check) {
                 users.put(user.id, user);
                 return "success";
             };

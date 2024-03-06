@@ -36,7 +36,7 @@ export class User {
         this.username = "Rascals Warrior";
         this.profilePictureUrl = "";
         this.dateJoined = new Date().toString();
-        this.tokens = 0;
+        this.tokens = 1000;
         this.rascals = [];
         this.defense = [];
         this.attack = [];
@@ -49,7 +49,7 @@ export class User {
 }
 
 export function saveUser(user: User) {
-    let check = matchmaking.updateUser(user.id, user);
+    let check = matchmaking.updateUser(user);
     console.log(check);
 }
 
@@ -63,11 +63,6 @@ export function getElo(user: User) {
 
 export function getInt(x: bigint) {
     return Number(x);
-}
-
-export async function sellRascal(price: number, rascal: Rascal) {
-    rascal.price = price;
-    matchmaking.sellRascal(rascal);
 }
 
 export function gacha(user: User) {

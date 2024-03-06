@@ -9,6 +9,7 @@ import { useParams } from 'react-router';
 import { matchmaking } from '../../../declarations/matchmaking';
 import { AuthContext, useAuthContext } from '../middleware/middleware';
 import LoadingPage from '../components/loading-page';
+import { Principal } from '@dfinity/principal';
 
 export default function RascalDetailPage() {
     const [isSell, setIsSell] = useState(false);
@@ -20,11 +21,16 @@ export default function RascalDetailPage() {
 
     const fetchRascal = async () => {
         if(rascalId) {
-            const data = await matchmaking.getRascal(rascalId,userId);
+            const data = await matchmaking.getRascal(rascalId,Principal.fromText(userId));
             if(data) {
                 setRascal(data[0]);
+                console.log("rascalId", data[0]);
                 setIsLoading(false);
+            } else {
+                console.log("No rascal found", data);
             }
+        } else {
+            console.log("No rascalId found", rascalId);
         }
     }
 
@@ -34,7 +40,23 @@ export default function RascalDetailPage() {
 
     async function sellRascal(price: number) {
         rascal.price = price;
-        matchmaking.sellRascal(rascal);
+        const x = await matchmaking.sellRascal(rascal);
+        if(x){
+            window.location.reload();
+            console.log("Rascal is sold", x);
+        } else {
+            console.log("Rascal is not sold", x);
+        }
+    }
+
+    async function buyRascal() {
+        const x = await matchmaking.buyRacal(rascal,Principal.fromText(userId));
+        if(x){
+            window.location.reload();
+            console.log("Rascal is bought", x);
+        } else {
+            console.log("Rascal is not bought", x);
+        }
     }
 
     if(isLoading) {
@@ -79,7 +101,7 @@ export default function RascalDetailPage() {
                             </div>
                         </div>
 
-                        <div className={styles.buyBtn}>
+                        <div className={styles.buyBtn} onClick={buyRascal}>
                             <p>Buy Now</p>
                         </div>
 

@@ -9,25 +9,25 @@ import Float "mo:base/Float";
 
 module {
 
-    public func newUser(inputPrincipal: Principal, inputUsername: Text) : User {
-        var user = {
-            id = inputPrincipal;
-            username = inputUsername;
-            rank = "Bronze";
-            tokens = 0.0;
-            rascals = [];
-            defense = [];
-            attack = [];
-            profilePictureUrl = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
-            dateJoined = "2021-01-01";
-            battleHistories = [];
-            elo = 1000;
-            raslet = 0;
-            rascalFragment = 0;
-        };
+    // public func newUser(inputPrincipal: Principal, inputUsername: Text) : User {
+    //     var user = {
+    //         id = inputPrincipal;
+    //         username = inputUsername;
+    //         rank = "Bronze";
+    //         tokens = 0.0;
+    //         rascals = [];
+    //         defense = [];
+    //         attack = [];
+    //         profilePictureUrl = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
+    //         dateJoined = "2021-01-01";
+    //         battleHistories = [];
+    //         elo = 1000;
+    //         raslet = 0;
+    //         rascalFragment = 0;
+    //     };
 
-        return user;
-    };
+    //     return user;
+    // };
 
     public type Rascal = {
         id: Text;

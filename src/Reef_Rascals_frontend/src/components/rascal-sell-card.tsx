@@ -19,7 +19,13 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
 
     async function sellRascal(price: number) {
         rascal.price = price;
-        matchmaking.sellRascal(rascal);
+        const x = await matchmaking.sellRascal(rascal);
+        if(x){
+            window.location.reload();
+            console.log("Rascal is sold", x);
+        } else {
+            console.log("Rascal is not sold", x);
+        }
     }
 
     useEffect(() => {

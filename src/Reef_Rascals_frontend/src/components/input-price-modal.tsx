@@ -19,7 +19,6 @@ export default function InputPriceModal({closeModal, sellRascal}: {closeModal: (
                 </div>
                 <div className={styles.sellBtn} onClick={()=> {
                     sellRascal(price);
-                    window.location.reload();
                 }}>
                     Sell
                 </div>
