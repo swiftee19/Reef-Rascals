@@ -54,6 +54,21 @@ actor {
 
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
 
+    public func addRascal(rascal : model.Rascal, owner : Principal) : async Text {
+        var check: ?model.User = users.get(owner);
+        switch(check) {
+            case(?user) {
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
+                let newUSer = { user with rascals = newRascals };
+                users.put(owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func buyRacal(rascal : model.Rascal, buyer : Principal) : async Text {
         var check: ?model.User = users.get(buyer);
         switch(check) {

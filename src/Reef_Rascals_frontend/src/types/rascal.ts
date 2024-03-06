@@ -63,8 +63,7 @@ export async function gachaRascal(owner: string) {
 
     if (user) {
         const newUser = user[0];
-        newUser.rascals.push(newRascal);
-        await matchmaking.register(newUser);
+        await matchmaking.addRascal(newRascal, newUser.id);
         return newRascal;
     }
 

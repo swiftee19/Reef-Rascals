@@ -111,7 +111,8 @@ export default function AquariumPage() {
                     <div className={`${styles.gachaModalContainer}`}>
                         <div className={styles.gachaModal}>
                             {
-                                currUser?.raslet && currUser.raslet >= 10 ?
+                                // currUser?.rascalFragment && currUser.rascalFragment >= 10 ?
+                                true ? // TODO: change back to the above line
                                     <>
                                         <h1>Hatch your Rascal</h1>
                                         <img ref={eggGachaRef}
