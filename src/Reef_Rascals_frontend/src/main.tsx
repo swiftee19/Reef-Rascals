@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <ProfilePage/>,
     },
     {
-        path: "/match",
+        path: "/match/:opponentId",
         element: <MatchPage/>,
     }
 ]);
