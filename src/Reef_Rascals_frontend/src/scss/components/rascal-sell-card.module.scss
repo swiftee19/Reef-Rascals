@@ -12,10 +12,10 @@
   gap: 1rem;
   padding: 1rem;
 
-//   &:hover {
-//     transform: scale(1.02);
-//     transition: transform 0.3s ease;
-//   }
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
 
   @media (max-width: 800px) {
     flex-direction: column;
@@ -114,6 +114,8 @@
 
     &:hover {
         cursor: pointer;
+        transform: translate(1px, 1px);
+        transition: transform 0.3s ease;
     }
 }
 

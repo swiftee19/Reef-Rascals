@@ -27,7 +27,7 @@ export class Rascal {
     price: number;
 
     constructor(name: string, level: number, imageUrl: string, type: RascalType, rarity: Rarity, health: number, attack: number, speed: number, owner: string) {
-        this.id = `#${uuidv4().slice(0, 8).toUpperCase()}`;
+        this.id = `${uuidv4().slice(0, 8).toUpperCase()}`;
         this.name = name;
         this.level = BigInt(level);
         this.imageUrl = imageUrl;

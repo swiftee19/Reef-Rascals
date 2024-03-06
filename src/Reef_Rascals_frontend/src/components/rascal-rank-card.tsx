@@ -1,13 +1,22 @@
 import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-rank-card.module.scss";
 import RarityLabel from "./rarity-label";
+import { useEffect, useState } from "react";
 
 export default function RascalRankCard({ index, rascal }: { index: number, rascal: Rascal }) {
-  
+  const [canisterId, setCanisterId] = useState("")
+
   const gotoRascalDetail = () => {
-    window.location.href = `/details/${rascal.id}`;
+    window.location.href = `/details/${rascal.id}/${canisterId}`;
   }
-  
+
+  useEffect(() => {
+    const currentRoute = window.location.href;
+    const routeSplit = currentRoute.split("?");
+    const tempCanisterId = routeSplit[1];
+    setCanisterId("?" + tempCanisterId);
+  }, []);
+
   return (
     <div className={styles.cardContainer} onClick={gotoRascalDetail}>
       <div className={styles.rankNumber}>

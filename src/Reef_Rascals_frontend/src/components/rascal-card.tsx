@@ -1,16 +1,25 @@
 import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-card.module.scss";
 import RarityLabel from "./rarity-label";
+import { useEffect, useState } from "react";
 
 export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, brownTheme?: boolean }) {
+    const [canisterId, setCanisterId] = useState("")
 
     if (!rascal) {
         return <div>Rascal data not available</div>;
     }
     
     const gotoRascalDetail = () => {
-        window.location.href = `/details/${rascal.id}`;
+        window.location.href = `/details/${rascal.id}/${canisterId}`;
     }
+
+    useEffect(() => {
+        const currentRoute = window.location.href;
+        const routeSplit = currentRoute.split("?")
+        const tempCanisterId = routeSplit[1];
+        setCanisterId("?" + tempCanisterId)
+    }, []);
     
     return (
         <div className={styles.cardContainer} onClick={gotoRascalDetail}>
@@ -31,7 +40,7 @@ export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, bro
                 <div className={`${styles.cardDetail} ${brownTheme ? styles.brownTheme : styles.blueTheme}`}>
                     <h1>{rascal.name}</h1>
                     <p>{rascal.tribe}</p>
-                    <p>{rascal.id}</p>
+                    <p>#{rascal.id}</p>
                 </div>
 
                 <div className={`${styles.cardStats} ${brownTheme ? styles.brownTheme : styles.blueTheme}`}>
