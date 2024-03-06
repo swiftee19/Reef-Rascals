@@ -23,7 +23,7 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
     }, []);
   
     return (
-        <div className={styles.cardContainer} onClick={gotoRascalDetail}>
+        <div className={styles.cardContainer} >
             <div className={styles.rascalImg}>
                 <img  src={rascal.imageUrl} alt={rascal.name}/>
             </div>
@@ -51,11 +51,15 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
                     <p>{rascal.speed.toString()}</p>
                 </div>
                 </div>
+                <div className={styles.buttonContainer}>
+                    <div className={`${styles.sellBtn} ${isSell ? styles.orangeBg : styles.greenBg}`} onClick={sellRevert}>
+                        {isSell ? "Revert" : "Sell"}
+                    </div>
+                    <div className={`${styles.sellBtn} ${styles.greenBg}`} onClick={gotoRascalDetail}>
+                        Detail
+                    </div>
+                </div>
             </section>
-
-            <div className={`${styles.sellBtn} ${isSell ? styles.orangeBg : styles.greenBg}`} onClick={sellRevert}>
-                {isSell ? "Revert" : "Sell"}
-            </div>
 
             <div className={styles.rarityLabel}>
                 <RarityLabel rarity={rascal.rarity as Rarity} short={true}/>
