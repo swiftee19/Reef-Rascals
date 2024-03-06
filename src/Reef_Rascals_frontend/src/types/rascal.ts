@@ -1,7 +1,7 @@
-import { Principal } from "@dfinity/principal";
+import {Principal} from "@dfinity/principal";
 import {v4 as uuidv4} from 'uuid';
 import rascalList from "./rascal-dummy";
-import { matchmaking } from "../../../declarations/matchmaking";
+import {matchmaking} from "../../../declarations/matchmaking";
 
 export const enum RascalType {
     Fearless = "Fearless",
@@ -44,14 +44,29 @@ export class Rascal {
 }
 
 export async function gachaRascal(owner: string) {
-    const raslcals = rascalList;
-    const rascal = raslcals[Math.floor(Math.random() * raslcals.length)];
-    
+    const rascals = rascalList;
+    const rascal = rascals[Math.floor(Math.random() * rascals.length)];
+
+    const maximumAttackDeviation = 5;
+    const maximumSpeedDeviation = 5;
+    const maximumHealthDeviation = 20;
+
+    // give standard deviation to rascal attack, speed, and health
+    const plusMinus = Math.random() < 0.5 ? -1 : 1;
+    const attack = rascal.attack + BigInt(Math.floor(Math.random() * maximumAttackDeviation) * plusMinus);
+    const speed = rascal.speed + BigInt(Math.floor(Math.random() * maximumSpeedDeviation) * plusMinus);
+    const health = rascal.health + BigInt(Math.floor(Math.random() * maximumHealthDeviation) * plusMinus);
+
+    const newRascal = new Rascal(rascal.name, rascal.imageUrl, <RascalType>rascal.tribe, <Rarity>rascal.rarity, Number(health), Number(attack), Number(speed), owner);
+
     const user = await matchmaking.getUser(Principal.fromText(owner));
 
     if (user) {
         const newUser = user[0];
-        newUser.rascals.push(rascal);
-        matchmaking.updateUser(Principal.fromText(owner), newUser);
+        newUser.rascals.push(newRascal);
+        await matchmaking.updateUser(Principal.fromText(owner), newUser);
+        return newRascal;
     }
+
+    return null;
 }
