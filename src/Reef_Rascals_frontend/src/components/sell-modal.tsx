@@ -3,10 +3,11 @@ import styles from "../scss/components/sell-modal.module.scss";
 import rascalList from "../types/rascal-dummy";
 import RascalSellCard from "./rascal-sell-card";
 import Modal from "./modal";
+import { Rascal } from "../types/rascal";
 
-export default function SellModal({closeModal}: {closeModal: () => void}) {
+export default function SellModal({closeModal, rascals}: {closeModal: () => void, rascals: Rascal[]}) {
 
-    const myRascals = rascalList;
+    const myRascals = rascals;
 
     return(
         <Modal closeModal={closeModal} w="70%" h="80%">

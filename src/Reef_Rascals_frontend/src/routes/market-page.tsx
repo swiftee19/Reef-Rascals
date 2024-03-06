@@ -1,28 +1,45 @@
 import { useState } from "react";
 import { Rarity, Rascal, RascalType } from "../types/rascal";
-import rascalList from "../types/rascal-dummy";
 import RascalCard from "../components/rascal-card";
 import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/market-page.module.scss";
 import SellModal from "../components/sell-modal";
+import { matchmaking } from "../../../declarations/matchmaking";
+import LoadingPage from "../components/loading-page";
 
 export default function MarketPage() {
     const [search, setSearch] = useState("");
     const [sellModal, setSellModal] = useState(false);
-    const [filteredRascals, setFilteredRascals] = useState<Rascal[]>(rascalList);
+    const [rascals, setRascals] = useState<Rascal[]>([]);
+    const [filteredRascals, setFilteredRascals] = useState<Rascal[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const fetchRascals = async () => {
+        const data = await matchmaking.getMarket();
+        if(data) {
+            setRascals(data);
+            setFilteredRascals(data);
+            setIsLoading(false);
+        }
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchText = event.target.value.toLowerCase();
         setSearch(searchText);
 
-        const filtered = rascalList.filter(rascal =>
+        const filtered = rascals.filter(rascal =>
             rascal.name.toLowerCase().includes(searchText)
         );
         setFilteredRascals(filtered);
     };
 
-    const topSelling = rascalList.slice(0, 6)
+    const topSelling = rascals.slice(0, 6)
+
+    if(isLoading) {
+        fetchRascals();
+        return <LoadingPage />
+    }
 
     return (
         <>
@@ -66,7 +83,7 @@ export default function MarketPage() {
                 </section>
 
                 { sellModal &&
-                    <SellModal closeModal={() => setSellModal(false)}/>
+                    <SellModal closeModal={() => setSellModal(false)} rascals={rascals}/>
                 }
             </div>
 

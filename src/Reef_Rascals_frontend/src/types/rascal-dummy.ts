@@ -2,7 +2,6 @@ import { Rarity, Rascal, RascalType } from './rascal';
 
 const rascal1 = new Rascal(
     "Axolberry",
-    2,
     "/rascals/axolberry.png",
     RascalType.Chubby,
     Rarity.Epic,
@@ -14,7 +13,6 @@ const rascal1 = new Rascal(
 
 const rascal2 = new Rascal(
     "Captain Finbite",
-    2,
     "/rascals/captain-finbite.png",
     RascalType.Fearless,
     Rarity.Legend,
@@ -26,7 +24,6 @@ const rascal2 = new Rascal(
 
 const rascal3 = new Rascal(
     "Circus Clio",
-    2,
     "/rascals/circus-clio.png",
     RascalType.Chubby,
     Rarity.Common,
@@ -38,7 +35,6 @@ const rascal3 = new Rascal(
 
 const rascal4 = new Rascal(
     "Gloomy Bob",
-    2,
     "/rascals/gloomy-bob.png",
     RascalType.Chubby,
     Rarity.Common,
@@ -50,7 +46,6 @@ const rascal4 = new Rascal(
 
 const rascal5 = new Rascal(
     "King Octo",
-    2,
     "/rascals/king-octo.png",
     RascalType.Fearless,
     Rarity.Rare,
@@ -62,7 +57,6 @@ const rascal5 = new Rascal(
 
 const rascal6 = new Rascal(
     "Marina Showlion",
-    2,
     "/rascals/marina-showlion.png",
     RascalType.Fearless,
     Rarity.Rare,
@@ -74,7 +68,6 @@ const rascal6 = new Rascal(
 
 const rascal7 = new Rascal(
     "Party Spine",
-    2,
     "/rascals/party-spine.png",
     RascalType.Fearless,
     Rarity.Common,
@@ -86,7 +79,6 @@ const rascal7 = new Rascal(
 
 const rascal8 = new Rascal(
     "Ribble",
-    2,
     "/rascals/ribble.png",
     RascalType.Chubby,
     Rarity.Legend,
@@ -98,7 +90,6 @@ const rascal8 = new Rascal(
 
 const rascal9 = new Rascal(
     "Snooze Puff",
-    2,
     "/rascals/snooze-puff.png",
     RascalType.Chubby,
     Rarity.Rare,
@@ -110,7 +101,6 @@ const rascal9 = new Rascal(
 
 const rascal10 = new Rascal(
     "Twinkler",
-    2,
     "/rascals/twinkler.png",
     RascalType.Fearless,
     Rarity.Epic,
