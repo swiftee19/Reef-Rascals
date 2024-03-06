@@ -1,0 +1,56 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.title {
+    color: colors.$white;
+}
+
+.inputPrice {
+    color: colors.$dark;
+    border: 1px solid colors.$light-blue;
+    background-color: colors.$white;
+    border-radius: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+    outline: none;
+    width: 90%;
+
+    &::placeholder{
+        color: colors.$dark;
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cancelBtn, .sellBtn {
+    padding-block: 0.5rem;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: colors.$white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        transform: translate(1px, 1px);
+        transition: transform 0.3s ease;
+    }
+}
+
+.cancelBtn {
+    background-color: colors.$gray;
+}
+.sellBtn {
+    background-color: colors.$turqouise;
+}

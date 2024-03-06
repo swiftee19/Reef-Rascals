@@ -5,7 +5,7 @@ import RascalCard from "../components/rascal-card";
 import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
 import styles from "../scss/pages/market-page.module.scss";
-import Modal from "../components/modal";
+import SellModal from "../components/sell-modal";
 
 export default function MarketPage() {
     const [search, setSearch] = useState("");
@@ -66,7 +66,7 @@ export default function MarketPage() {
                 </section>
 
                 { sellModal &&
-                    <Modal closeModal={() => setSellModal(false)}/>
+                    <SellModal closeModal={() => setSellModal(false)}/>
                 }
             </div>
 

@@ -2,16 +2,17 @@ import { Rarity, Rascal } from "../types/rascal";
 import styles from "../scss/components/rascal-sell-card.module.scss";
 import RarityLabel from "./rarity-label";
 import { useEffect, useState } from "react";
+import InputPriceModal from "./input-price-modal";
 
 export default function RascalSellCard({rascal }: { rascal: Rascal }) {
     const [canisterId, setCanisterId] = useState("")
+    const [isSell, setIsSell] = useState(false);
 
     const gotoRascalDetail = () => {
         window.location.href = `/details/${rascal.id}/${canisterId}`;
     }
 
-    const [isSell, setIsSell] = useState(false);
-    const sellRevert = () => {
+    const sellModal = () => {
         setIsSell(!isSell);
     }
 
@@ -31,10 +32,12 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
             <section className={styles.cardAttribute}>
                 <div className={styles.cardDetail}>
                 <h2>{rascal.name}</h2>
-                <span className={styles.cardPrice}>
-                    <img src="/favicon.ico" alt="" />
-                    <p>0.111</p>
-                </span>
+                {/* {isSell &&
+                    <span className={styles.cardPrice}>
+                        <img src="/favicon.ico" alt="" />
+                        <p>0.111</p>
+                    </span>
+                } */}
                 </div>
 
                 <div className={styles.cardStats}>
@@ -52,8 +55,9 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
                 </div>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <div className={`${styles.sellBtn} ${isSell ? styles.orangeBg : styles.greenBg}`} onClick={sellRevert}>
-                        {isSell ? "Revert" : "Sell"}
+                    <div className={`${styles.sellBtn} ${styles.greenBg}`} onClick={sellModal}>
+                        {/* {isSell ? "Revert" : "Sell"} */}
+                        Sell
                     </div>
                     <div className={`${styles.sellBtn} ${styles.greenBg}`} onClick={gotoRascalDetail}>
                         Detail
@@ -64,6 +68,11 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
             <div className={styles.rarityLabel}>
                 <RarityLabel rarity={rascal.rarity as Rarity} short={true}/>
             </div>
+
+            {
+                isSell &&
+                <InputPriceModal closeModal={sellModal}/>
+            }
         </div>
     )
 }

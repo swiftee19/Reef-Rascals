@@ -4,7 +4,7 @@
 .cardContainer {
   position: relative;
   display: flex;
-  align-items: center;
+  // align-items: center;
   background-color: colors.$dark-blue;
   color: colors.$light-blue;
   border-radius: 5px;
@@ -12,10 +12,10 @@
   gap: 1rem;
   padding: 1rem;
 
-  &:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-  }
+  // &:hover {
+  //   transform: scale(1.02);
+  //   transition: transform 0.3s ease;
+  // }
 
   @media (max-width: 800px) {
     flex-direction: column;
@@ -79,6 +79,7 @@
   // justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  margin-top: 0.5rem;
 
   div {
       text-align: center;

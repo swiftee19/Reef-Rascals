@@ -1,0 +1,23 @@
+import { useState } from "react";
+import styles from "../scss/components/sell-modal.module.scss";
+import rascalList from "../types/rascal-dummy";
+import RascalSellCard from "./rascal-sell-card";
+import Modal from "./modal";
+
+export default function SellModal({closeModal}: {closeModal: () => void}) {
+
+    const myRascals = rascalList;
+
+    return(
+        <Modal closeModal={closeModal} w="70%" h="80%">
+            <h1 className={styles.title}>Choose Rascal to Sell</h1>
+            <div className={styles.cardContainer}>
+                {
+                    myRascals.map((rascal) => (
+                        <RascalSellCard key={rascal.id} rascal={rascal} />
+                    ))
+                }
+            </div>
+        </Modal>
+    )
+}
