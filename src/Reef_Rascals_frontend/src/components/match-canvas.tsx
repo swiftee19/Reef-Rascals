@@ -1,18 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Rascal} from '../types/rascal';
-import {User, getInt, saveUser} from '../types/user';
-import { drawBoom, drawDamageText, drawHealthBar, drawRascal, drawRascalWithHealthBar, getRandomBoolean, reward, saveBattle } from '../game/game_helper';
+import { drawBoom, drawDamageText, drawRascalWithHealthBar, reward, saveBattle } from '../game/game_helper';
 import { BattleRascal, MatchCanvasProps } from '../game/game_class';
+import { getInt } from '../types/user';
 
-const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvasProps) => {
+const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOpponentHealth, changeUserHealth, changeOpponentCurrRascal, changeUserCurrRascal, battleEnd, setBattleEnd}: MatchCanvasProps) => {
     player.attack = player.rascals;
     opponent.defense = opponent.rascals;
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06 * 3;
     const boomImageDuration = 200;
-    const baseSpeed = 1;
-    const entropy = 0.7;
+    const baseSpeed = 1.5;
+    const entropy = 0.1;
 
     const startPositions = {
         x_left: window.innerWidth * 0.25 - (rascalSize / 2),
@@ -47,20 +46,27 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
             if (currDefIdx >= defendingRascals.length) {
                 reward(player);
                 saveBattle(player, opponent, "Win");
+                setBattleEnd("Win");
                 return;
             }
             defender = defendingRascals.at(currDefIdx);
             defenderMaxHealth = getInt(defender!.rascal.health);
+            changeOpponentCurrRascal(defender!.rascal);
+            changeOpponentHealth(defenderMaxHealth);
         }
         if (getInt(attacker!.rascal.health) <= 0) {
             i = 0
             currAtkIdx += 1
             if (currAtkIdx >= attackingRascals.length) {
                 saveBattle(player, opponent, "Lose");
+                setBattleEnd("Lose");
+                console.log("Lose");
                 return;
             }
             attacker = attackingRascals.at(currAtkIdx);
             attackerMaxHealth = getInt(attacker!.rascal.health);
+            changeUserCurrRascal(attacker!.rascal);
+            changeUserHealth(attackerMaxHealth);
         }
     }
 
@@ -100,6 +106,11 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
             current.isAttacking = false
             current.isReturningAfterAttacking = true
             damage = current.attack(target.rascal)
+            if (target === defender) {
+                changeOpponentHealth(getInt(target.rascal.health))
+            } else {
+                changeUserHealth(getInt(target.rascal.health))
+            }
             checkRascalCondition()
         }
     }
@@ -126,6 +137,8 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
         }
     }
 
+    const animationFrameRef = useRef<number>();
+
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas?.getContext('2d');
@@ -136,6 +149,9 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
         canvas.height = window.innerHeight;
 
         const animate = () => {
+            if(battleEnd === "Win" || battleEnd === "Lose") {
+                return;
+            }
             context.clearRect(0, 0, canvas.width, canvas.height);
             if (attacker && defender) {
                 drawRascals(context, attacker, defender);
@@ -161,10 +177,15 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent}: MatchCanvas
                     }
                 }
             }
-            window.requestAnimationFrame(animate);
+            animationFrameRef.current = window.requestAnimationFrame(animate);
         }
         animate();
-    }, [canvasRef]);
+        return () => {
+            if (animationFrameRef.current) {
+                window.cancelAnimationFrame(animationFrameRef.current);
+            }
+        };
+    }, [canvasRef, battleEnd]);
 
     return <canvas ref={canvasRef} style={{position: 'fixed', top: 0, left: 0}}/>;
 };

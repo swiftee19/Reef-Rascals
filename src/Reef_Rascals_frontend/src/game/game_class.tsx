@@ -5,6 +5,12 @@ import { getRandomBoolean } from "./game_helper";
 export interface MatchCanvasProps {
     player: User;
     opponent: User;
+    battleEnd: string | null;
+    setBattleEnd: (status: string) => void;
+    changeUserHealth: (health: number) => void;
+    changeOpponentHealth: (health: number) => void;
+    changeUserCurrRascal: (rascal: Rascal) => void;
+    changeOpponentCurrRascal: (rascal: Rascal) => void;
 }
 export interface HealthBarProps {
     x: number;

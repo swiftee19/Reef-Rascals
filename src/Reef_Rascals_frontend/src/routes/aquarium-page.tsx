@@ -44,7 +44,7 @@ export default function AquariumPage() {
         const routeSplit = currentRoute.split("?")
         const tempCanisterId = routeSplit[1];
         const canisterId = "?" + tempCanisterId
-        window.location.href = "/match" + canisterId;
+        window.location.href = "/match/1/" + canisterId;
     }
 
     const handleShowGacha = () => {
@@ -83,10 +83,10 @@ export default function AquariumPage() {
         }, 2000);
     };
 
-    if (isLoadingRascals) {
-        userSetUp()
-        return <LoadingPage/>
-    }
+    // if (isLoadingRascals) {
+    //     userSetUp()
+    //     return <LoadingPage/>
+    // }
 
     return (
         <>

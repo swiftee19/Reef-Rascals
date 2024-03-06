@@ -84,7 +84,7 @@ export function drawRascalWithHealthBar(
     size: number,
     isFlipped: boolean,
     isBeingAttacked: boolean,
-    healthBarProps: HealthBarProps
+    healthBarProps: HealthBarProps,
 ) {
     drawRascal(context, rascal, x, y, size, isFlipped, isBeingAttacked);
     drawHealthBar(context, healthBarProps);
