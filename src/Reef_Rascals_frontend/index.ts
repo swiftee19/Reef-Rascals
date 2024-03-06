@@ -55,6 +55,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     const user = new User(principal);
     user.rascals = rascalList;
     matchmaking.register(user);
+    console.log("user created");
   }
 
   await localStorage.set("principal", principal as unknown as string)  

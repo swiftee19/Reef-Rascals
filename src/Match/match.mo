@@ -196,7 +196,7 @@ actor {
                 return "no user found";
             };
             case(?user) {
-                users.put(user.id, user);
+                users.put(key, user);
                 return "success";
             };
         }
