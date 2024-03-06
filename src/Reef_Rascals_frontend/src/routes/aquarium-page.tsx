@@ -17,7 +17,6 @@ export default function AquariumPage() {
     const [isAquarium, setIsAquarium] = useState(true);
     const authContext = useAuthContext();
     const [principal, setPrincipal] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [currUser, setCurrUser] = useState<User | null>(null);
     const [rascals, setRascals] = useState<Rascal[]>([]);
     const [isLoadingRascals, setIsLoadingRascals] = useState(true);
@@ -89,11 +88,6 @@ export default function AquariumPage() {
         }
     };
 
-    if (isLoadingRascals) {
-        userSetUp()
-        return <LoadingPage/>
-    }
-
     useEffect(() => {
         const clickHandler = (event: MouseEvent) => {
             event.preventDefault();
@@ -115,6 +109,11 @@ export default function AquariumPage() {
         };
     }, [isGettingNewRascalFromBackend]);
 
+    if (isLoadingRascals) {
+        userSetUp()
+        return <LoadingPage/>
+    }
+
     return (
         <>
             {showGachaModal &&
@@ -130,14 +129,14 @@ export default function AquariumPage() {
                                              src="/rascal-egg.png" onClick={() => {
                                             handleGacha()
                                         }}/>
-                                        (gachaResult &&
+                                        {/* (gachaResult &&
                                         <>
                                             <img className={styles.gachaResult} src={gachaResult?.imageUrl}
                                                  onClick={() => {
                                                      handleCloseGachaModal()
                                                  }}/>
                                         </>
-                                        )
+                                        ) */}
                                     </> :
                                     <>
                                         <h1 className={styles.invalidRasletText}>Not enough fragments ({currUser?.raslet.toString()}/10)</h1>

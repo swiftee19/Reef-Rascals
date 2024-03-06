@@ -36,7 +36,7 @@ export class User {
         this.username = "Rascals Warrior";
         this.profilePictureUrl = "";
         this.dateJoined = new Date().toString();
-        this.tokens = 0;
+        this.tokens = 1000;
         this.rascals = [];
         this.defense = [];
         this.attack = [];
