@@ -39,12 +39,17 @@ $wave-colors: colors.$light-orange, colors.$cream-brown, colors.$light-blue;
 
 .mainContainer {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  gap: 2rem;
 
+  @media screen and (max-width: 768px){
+    flex-direction: column;
+  }
+  
 
   .backdrop {
     position: fixed;
@@ -52,18 +57,19 @@ $wave-colors: colors.$light-orange, colors.$cream-brown, colors.$light-blue;
     height: 100%;
     filter: brightness(0.4) saturate(2);
     z-index: -1;
+    object-fit: cover;
   }
 
   .loadingText{
     font-size: 4rem;
     font-weight: 700;
-    letter-spacing: 1rem;
+    letter-spacing: 0.5rem;
     animation: waveColor 4s infinite;
     user-select: none;
   }
 
   .bouncingImage {
     animation: bounce 2s infinite;
-    width: 50vw;
+    width: 30vw;
   }
 }
