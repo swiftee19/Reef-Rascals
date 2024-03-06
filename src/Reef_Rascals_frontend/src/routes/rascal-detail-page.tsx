@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import RarityLabel from '../components/rarity-label';
 import SidebarNav from '../components/sidebar-nav';
 import styles from '../scss/pages/rascal-detail-page.module.scss';
 import { Rarity } from '../types/rascal';
 import rascalList from '../types/rascal-dummy';
+import InputPriceModal from '../components/input-price-modal';
 
 export default function RascalDetailPage() {
-
+    const [isSell, setIsSell] = useState(false);
     const rascal = rascalList[0]
+
+    const handleSell = () => {
+        setIsSell(!isSell);
+    }
 
     return(
         <>
@@ -54,7 +60,7 @@ export default function RascalDetailPage() {
                         </div>
 
                         <div className={styles.ownerBtns}>
-                            <div className={styles.buyBtn}>
+                            <div className={styles.buyBtn} onClick={handleSell}>
                                 <p>Sell</p>
                             </div>
                             <div className={styles.retreiveBtn}>
@@ -64,6 +70,10 @@ export default function RascalDetailPage() {
                     </div>
                 </section>
             </div>
+
+            {
+                isSell && <InputPriceModal closeModal={handleSell}/>
+            }
         </>
     )
 }
