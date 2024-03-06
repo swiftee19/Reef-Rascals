@@ -94,7 +94,7 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
     };
   }, [rascals, positions, rascalSize]);
 
-  return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0 }} />;
+  return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: 0 }} />;
 };
 
 export default AquariumCanvas;
