@@ -57,7 +57,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     matchmaking.register(user);
   }
 
-  await localStorage.set("principal", principal as unknown as string)
+  await localStorage.set("principal", principal as unknown as string)  
 };
 
 const init = async () => {
