@@ -46,8 +46,6 @@ export default function AquariumPage() {
         return <div>Loading...</div>
     }
 
-    var arrayRascals = Array.from(rascals)
-
     return (
         <>
             <SidebarNav/>
@@ -62,7 +60,7 @@ export default function AquariumPage() {
                 </footer>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    <MyRascalPage {...arrayRascals}/>
+                    <MyRascalPage {...rascals as Array<Rascal>}/>
                 </section>
 
                 <header className={styles.aquariumTop}>

@@ -2,9 +2,9 @@ import RascalCard from '../components/rascal-card';
 import styles from '../scss/pages/my-rascal-page.module.scss';
 import { Rascal } from '../types/rascal';
 
-export default function MyRascalPage(inputRascals: Rascal[] = []) {
-    let rascals: Rascal[] = Array.from(inputRascals);
-
+export default function MyRascalPage(inputRascals: Rascal[]) {
+    const rascals = Array.from(inputRascals);
+    console.log("rascals array:", rascals);
     return (
         <>
             <div className={styles.myRascalContainer}>
@@ -13,8 +13,7 @@ export default function MyRascalPage(inputRascals: Rascal[] = []) {
                     <div className={styles.myRascals}>
                         {
                             rascals.map((rascal:Rascal) => {
-                                var x: Rascal = rascal;
-                                return <RascalCard brownTheme={true} key={rascal.id} rascal={x} />
+                                return <RascalCard brownTheme={true} key={rascal.id} rascal={{...rascal}} />
                             })
                         }
                     </div>
