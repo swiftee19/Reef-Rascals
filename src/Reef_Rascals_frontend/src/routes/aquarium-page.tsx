@@ -3,7 +3,7 @@ import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
 import styles from "../scss/pages/aquarium-page.module.scss";
-import {Rarity, Rascal, RascalType} from "../types/rascal";
+import {gachaRascal, Rarity, Rascal, RascalType} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
 import {useAuthContext} from "../middleware/middleware";
@@ -62,31 +62,58 @@ export default function AquariumPage() {
     }
 
     // Add an event listener to the entire document
-    document.addEventListener('click', function (event) {
-        const clickedElement = event.target;
-        if (!(clickedElement instanceof HTMLElement)) return;
-        const className = clickedElement.className;
+    // document.addEventListener('click', function (event) {
+    //     const clickedElement = event.target;
+    //     if (!(clickedElement instanceof HTMLElement)) return;
+    //     const className = clickedElement.className;
+    //
+    //     if (className === styles.gachaModalContainer) {
+    //         handleCloseGachaModal();
+    //     }
+    // });
 
-        if (className === styles.gachaModalContainer) {
-            handleCloseGachaModal();
-        }
-    });
-
-    const handleGacha = () => {
+    const handleGacha = async () => {
         setGlowAnimation(true);
+        setIsGettingNewRascalFromBackend(true)
 
-        // Reset the glow animation after 2 seconds
         setTimeout(() => {
             setGlowAnimation(false);
             removeEgg();
-            // get random rascal and show rascal
         }, 2000);
+
+        const gachaResult = await gachaRascal(authContext.principal)
+        setIsGettingNewRascalFromBackend(false)
+
+        if(gachaResult){
+            const rascalResult = gachaResult as Rascal
+        }
     };
 
     if (isLoadingRascals) {
         userSetUp()
         return <LoadingPage/>
     }
+
+    useEffect(() => {
+        const clickHandler = (event: MouseEvent) => {
+            event.preventDefault();
+            const clickedElement = event.target;
+            if (!(clickedElement instanceof HTMLElement)) return;
+            const className = clickedElement.className;
+
+            if (className === styles.gachaModalContainer) {
+                handleCloseGachaModal();
+            }
+        };
+
+        if (isGettingNewRascalFromBackend) {
+            document.addEventListener('click', clickHandler);
+        }
+
+        return () => {
+            document.removeEventListener('click', clickHandler);
+        };
+    }, [isGettingNewRascalFromBackend]);
 
     return (
         <>
