@@ -26,7 +26,7 @@ const AquariumCanvas: React.FC<AquariumCanvasProps> = ({ rascals }: AquariumCanv
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
 
-    if (!canvas || !context || rascals.length === 0) {
+    if (!canvas || !context || rascals.length === 0 || positions.length !== rascals.length) {
       return;
     }
 

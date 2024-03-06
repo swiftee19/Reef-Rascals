@@ -62,17 +62,6 @@ export default function AquariumPage() {
         }
     }
 
-    // Add an event listener to the entire document
-    // document.addEventListener('click', function (event) {
-    //     const clickedElement = event.target;
-    //     if (!(clickedElement instanceof HTMLElement)) return;
-    //     const className = clickedElement.className;
-    //
-    //     if (className === styles.gachaModalContainer) {
-    //         handleCloseGachaModal();
-    //     }
-    // });
-
     const handleGacha = async () => {
         setGlowAnimation(true);
         setIsGettingNewRascalFromBackend(true)
@@ -116,6 +105,7 @@ export default function AquariumPage() {
 
     return (
         <>
+            <SidebarNav/>
             {showGachaModal &&
                 <>
                     <div className={`${styles.gachaModalContainer}`}>
@@ -129,17 +119,18 @@ export default function AquariumPage() {
                                              src="/rascal-egg.png" onClick={() => {
                                             handleGacha()
                                         }}/>
-                                        {/* (gachaResult &&
-                                        <>
-                                            <img className={styles.gachaResult} src={gachaResult?.imageUrl}
-                                                 onClick={() => {
-                                                     handleCloseGachaModal()
-                                                 }}/>
-                                        </>
-                                        ) */}
+                                        {(gachaResult &&
+                                            <>
+                                                <img className={styles.gachaResult} src={gachaResult?.imageUrl}
+                                                     onClick={() => {
+                                                         handleCloseGachaModal()
+                                                     }}/>
+                                            </>
+                                        )}
                                     </> :
                                     <>
-                                        <h1 className={styles.invalidRasletText}>Not enough fragments ({currUser?.raslet.toString()}/10)</h1>
+                                        <h1 className={styles.invalidRasletText}>Not enough fragments
+                                            ({currUser?.raslet.toString()}/10)</h1>
                                         <div className={styles.invalidRasletSymbolContainer}>
                                             <img className={styles.invalidEggTop} src="/rascal-egg-top.png"/>
                                             <img className={styles.invalidEggBottom} src="/rascal-egg-bottom.png"/>
@@ -150,8 +141,6 @@ export default function AquariumPage() {
                     </div>
                 </>
             }
-
-            <SidebarNav/>
             <div className={styles.mainContainer}>
                 <img className={styles.background} src="/bg-aquarium.png"/>
                 <AquariumCanvas rascals={rascals}/>
@@ -171,13 +160,14 @@ export default function AquariumPage() {
                 </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    <MyRascalPage {...rascals as Array<Rascal>}/>
+                    {/*<MyRascalPage {...rascals as Array<Rascal>}/>*/}
                 </section>
 
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
                     <div className={styles.aquariumStats}>
-                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={Number(currUser?.raslet)} max={7}/>
+                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={Number(currUser?.raslet)}
+                                   max={7}/>
                         <WoodStats image="/rascal-egg-top.png" curr={Number(currUser?.rascalFragment)} max={10}/>
                         <WoodStats image="/favicon.ico" curr={Number(currUser?.tokens)}/>
                     </div>
