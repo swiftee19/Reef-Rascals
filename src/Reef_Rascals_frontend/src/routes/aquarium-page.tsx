@@ -24,6 +24,7 @@ export default function AquariumPage() {
     const [showGachaModal, setShowGachaModal] = useState(false)
     const [glowAnimation, setGlowAnimation] = useState(false);
     const [isGettingNewRascalFromBackend, setIsGettingNewRascalFromBackend] = useState(false)
+    const [gachaResult, setGachaResult] = useState<Rascal | null>(null)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -53,6 +54,7 @@ export default function AquariumPage() {
 
     const handleCloseGachaModal = () => {
         setShowGachaModal(false);
+        setGachaResult(null)
     };
 
     const removeEgg = () => {
@@ -76,16 +78,14 @@ export default function AquariumPage() {
         setGlowAnimation(true);
         setIsGettingNewRascalFromBackend(true)
 
-        setTimeout(() => {
-            setGlowAnimation(false);
-            removeEgg();
-        }, 2000);
-
         const gachaResult = await gachaRascal(authContext.principal)
+        setGlowAnimation(false);
+        removeEgg();
         setIsGettingNewRascalFromBackend(false)
 
-        if(gachaResult){
+        if (gachaResult) {
             const rascalResult = gachaResult as Rascal
+            setGachaResult(rascalResult)
         }
     };
 
@@ -106,7 +106,7 @@ export default function AquariumPage() {
             }
         };
 
-        if (isGettingNewRascalFromBackend) {
+        if (!isGettingNewRascalFromBackend) {
             document.addEventListener('click', clickHandler);
         }
 
@@ -130,9 +130,17 @@ export default function AquariumPage() {
                                              src="/rascal-egg.png" onClick={() => {
                                             handleGacha()
                                         }}/>
+                                        (gachaResult &&
+                                        <>
+                                            <img className={styles.gachaResult} src={gachaResult?.imageUrl}
+                                                 onClick={() => {
+                                                     handleCloseGachaModal()
+                                                 }}/>
+                                        </>
+                                        )
                                     </> :
                                     <>
-                                        <h1 className={styles.invalidRasletText}>Not enough raslet</h1>
+                                        <h1 className={styles.invalidRasletText}>Not enough fragments ({currUser?.raslet.toString()}/10)</h1>
                                         <div className={styles.invalidRasletSymbolContainer}>
                                             <img className={styles.invalidEggTop} src="/rascal-egg-top.png"/>
                                             <img className={styles.invalidEggBottom} src="/rascal-egg-bottom.png"/>
@@ -170,9 +178,9 @@ export default function AquariumPage() {
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium}/>
                     <div className={styles.aquariumStats}>
-                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={5} max={7}/>
-                        <WoodStats image="/rascal-egg-top.png" curr={10}/>
-                        <WoodStats image="/favicon.ico" curr={0.2}/>
+                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={Number(currUser?.raslet)} max={7}/>
+                        <WoodStats image="/rascal-egg-top.png" curr={Number(currUser?.rascalFragment)} max={10}/>
+                        <WoodStats image="/favicon.ico" curr={Number(currUser?.tokens)}/>
                     </div>
                 </header>
             </div>
