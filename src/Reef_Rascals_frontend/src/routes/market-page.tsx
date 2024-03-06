@@ -7,6 +7,9 @@ import styles from "../scss/pages/market-page.module.scss";
 import SellModal from "../components/sell-modal";
 import { matchmaking } from "../../../declarations/matchmaking";
 import LoadingPage from "../components/loading-page";
+import { User } from "../types/user";
+import { AuthContext } from "../middleware/middleware";
+import { getCurrentUser } from "../types/auth";
 
 export default function MarketPage() {
     const [search, setSearch] = useState("");
@@ -14,12 +17,15 @@ export default function MarketPage() {
     const [rascals, setRascals] = useState<Rascal[]>([]);
     const [filteredRascals, setFilteredRascals] = useState<Rascal[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [userRascal, setUserRascal] = useState<Rascal[]>([]);
 
     const fetchRascals = async () => {
+        const dataUser = await getCurrentUser();
         const data = await matchmaking.getMarket();
-        if(data) {
+        if(data && dataUser) {
             setRascals(data);
             setFilteredRascals(data);
+            setUserRascal(dataUser.rascals);
             setIsLoading(false);
         }
     }
@@ -83,7 +89,7 @@ export default function MarketPage() {
                 </section>
 
                 { sellModal &&
-                    <SellModal closeModal={() => setSellModal(false)} rascals={rascals}/>
+                    <SellModal closeModal={() => setSellModal(false)} rascals={userRascal}/>
                 }
             </div>
 

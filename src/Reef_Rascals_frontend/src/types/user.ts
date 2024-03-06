@@ -49,7 +49,7 @@ export class User {
 }
 
 export function saveUser(user: User) {
-    let check = matchmaking.updateUser(user.id, user);
+    let check = matchmaking.updateUser(user);
     console.log(check);
 }
 

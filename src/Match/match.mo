@@ -203,15 +203,15 @@ actor {
         };
     };
 
-    public func updateUser(key : Principal, user : model.User) : async Text {
-        var check: ?model.User = users.get(key);
+    public func updateUser(user : model.User) : async Text {
+        var check: ?model.User = users.get(user.id);
 
         switch(check) {
             case(null) {
                 return "no user found";
             };
-            case(?user) {
-                users.put(key, user);
+            case(?check) {
+                users.put(user.id, user);
                 return "success";
             };
         }
