@@ -1,0 +1,27 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.rascalsContainer {
+    display: flex;
+}
+
+.rascalEggs {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+
+    .egg {
+        width: 90%
+    }
+
+    .rascal {
+        position: absolute;
+        width: 60%;
+    }
+}
+
+.flip {
+    transform: scaleX(-1);
+}

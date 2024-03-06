@@ -1,0 +1,16 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.progressContainer {
+    position: ab;
+    background-color: colors.$dark-brown;
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 5rem;
+    background-color: colors.$success;
+}

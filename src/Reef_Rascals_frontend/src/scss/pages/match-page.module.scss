@@ -23,10 +23,36 @@
 }
 
 .mainContainer {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+}
+
+.pageContainer {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.topPart {
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.bottomPart {
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
 }
