@@ -73,7 +73,8 @@ export default function ProfilePage() {
         battleHistories: [],
         elo: BigInt(243),
         raslet: BigInt(0),
-        rascalFragment: BigInt(0)
+        rascalFragment: BigInt(0),
+        lastRasletClaim: new Date().toString()
     }
 
     const battleHistory: BattleHistory = {
@@ -107,7 +108,8 @@ export default function ProfilePage() {
         battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
         elo: BigInt(267),
         raslet: BigInt(0),
-        rascalFragment: BigInt(0)
+        rascalFragment: BigInt(0),
+        lastRasletClaim: new Date().toString()
     }
 
     const calculateLeagueSliderProgress = () => {
