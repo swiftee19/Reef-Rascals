@@ -98,10 +98,10 @@ export default function AquariumPage() {
         };
     }, [isGettingNewRascalFromBackend]);
 
-    if (isLoadingRascals) {
-        userSetUp()
-        return <LoadingPage/>
-    }
+    // if (isLoadingRascals) {
+    //     userSetUp()
+    //     return <LoadingPage/>
+    // }
 
     return (
         <>
