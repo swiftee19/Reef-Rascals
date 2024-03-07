@@ -5,6 +5,7 @@ import Text "mo:base/Text";
 import Array "mo:base/Array";
 import Iter "mo:base/Iter";
 import Random "mo:base/Random";
+import Float "mo:base/Float";
 import model "model";
 
 actor {
@@ -85,7 +86,9 @@ actor {
                     return "insufficient balance";
                 };
 
-                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
+                var newRascal = {rascal with owner = buyer};
+
+                let newRascals = Array.append<model.Rascal>(user.rascals, [newRascal]);
                 var newUSer = { user with rascals = newRascals};
                 newUSer := { newUSer with balance = user.tokens - rascal.price };
                 users.put(buyer, newUSer);
@@ -100,12 +103,18 @@ actor {
         };
     };
 
-    public func checkRascalStatus (rascal : model.Rascal) : async Text {
+    public func checkRascalStatus (rascal : model.Rascal, userId: Principal) : async Text {
         var check: [model.Rascal] = Array.filter<model.Rascal>(rascalMarket, func (x) {
             x.id == rascal.id;
         });
 
         if(Array.size(check) > 0) {
+            if(check[0].owner == userId) {
+                return "owner";
+            };
+        };
+
+        if(Array.size(check) >= 0) {
             return "sale";
         };
 
@@ -119,11 +128,11 @@ actor {
 
                 check := Array.append<model.Rascal>(check, userRascal);
 
-                if(Array.size(check) > 0) {
+                if(Array.size(userRascal) > 0) {
                     return "notSale";
                 };
 
-                return "no rascal found"; 
+                return "no rascal found";
             };
             case(null) {
                 return "no user found";
@@ -217,7 +226,7 @@ actor {
         }
     };
 
-    public func sellRascal(rascal : model.Rascal) : async Text {
+    public func sellRascal(rascal : model.Rascal, price: Float) : async Text {
         var check: ?model.User = users.get(rascal.owner);
 
         switch(check) {
@@ -228,9 +237,10 @@ actor {
                 let newRascals = Array.filter<model.Rascal>(user.rascals, func (x) {
                     x.id != rascal.id;
                 });
+                let sellRascal = { rascal with price = price };
                 let newUSer = { user with rascals = newRascals };
-                users.put(user.id, user);
-                rascalMarket := Array.append<model.Rascal>(rascalMarket, [rascal]);
+                users.put(user.id, newUSer  );
+                rascalMarket := Array.append<model.Rascal>(rascalMarket, [sellRascal]);
                 return "success";
             };
         };

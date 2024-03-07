@@ -8,7 +8,7 @@ const rascal1 = new Rascal(
     200,
     20,
     10,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal2 = new Rascal(
@@ -19,7 +19,7 @@ const rascal2 = new Rascal(
     100,
     40,
     20,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal3 = new Rascal(
@@ -30,7 +30,7 @@ const rascal3 = new Rascal(
     200,
     10,
     30,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal4 = new Rascal(
@@ -41,7 +41,7 @@ const rascal4 = new Rascal(
     200,
     10,
     30,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal5 = new Rascal(
@@ -52,7 +52,7 @@ const rascal5 = new Rascal(
     100,
     40,
     35,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal6 = new Rascal(
@@ -63,7 +63,7 @@ const rascal6 = new Rascal(
     100,
     40,
     20,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal7 = new Rascal(
@@ -74,7 +74,7 @@ const rascal7 = new Rascal(
     100,
     40,
     20,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal8 = new Rascal(
@@ -85,7 +85,7 @@ const rascal8 = new Rascal(
     200,
     10,
     30,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal9 = new Rascal(
@@ -96,7 +96,7 @@ const rascal9 = new Rascal(
     200,
     10,
     30,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascal10 = new Rascal(
@@ -107,7 +107,7 @@ const rascal10 = new Rascal(
     100,
     30,
     20,
-    "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae",
+    "pgjpo-clrez-kncmj-74gbk-7rlxi-raf4k-c54qy-pgj3x-mej7f-qsaur-vae",
 );
 
 const rascalList: Rascal[] = [rascal1, rascal2, rascal3, rascal4, rascal5, rascal6, rascal7, rascal8, rascal9, rascal10];

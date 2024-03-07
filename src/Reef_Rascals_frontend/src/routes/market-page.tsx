@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rarity, Rascal, RascalType } from "../types/rascal";
+import { Rascal } from "../types/rascal";
 import RascalCard from "../components/rascal-card";
 import RascalRankCard from "../components/rascal-rank-card";
 import SidebarNav from "../components/sidebar-nav";
@@ -18,6 +18,7 @@ export default function MarketPage() {
     const [filteredRascals, setFilteredRascals] = useState<Rascal[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [userRascal, setUserRascal] = useState<Rascal[]>([]);
+    const [yourSell, setYourSell] = useState<Rascal[]>([]);
 
     const fetchRascals = async () => {
         const dataUser = await getCurrentUser();
@@ -26,6 +27,8 @@ export default function MarketPage() {
             setRascals(data);
             setFilteredRascals(data);
             setUserRascal(dataUser.rascals);
+            const filter : Rascal[] = data.filter(rascal => rascal.owner.toString() == dataUser.id.toString());
+            setYourSell(filter)
             setIsLoading(false);
         }
     }
@@ -75,6 +78,15 @@ export default function MarketPage() {
                     <div className={styles.topSelling}>
                         {topSelling.map((rascal, index) => (
                             <RascalRankCard key={rascal.id} rascal={rascal} index={index} />
+                        ))}
+                    </div>
+                </section>
+
+                <section className={styles.recentContainer}>
+                    <h1 className={styles.containerHeader}>Your Sales Rascals</h1>
+                    <div className={styles.recentRascals}>
+                        {yourSell.map((rascal) => (
+                            <RascalCard key={rascal.id} rascal={rascal} />
                         ))}
                     </div>
                 </section>

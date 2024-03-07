@@ -15,6 +15,7 @@ export default function RascalDetailPage() {
     const [isSell, setIsSell] = useState(false);
     const [rascal, setRascal] = useState<Rascal>({} as Rascal);
     const [isLoading, setIsLoading] = useState(true);
+    const [status, setStatus] = useState("");
     const param = useParams();
     const rascalId = param.rascalId;
     const userId = useAuthContext().principal;
@@ -24,8 +25,11 @@ export default function RascalDetailPage() {
             const data = await matchmaking.getRascal(rascalId,Principal.fromText(userId));
             if(data) {
                 setRascal(data[0]);
-                console.log("rascalId", data[0]);
-                setIsLoading(false);
+                const check = await matchmaking.checkRascalStatus(data[0],Principal.fromText(userId));
+                if(check){
+                    setStatus(check);
+                    setIsLoading(false);
+                }
             } else {
                 console.log("No rascal found", data);
             }
@@ -40,7 +44,7 @@ export default function RascalDetailPage() {
 
     async function sellRascal(price: number) {
         rascal.price = price;
-        const x = await matchmaking.sellRascal(rascal);
+        const x = await matchmaking.sellRascal(rascal,price);
         if(x){
             window.location.reload();
             console.log("Rascal is sold", x);
@@ -64,17 +68,17 @@ export default function RascalDetailPage() {
         return <LoadingPage/>
     }
 
-    return(
+    return (
         <>
-            <SidebarNav/>
+            <SidebarNav />
             <div className={styles.mainContainer}>
-                <img className={styles.backgroundImg} src="/bg-aquarium.png"/>
-                <div className={styles.backdropOverlay}/>
+                <img className={styles.backgroundImg} src="/bg-aquarium.png" />
+                <div className={styles.backdropOverlay} />
                 <section className={styles.rascalContainer}>
                     <div className={styles.rascalImg}>
                         <img src={rascal.imageUrl} alt={rascal.name} />
                     </div>
-
+    
                     <div className={styles.rascalDetail}>
                         <div className={styles.detailBox}>
                             <div className={styles.rascalIdentity}>
@@ -83,7 +87,7 @@ export default function RascalDetailPage() {
                                 <p>#{rascal.id}</p>
                             </div>
                             <div className={styles.rarityContainer}>
-                                <RarityLabel rarity={rascal.rarity as Rarity} short={false}/>
+                                <RarityLabel rarity={rascal.rarity as Rarity} short={false} />
                             </div>
                             <div className={styles.cardStats}>
                                 <div>
@@ -100,30 +104,33 @@ export default function RascalDetailPage() {
                                 </div>
                             </div>
                         </div>
-
-                        <div className={styles.buyBtn} onClick={buyRascal}>
-                            <p>Buy Now</p>
-                        </div>
-
-                        <div className={styles.retreiveBtn}>
-                            <p>Retreive</p>
-                        </div>
-
-                        <div className={styles.ownerBtns}>
-                            <div className={styles.buyBtn} onClick={handleSell}>
-                                <p>Sell</p>
+    
+                        {status === "sale" && (
+                            <div className={styles.buyBtn} onClick={buyRascal}>
+                                <p>Buy Now</p>
                             </div>
+                        )}
+
+                        { status === "owner" && (
                             <div className={styles.retreiveBtn}>
-                                <p>Exchange</p>
+                                <p>Retreive</p>
                             </div>
-                        </div>
+                        )}
+                        {status === "notSale" && (
+                            <div className={styles.ownerBtns}>
+                                <div className={styles.buyBtn} onClick={handleSell}>
+                                    <p>Sell</p>
+                                </div>
+                                <div className={styles.retreiveBtn}>
+                                    <p>Exchange</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </section>
             </div>
-
-            {
-                isSell && <InputPriceModal closeModal={handleSell} sellRascal={sellRascal}/>
-            }
+    
+            {isSell && <InputPriceModal closeModal={handleSell} sellRascal={sellRascal} />}
         </>
-    )
+    );
 }

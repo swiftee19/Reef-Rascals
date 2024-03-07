@@ -32,7 +32,7 @@ export default function RascalRankCard({ index, rascal }: { index: number, rasca
           <h2>{rascal.name}</h2>
           <span className={styles.cardPrice}>
             <img src="/favicon.ico" alt="" />
-            <p>0.111</p>
+            <p>{rascal.price}</p>
           </span>
         </div>
 

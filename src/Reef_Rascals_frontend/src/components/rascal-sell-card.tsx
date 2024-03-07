@@ -4,10 +4,15 @@ import RarityLabel from "./rarity-label";
 import { useEffect, useState } from "react";
 import InputPriceModal from "./input-price-modal";
 import { matchmaking } from "../../../declarations/matchmaking";
+import LoadingPage from "./loading-page";
+import { Principal } from "@dfinity/principal";
+import { useAuthContext } from "../middleware/middleware";
 
 export default function RascalSellCard({rascal }: { rascal: Rascal }) {
     const [canisterId, setCanisterId] = useState("")
     const [isSell, setIsSell] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const userId = useAuthContext().principal;
 
     const gotoRascalDetail = () => {
         window.location.href = `/details/${rascal.id}/${canisterId}`;
@@ -18,8 +23,7 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
     }
 
     async function sellRascal(price: number) {
-        rascal.price = price;
-        const x = await matchmaking.sellRascal(rascal);
+        const x = await matchmaking.sellRascal(rascal,price);
         if(x){
             window.location.reload();
             console.log("Rascal is sold", x);
@@ -34,6 +38,20 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
         const tempCanisterId = routeSplit[1];
         setCanisterId("?" + tempCanisterId);
     }, []);
+
+    async function getStatus() {
+        const status = await matchmaking.checkRascalStatus(rascal, Principal.fromText(userId))
+        if(status){
+            if(status == "OnSale"){
+                setIsLoading(false);
+            }
+        }
+    }
+
+    if(isLoading) {
+        getStatus();
+        return <div>Loading...</div>
+    }
   
     return (
         <div className={styles.cardContainer} >
@@ -44,12 +62,12 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
             <section className={styles.cardAttribute}>
                 <div className={styles.cardDetail}>
                 <h2>{rascal.name}</h2>
-                {/* {isSell &&
+                {isSell &&
                     <span className={styles.cardPrice}>
                         <img src="/favicon.ico" alt="" />
                         <p>0.111</p>
                     </span>
-                } */}
+                }
                 </div>
 
                 <div className={styles.cardStats}>
