@@ -10,6 +10,7 @@ import {useAuthContext} from "../middleware/middleware";
 import {getCurrentUser} from "../types/auth";
 import {User} from "../types/user";
 import LoadingPage from "../components/loading-page";
+import { matchmaking } from "../../../declarations/matchmaking";
 
 export default function AquariumPage() {
     const eggGachaRef = useRef<HTMLImageElement | null>(null);
@@ -18,6 +19,7 @@ export default function AquariumPage() {
     const authContext = useAuthContext();
     const [principal, setPrincipal] = useState<string | null>(null);
     const [currUser, setCurrUser] = useState<User | null>(null);
+    const [oppUser, setOppUser] = useState<User | null>(null);
     const [rascals, setRascals] = useState<Rascal[]>([]);
     const [isLoadingRascals, setIsLoadingRascals] = useState(true);
     const [showGachaModal, setShowGachaModal] = useState(false)
@@ -99,10 +101,20 @@ export default function AquariumPage() {
         };
     }, [isGettingNewRascalFromBackend]);
 
-    // if (isLoadingRascals) {
-    //     userSetUp()
-    //     return <LoadingPage/>
-    // }
+    async function getOpponent() {
+        if(currUser) {
+            const data = await matchmaking.getOpponents(currUser);
+            if(data) {
+                const opponent = data[Math.floor(Math.random() * data.length)];
+                setOppUser(opponent);
+            }
+        }
+    }
+
+    if (isLoadingRascals) {
+        userSetUp()
+        return <LoadingPage/>
+    }
 
     return (
         <>
