@@ -53,7 +53,8 @@ export default function AquariumPage() {
 
     const handleCloseGachaModal = () => {
         setShowGachaModal(false);
-        setGachaResult(null)
+        setGachaResult(null);
+        window.location.reload()
     };
 
     const removeEgg = () => {
@@ -161,7 +162,7 @@ export default function AquariumPage() {
                 </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    {/*<MyRascalPage {...rascals as Array<Rascal>}/>*/}
+                    <MyRascalPage {...rascals as Array<Rascal>}/>
                 </section>
 
                 <header className={styles.aquariumTop}>
