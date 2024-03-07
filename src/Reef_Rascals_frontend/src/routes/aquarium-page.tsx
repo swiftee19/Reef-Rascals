@@ -300,7 +300,7 @@ export default function AquariumPage() {
                 </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    <MyRascalPage {...rascals as Array<Rascal>}/>
+                    <MyRascalPage inputRascals={currUser?.rascals!}/>
                 </section>
 
                 <header className={styles.aquariumTop}>

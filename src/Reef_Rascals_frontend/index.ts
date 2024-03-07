@@ -51,6 +51,13 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
   if (result.length === 1) {
     const user: User = result[0];
     console.log(user);
+    const now = new Date().getTime();
+    const lastClaim = new Date(user.lastRasletClaim).getTime();
+    const diff = now - lastClaim;
+    const raslet = Math.floor(diff / (1000 * 10 * 60));
+    user.raslet = BigInt(raslet);
+    console.log(user);
+
   } else {
     const user = new User(principal);
     user.rascals = rascalList;
