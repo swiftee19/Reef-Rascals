@@ -89,3 +89,23 @@ export async function setUserAttackRascal(owner: string, battleRascal1: Rascal |
         await matchmaking.setUserAttackRascal(attackRascals, newUser.id)
     }
 }
+
+export async function setUserDefenseRascal(owner: string, defenseRascal1: Rascal | null, defenseRascal2: Rascal | null, defenseRascal3: Rascal | null) {
+    const user = await matchmaking.getUser(Principal.fromText(owner));
+    const defenseRascals: Rascal[] = [];
+
+    if (defenseRascal1) {
+        defenseRascals.push(defenseRascal1);
+    }
+    if (defenseRascal2) {
+        defenseRascals.push(defenseRascal2);
+    }
+    if (defenseRascal3) {
+        defenseRascals.push(defenseRascal3);
+    }
+
+    if (user) {
+        const newUser = user[0];
+        await matchmaking.setUserDefenseRascal(defenseRascals, newUser.id)
+    }
+}

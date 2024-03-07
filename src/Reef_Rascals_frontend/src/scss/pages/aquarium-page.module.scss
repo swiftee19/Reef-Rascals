@@ -113,13 +113,37 @@
   bottom: 2rem;
   transition-duration: 0.25s;
 
-  img {
-    width: 100%;
+  .openDefenseModalButton {
+    position: relative;
+    width: 50%;
+    transition: 300ms;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .shieldIcon {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      filter: brightness(0) saturate(100%) invert(13%) sepia(37%) saturate(1013%) hue-rotate(340deg) brightness(89%) contrast(94%);
+    }
   }
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.1);
+  .playButton {
+    width: 100%;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 }
 

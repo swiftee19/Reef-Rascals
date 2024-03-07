@@ -93,7 +93,22 @@ actor {
         switch(check) {
             case(?user) {
                 let newattackRascal: [model.Rascal] = attackRascals;
-                let newUSer = { user with attackRascals = newattackRascal };
+                let newUSer = { user with attack = newattackRascal };
+                users.put(owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
+    public func setUserDefenseRascal(defenseRascals : [model.Rascal], owner : Principal) : async Text {
+        var check: ?model.User = users.get(owner);
+        switch(check) {
+            case(?user) {
+                let newDefenseRascal: [model.Rascal] = defenseRascals;
+                let newUSer = { user with defense = newDefenseRascal };
                 users.put(owner, newUSer);
                 return "success";
             };
