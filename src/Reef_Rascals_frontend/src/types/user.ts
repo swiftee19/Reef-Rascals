@@ -30,6 +30,7 @@ export class User {
     elo: bigint;
     raslet: bigint;
     rascalFragment: bigint;
+    lastRasletClaim: string;
 
     constructor(id: Principal) {
         this.id = id;
@@ -45,6 +46,7 @@ export class User {
         this.elo = BigInt(0);
         this.raslet = BigInt(0);
         this.rascalFragment = BigInt(0);
+        this.lastRasletClaim = new Date().toString();
     }
 }
 

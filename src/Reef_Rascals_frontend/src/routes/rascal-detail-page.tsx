@@ -28,6 +28,7 @@ export default function RascalDetailPage() {
                 const check = await matchmaking.checkRascalStatus(data[0],Principal.fromText(userId));
                 if(check){
                     setStatus(check);
+                    console.log("Rascal status", check);
                     setIsLoading(false);
                 }
             } else {
@@ -60,6 +61,26 @@ export default function RascalDetailPage() {
             console.log("Rascal is bought", x);
         } else {
             console.log("Rascal is not bought", x);
+        }
+    }
+
+    async function retreiveRascal() {
+        const x = await matchmaking.retriveRascal(rascal);
+        if(x){
+            window.location.reload();
+            console.log("Rascal is retreived", x);
+        } else {
+            console.log("Rascal is not retreived", x);
+        }
+    }
+
+    async function handleExchange() {
+        const x = await matchmaking.exchangeRascal(rascal);
+        if(x){
+            window.location.reload();
+            console.log("Rascal is exchanged", x);
+        } else {
+            console.log("Rascal is not exchanged", x);
         }
     }
 
@@ -112,7 +133,7 @@ export default function RascalDetailPage() {
                         )}
 
                         { status === "owner" && (
-                            <div className={styles.retreiveBtn}>
+                            <div className={styles.retreiveBtn} onClick={retreiveRascal}>
                                 <p>Retreive</p>
                             </div>
                         )}
@@ -121,7 +142,7 @@ export default function RascalDetailPage() {
                                 <div className={styles.buyBtn} onClick={handleSell}>
                                     <p>Sell</p>
                                 </div>
-                                <div className={styles.retreiveBtn}>
+                                <div className={styles.retreiveBtn} onClick={handleExchange}>
                                     <p>Exchange</p>
                                 </div>
                             </div>

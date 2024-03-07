@@ -55,6 +55,24 @@ actor {
 
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
 
+    public func exchangeRascal(rascal : model.Rascal) : async Text {
+        var user: ?model.User = users.get(rascal.owner);
+        switch(user) {
+            case(?user) {
+                let newRascals = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id != rascal.id;
+                });
+                var newUSer = { user with rascals = newRascals };
+                newUSer := { newUSer with rascalFragment = user.rascalFragment + 1 };
+                users.put(rascal.owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func addRascal(rascal : model.Rascal, owner : Principal) : async Text {
         var check: ?model.User = users.get(owner);
         switch(check) {
@@ -107,9 +125,7 @@ actor {
         var user: ?model.User = users.get(rascal.owner);
         switch(user) {
             case(?user) {
-                let newRascals = Array.filter<model.Rascal>(user.rascals, func (x) {
-                    x.id != rascal.id;
-                });
+                let newRascals = Array.append<model.Rascal>(user.rascals, [rascal]);
                 let newUSer = { user with rascals = newRascals };
                 users.put(rascal.owner, newUSer);
                 return "success";
@@ -164,7 +180,7 @@ actor {
             };
         };
 
-        if(Array.size(check) >= 0) {
+        if(Array.size(check) > 0) {
             return "sale";
         };
 

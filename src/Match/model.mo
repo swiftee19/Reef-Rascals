@@ -57,6 +57,7 @@ module {
         elo : Int;
         raslet : Int;
         rascalFragment: Int;
+        lastRasletClaim: Text;
     };
 
     public type BattleHistory = {
