@@ -11,6 +11,7 @@ import {getCurrentUser} from "../types/auth";
 import {User} from "../types/user";
 import LoadingPage from "../components/loading-page";
 import { matchmaking } from "../../../declarations/matchmaking";
+import Modal from "../components/modal";
 
 export default function AquariumPage() {
     const eggGachaRef = useRef<HTMLImageElement | null>(null);
@@ -26,6 +27,14 @@ export default function AquariumPage() {
     const [glowAnimation, setGlowAnimation] = useState(false);
     const [isGettingNewRascalFromBackend, setIsGettingNewRascalFromBackend] = useState(false)
     const [gachaResult, setGachaResult] = useState<Rascal | null>(null)
+
+    const [showSelectBattleRascalModalIsOpen, setShowSelectBattleRascalModalIsOpen] = useState(false)
+    const [showRascalSelectionContainer, setShowRascalSelectionContainer] = useState(false)
+    const [availableRascalsForBattle, setAvailableRascalsForBattle] = useState<Rascal[]>([])
+    const [selectedBattleRascalContainer, setSelectedBattleRascalContainer] = useState(1)
+    const [battleRascal1, setBattleRascal1] = useState<Rascal | null>(null)
+    const [battleRascal2, setBattleRascal2] = useState<Rascal | null>(null)
+    const [battleRascal3, setBattleRascal3] = useState<Rascal | null>(null)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -58,6 +67,25 @@ export default function AquariumPage() {
         setGachaResult(null);
         window.location.reload()
     };
+
+    const handleOpenSelectBattleRascalModal = () => {
+        setShowSelectBattleRascalModalIsOpen(true)
+    }
+    const handleCloseSelectBattleRascalModal = () => {
+        setShowSelectBattleRascalModalIsOpen(false)
+        setShowRascalSelectionContainer(false)
+    }
+    const toggleRascalSelectionModal = () => {
+        if (showRascalSelectionContainer) {
+            setShowRascalSelectionContainer(false)
+        } else {
+            setShowRascalSelectionContainer(true)
+        }
+    }
+
+    const handleSelectBattleRascalContainer = (containerNumber: number) => {
+        setSelectedBattleRascalContainer(containerNumber)
+    }
 
     const removeEgg = () => {
         if (eggGachaRef.current) {
@@ -110,6 +138,26 @@ export default function AquariumPage() {
             }
         }
     }
+    useEffect(() => {
+        const allRascals = currUser?.rascals
+        const userBattleRascals = currUser?.attack
+
+        if (allRascals && userBattleRascals) {
+            setBattleRascal1(userBattleRascals[0])
+            setBattleRascal2(userBattleRascals[1])
+            setBattleRascal3(userBattleRascals[2])
+        }
+
+        if (allRascals) {
+            const availableRascals = allRascals.filter(rascal => rascal !== battleRascal1 && rascal !== battleRascal2 && rascal !== battleRascal3)
+            setAvailableRascalsForBattle(availableRascals)
+        }
+    }, [currUser, battleRascal1, battleRascal2, battleRascal3]);
+
+    const handleStartFight = () => {
+        // TODO: save rascals to user (jangan lupa kasih await, baru abis kelar nanti findMatch)
+        findMatch();
+    }
 
     if (isLoadingRascals) {
         userSetUp()
@@ -124,8 +172,7 @@ export default function AquariumPage() {
                     <div className={`${styles.gachaModalContainer}`}>
                         <div className={styles.gachaModal}>
                             {
-                                // currUser?.rascalFragment && currUser.rascalFragment >= 10 ?
-                                true ? // TODO: change back to the above line
+                                currUser?.rascalFragment && currUser.rascalFragment >= 10 ?
                                     <>
                                         <h1>Hatch your Rascal</h1>
                                         <img ref={eggGachaRef}
@@ -155,12 +202,79 @@ export default function AquariumPage() {
                     </div>
                 </>
             }
+            {
+                showSelectBattleRascalModalIsOpen &&
+                <>
+                    <Modal w={"50%"} h={"50%"} closeModal={() => {
+                        handleCloseSelectBattleRascalModal();
+                    }}>
+                        <div className={styles.selectBattleRascalMainContainer}>
+                            <h1>Select your Rascals</h1>
+                            <div className={styles.selectedRascalsContainer}>
+                                <div className={styles.selectedRascalContainer} onClick={() => {
+                                    toggleRascalSelectionModal()
+                                    handleSelectBattleRascalContainer(1)
+                                }}>
+                                    <img className={styles.rascalWoodenBackground} src="/wood-plain-elipse.png"/>
+                                    {battleRascal1 &&
+                                        <img className={styles.selectedRascal} src={battleRascal1.imageUrl}/>
+                                    }
+                                </div>
+                                <div className={styles.selectedRascalContainer} onClick={() => {
+                                    toggleRascalSelectionModal()
+                                    handleSelectBattleRascalContainer(2)
+                                }}>
+                                    <img className={styles.rascalWoodenBackground} src="/wood-plain-elipse.png"/>
+                                    {battleRascal2 &&
+                                        <img className={styles.selectedRascal} src={battleRascal2.imageUrl}/>
+                                    }
+                                </div>
+                                <div className={styles.selectedRascalContainer} onClick={() => {
+                                    toggleRascalSelectionModal()
+                                    handleSelectBattleRascalContainer(3)
+                                }}>
+                                    <img className={styles.rascalWoodenBackground} src="/wood-plain-elipse.png"/>
+                                    {battleRascal3 &&
+                                        <img className={styles.selectedRascal} src={battleRascal3.imageUrl}/>
+                                    }
+                                </div>
+                            </div>
+                            <div className={styles.brawlButton} onClick={() => {
+                                handleStartFight()
+                            }}>
+                                <img src="/wood-button.png"/>
+                                <h1>Brawl!</h1>
+                            </div>
+                        </div>
+                    </Modal>
+                    <div
+                        className={`${styles.availableRascalsContainer} ${showRascalSelectionContainer ? styles.showAvailableRascalsContainer : ''}`}>
+                        {
+                            availableRascalsForBattle.map((rascal, index) => {
+                                return (
+                                    <img src={rascal.imageUrl} onClick={() => {
+                                        if (selectedBattleRascalContainer === 1) {
+                                            setBattleRascal1(rascal)
+                                        } else if (selectedBattleRascalContainer === 2) {
+                                            setBattleRascal2(rascal)
+                                        } else if (selectedBattleRascalContainer === 3) {
+                                            setBattleRascal3(rascal)
+                                        }
+                                        setShowRascalSelectionContainer(false)
+                                    }}/>
+                                )
+                            })
+                        }
+                    </div>
+                </>
+            }
             <div className={styles.mainContainer}>
                 <img className={styles.background} src="/bg-aquarium.png"/>
                 <AquariumCanvas rascals={rascals}/>
 
                 <footer className={styles.aquariumBottom} onClick={(e) => {
-                    findMatch();
+                    e.preventDefault();
+                    handleOpenSelectBattleRascalModal();
                 }}>
                     <img src="/wood-round.png" alt=""/>
                 </footer>
