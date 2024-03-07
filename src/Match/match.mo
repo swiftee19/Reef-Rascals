@@ -85,6 +85,41 @@ actor {
         };
     };
 
+    public func reward(id : Principal, amount : Int) : async Text {
+        var check: ?model.User = users.get(id);
+        switch(check) {
+            case(?user) {
+                let newUSer = { user with rascalFragment = user.rascalFragment + amount };
+                users.put(id, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
+    public func retriveRascal(rascal: model.Rascal) : async Text {
+        rascalMarket := Array.filter<model.Rascal>(rascalMarket, func (x) {
+            x.id != rascal.id;
+        });
+
+        var user: ?model.User = users.get(rascal.owner);
+        switch(user) {
+            case(?user) {
+                let newRascals = Array.filter<model.Rascal>(user.rascals, func (x) {
+                    x.id != rascal.id;
+                });
+                let newUSer = { user with rascals = newRascals };
+                users.put(rascal.owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func buyRacal(rascal : model.Rascal, buyer : Principal) : async Text {
         var check: ?model.User = users.get(buyer);
         switch(check) {
