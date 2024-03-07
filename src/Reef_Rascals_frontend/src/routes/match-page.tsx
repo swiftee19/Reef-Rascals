@@ -135,20 +135,29 @@ export default function MatchPage() {
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-bottom.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
-            <div className={styles.mainContainer}>
-                <MatchCanvas player={user} opponent={opponent} changeUserHealth={changeUserHealth} changeOpponentHealth={changeOpponentHealth} changeOpponentCurrRascal={changeOpponentCurrRascal} changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded} setBattleEnd={battleEndedHandler}/>
-            </div>
-            <div className={styles.topPart}>
-                <HealthStats progress={userHealth} maximum={userMax}/>
-                <HealthStats progress={opponentHealth} maximum={opponentMax} isFlipped={true}/>
-            </div>
-            <div className={styles.bottomPart}>
-                <FightingRascals rascals={user.rascals} currRascal={userCurrRascal!}/>
-                <FightingRascals rascals={opponent.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
-            </div>
-            {battleEnded !== '' &&
-                <BattleResultModal rascals={user.rascals} battleEnd={battleEnded} closeModal={() => setBattleEnded('')}/>
-            }
+            {currUser && <>
+                <div className={styles.mainContainer}>
+
+                    <MatchCanvas player={currUser} opponent={opponent} changeUserHealth={changeUserHealth}
+                                 changeOpponentHealth={changeOpponentHealth}
+                                 changeOpponentCurrRascal={changeOpponentCurrRascal}
+                                 changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded}
+                                 setBattleEnd={battleEndedHandler}/>
+
+                </div>
+                <div className={styles.topPart}>
+                    <HealthStats progress={userHealth} maximum={userMax}/>
+                    <HealthStats progress={opponentHealth} maximum={opponentMax} isFlipped={true}/>
+                </div>
+                <div className={styles.bottomPart}>
+                    <FightingRascals rascals={user.rascals} currRascal={userCurrRascal!}/>
+                    <FightingRascals rascals={opponent.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
+                </div>
+                {battleEnded !== '' &&
+                    <BattleResultModal rascals={user.rascals} battleEnd={battleEnded}
+                                       closeModal={() => setBattleEnded('')}/>
+                }
+            </>}
         </div>
     )
 }

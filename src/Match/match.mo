@@ -70,6 +70,21 @@ actor {
         };
     };
 
+    public func setUserAttackRascal(attackRascals : [model.Rascal], owner : Principal) : async Text {
+        var check: ?model.User = users.get(owner);
+        switch(check) {
+            case(?user) {
+                let newattackRascal: [model.Rascal] = attackRascals;
+                let newUSer = { user with attackRascals = newattackRascal };
+                users.put(owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func buyRacal(rascal : model.Rascal, buyer : Principal) : async Text {
         var check: ?model.User = users.get(buyer);
         switch(check) {

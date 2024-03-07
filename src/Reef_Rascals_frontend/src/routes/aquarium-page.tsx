@@ -3,7 +3,7 @@ import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
 import styles from "../scss/pages/aquarium-page.module.scss";
-import {gachaRascal, Rarity, Rascal, RascalType} from "../types/rascal";
+import {gachaRascal, Rarity, Rascal, RascalType, setUserAttackRascal} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
 import {useAuthContext} from "../middleware/middleware";
@@ -141,10 +141,22 @@ export default function AquariumPage() {
             const availableRascals = allRascals.filter(rascal => rascal !== battleRascal1 && rascal !== battleRascal2 && rascal !== battleRascal3)
             setAvailableRascalsForBattle(availableRascals)
         }
-    }, [currUser, battleRascal1, battleRascal2, battleRascal3]);
+    }, [currUser]);
 
-    const handleStartFight = () => {
-        // TODO: save rascals to user (jangan lupa kasih await, baru abis kelar nanti findMatch)
+    useEffect(() => {
+        const allRascals = currUser?.rascals
+
+        if (allRascals) {
+            const availableRascals = allRascals.filter(rascal => rascal !== battleRascal1 && rascal !== battleRascal2 && rascal !== battleRascal3)
+            setAvailableRascalsForBattle(availableRascals)
+        }
+    }, [battleRascal1, battleRascal2, battleRascal3]);
+
+    const handleStartFight = async () => {
+        if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
+            return
+        }
+        await setUserAttackRascal(authContext.principal, battleRascal1, battleRascal2, battleRascal3)
         findMatch();
     }
 

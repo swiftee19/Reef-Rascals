@@ -69,3 +69,23 @@ export async function gachaRascal(owner: string) {
 
     return null;
 }
+
+export async function setUserAttackRascal(owner: string, battleRascal1: Rascal | null, battleRascal2: Rascal | null, battleRascal3: Rascal | null) {
+    const user = await matchmaking.getUser(Principal.fromText(owner));
+    const attackRascals: Rascal[] = [];
+
+    if (battleRascal1) {
+        attackRascals.push(battleRascal1);
+    }
+    if (battleRascal2) {
+        attackRascals.push(battleRascal2);
+    }
+    if (battleRascal3) {
+        attackRascals.push(battleRascal3);
+    }
+
+    if (user) {
+        const newUser = user[0];
+        await matchmaking.setUserAttackRascal(attackRascals, newUser.id)
+    }
+}
