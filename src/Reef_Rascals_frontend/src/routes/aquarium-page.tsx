@@ -44,7 +44,7 @@ export default function AquariumPage() {
         const routeSplit = currentRoute.split("?")
         const tempCanisterId = routeSplit[1];
         const canisterId = "?" + tempCanisterId
-        window.location.href = "/match" + canisterId;
+        window.location.href = "/match/1/" + canisterId;
     }
 
     const handleShowGacha = () => {
@@ -53,7 +53,8 @@ export default function AquariumPage() {
 
     const handleCloseGachaModal = () => {
         setShowGachaModal(false);
-        setGachaResult(null)
+        setGachaResult(null);
+        window.location.reload()
     };
 
     const removeEgg = () => {
@@ -98,10 +99,10 @@ export default function AquariumPage() {
         };
     }, [isGettingNewRascalFromBackend]);
 
-    if (isLoadingRascals) {
-        userSetUp()
-        return <LoadingPage/>
-    }
+    // if (isLoadingRascals) {
+    //     userSetUp()
+    //     return <LoadingPage/>
+    // }
 
     return (
         <>
@@ -161,7 +162,7 @@ export default function AquariumPage() {
                 </div>
 
                 <section className={`${styles.myRascalPage} ${isAquarium ? "" : styles.slideUp}`}>
-                    {/*<MyRascalPage {...rascals as Array<Rascal>}/>*/}
+                    <MyRascalPage {...rascals as Array<Rascal>}/>
                 </section>
 
                 <header className={styles.aquariumTop}>

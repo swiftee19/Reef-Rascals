@@ -12,5 +12,13 @@
 .progress {
     height: 100%;
     border-radius: 5rem;
+    transition: width 0.5s ease-in-out;
+}
+
+.greenBar {
     background-color: colors.$success;
+}
+
+.redBar {
+    background-color: colors.$soft-red;
 }

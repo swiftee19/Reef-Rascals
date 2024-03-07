@@ -1,11 +1,12 @@
 import styles from '../scss/components/progress-bar.module.scss';
 
-export default function ProgressBar({ progress, maximum}: { progress: number, maximum: number }) {
-    const progressPercentage = (progress / maximum) * 100;
-  
+export default function ProgressBar({ progress, maximum, isFlipped}: { progress: number, maximum: number, isFlipped?: boolean}) {
+    const progressPercentage = Math.round((progress / maximum) * 100);
+    // console.log(progress, maximum, progressPercentage);
+
     return (
     <div className={styles.progressContainer}>
-      <div className={styles.progress} style={{width: progress + '%'}}>
+      <div className={`${styles.progress} ${isFlipped ? styles.redBar : styles.greenBar}`} style={{width: progressPercentage + '%'}}>
       </div>
     </div>
   );

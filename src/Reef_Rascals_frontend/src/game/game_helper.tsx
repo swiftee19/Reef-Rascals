@@ -61,9 +61,12 @@ export function drawRascal(context: CanvasRenderingContext2D, rascal: Rascal, x:
 
 export function drawDamageText(context: CanvasRenderingContext2D, text: string, x: number, y: number) {
     context.save();
-    context.fillStyle = 'white';
-    context.font = '5rem Poppins bold';
-    context.fillText(text, x, y);
+    context.fillStyle = 'red';
+    context.font = '100px VT323';
+    context.strokeStyle = 'white';
+    context.lineWidth = 10;
+    context.strokeText('-' + text, x, y);
+    context.fillText('-' + text, x, y);
     context.restore();
 }
 
@@ -84,7 +87,7 @@ export function drawRascalWithHealthBar(
     size: number,
     isFlipped: boolean,
     isBeingAttacked: boolean,
-    healthBarProps: HealthBarProps
+    healthBarProps: HealthBarProps,
 ) {
     drawRascal(context, rascal, x, y, size, isFlipped, isBeingAttacked);
     drawHealthBar(context, healthBarProps);

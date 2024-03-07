@@ -13,6 +13,7 @@ import HealthStats from '../components/health-stats';
 import {FightingRascals} from '../components/fighting-rascals';
 import {useParams} from 'react-router';
 import LoadingPage from '../components/loading-page';
+import BattleResultModal from '../components/battle-result-modal';
 
 export default function MatchPage() {
     const params = useParams();
@@ -21,7 +22,6 @@ export default function MatchPage() {
     const {defenderID} = useParams();
     const [defender, setDefender] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-
 
     async function getDefender() {
         if (defenderID) {
@@ -35,10 +35,10 @@ export default function MatchPage() {
         }
     }
 
-    if (isLoading) {
-        getDefender();
-        return <LoadingPage/>
-    }
+    // if (isLoading) {
+    //     getDefender();
+    //     return <LoadingPage/>
+    // }
 
     const rascals: Rascal[] = rascalList
     const opponent = {
@@ -103,22 +103,52 @@ export default function MatchPage() {
         return randomOpponent;
     }
 
+    const [battleEnded, setBattleEnded] = useState<string | null>('');
+
+    const [userCurrRascal, setUserCurrRascal] = useState<Rascal | null>(user.rascals.at(0)!);
+    const [opponentCurrRascal, setOpponentCurrRascal] = useState<Rascal | null>(opponent.defense.at(0)!);
+    const [userMax, setUserMax] = useState<number>(Number(userCurrRascal!.health));
+    const [opponentMax, setOpponentMax] = useState<number>(Number(opponentCurrRascal!.health));
+    const [userHealth, setUserHealth] = useState<number>(Number(userCurrRascal!.health));
+    const [opponentHealth, setOpponentHealth] = useState<number>(Number(opponentCurrRascal!.health));
+
+    const changeUserHealth = (health: number) => {
+        setUserHealth(health);
+    }
+    const changeOpponentHealth = (health: number) => {
+        setOpponentHealth(health);
+    }
+    const changeUserCurrRascal = (rascal: Rascal) => {
+        setUserCurrRascal(rascal);
+        setUserMax(Number(rascal.health));
+    }
+    const changeOpponentCurrRascal = (rascal: Rascal) => {
+        setOpponentCurrRascal(rascal);
+        setOpponentMax(Number(rascal.health));
+    }
+    const battleEndedHandler = (status: string) => {
+        setBattleEnded(status);
+    }
+
     return (
         <div className={styles.pageContainer}>
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-bottom.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
             <div className={styles.mainContainer}>
-                <MatchCanvas player={user} opponent={opponent}/>
+                <MatchCanvas player={user} opponent={opponent} changeUserHealth={changeUserHealth} changeOpponentHealth={changeOpponentHealth} changeOpponentCurrRascal={changeOpponentCurrRascal} changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded} setBattleEnd={battleEndedHandler}/>
             </div>
             <div className={styles.topPart}>
-                <HealthStats progress={50} maximum={Number(user.rascals.at(0)!.health)}/>
-                <HealthStats progress={50} maximum={Number(opponent.defense.at(1)!.health)} isFlipped={true}/>
+                <HealthStats progress={userHealth} maximum={userMax}/>
+                <HealthStats progress={opponentHealth} maximum={opponentMax} isFlipped={true}/>
             </div>
             <div className={styles.bottomPart}>
-                <FightingRascals rascals={user.rascals}/>
-                <FightingRascals rascals={opponent.defense} isFlipped={true}/>
+                <FightingRascals rascals={user.rascals} currRascal={userCurrRascal!}/>
+                <FightingRascals rascals={opponent.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
             </div>
+            {battleEnded !== '' &&
+                <BattleResultModal rascals={user.rascals} battleEnd={battleEnded} closeModal={() => setBattleEnded('')}/>
+            }
         </div>
     )
 }
