@@ -1,59 +1,52 @@
 import React, {useState} from 'react';
-import SidebarNav from "../components/sidebar-nav";
 import {matchmaking} from "../../../declarations/matchmaking";
 import styles from "../scss/pages/match-page.module.scss";
-import {League, User} from '../types/user';
+import {User} from '../types/user';
 import {authManager} from '../types/auth';
 import MatchCanvas from "../components/match-canvas";
-import {Rarity, Rascal, RascalType} from "../types/rascal";
-import {Principal} from "@dfinity/principal";
-import {BattleHistory, BattleResult} from "../types/battle-history";
-import rascalList from '../types/rascal-dummy';
+import {Rascal} from "../types/rascal";
 import HealthStats from '../components/health-stats';
 import {FightingRascals} from '../components/fighting-rascals';
 import {useParams} from 'react-router';
 import LoadingPage from '../components/loading-page';
 import BattleResultModal from '../components/battle-result-modal';
+import { useAuthContext } from '../middleware/middleware';
+import { Principal } from '@dfinity/principal';
 
 export default function MatchPage() {
     const params = useParams();
     const opponentId = params.opponentId
+    const userId = useAuthContext().principal
     const [defender, setDefender] = useState<User>({} as User);
     const [attacker, setAttacker] = useState<User>({} as User);
+    const [battleEnded, setBattleEnded] = useState<string | null>('');
+    const [userCurrRascal, setUserCurrRascal] = useState<Rascal | null>(null);
+    const [opponentCurrRascal, setOpponentCurrRascal] = useState<Rascal | null>(null);
+    const [userMax, setUserMax] = useState<number>();
+    const [opponentMax, setOpponentMax] = useState<number>();
+    const [userHealth, setUserHealth] = useState<number>(0);
+    const [opponentHealth, setOpponentHealth] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
 
-    async function getDefender() {
-        const data = await matchmaking.getUser(Principal.fromText(opponentId as string));
-        if(data) {
-            setDefender(data[0]);
-            setIsLoading(false);
-        } 
-    }
-
-    async function getAttacker() {
-        const data = await matchmaking.getUser(authManager.getCurrentUser()!.id);
-        if(data) {
+    async function setUp() {
+        const data = await matchmaking.getUser(Principal.fromText(userId));
+        const data1 = await matchmaking.getUser(Principal.fromText(opponentId!));
+        if(data && data1) {
             setAttacker(data[0]);
+            setDefender(data1[0]);
+            setUserCurrRascal(data[0].rascals.at(0)!);
+            setOpponentCurrRascal(data1[0].defense.at(0)!);
+            setUserMax(Number(data[0].rascals.at(0)!.health));
+            setOpponentMax(Number(data1[0].defense.at(0)!.health));
+            setUserHealth(Number(data[0].rascals.at(0)!.health));
+            setOpponentHealth(Number(data1[0].defense.at(0)!.health));
             setIsLoading(false);
+        } else {
+            console.log("No data");
         }
     }
 
     let currUser = authManager.getCurrentUser();
-
-    if (isLoading) {
-        getDefender();
-        getAttacker();
-        return <LoadingPage/>
-    }
-
-    const [battleEnded, setBattleEnded] = useState<string | null>('');
-
-    const [userCurrRascal, setUserCurrRascal] = useState<Rascal | null>(attacker.rascals.at(0)!);
-    const [opponentCurrRascal, setOpponentCurrRascal] = useState<Rascal | null>(defender.defense.at(0)!);
-    const [userMax, setUserMax] = useState<number>(Number(userCurrRascal!.health));
-    const [opponentMax, setOpponentMax] = useState<number>(Number(opponentCurrRascal!.health));
-    const [userHealth, setUserHealth] = useState<number>(Number(userCurrRascal!.health));
-    const [opponentHealth, setOpponentHealth] = useState<number>(Number(opponentCurrRascal!.health));
 
     const changeUserHealth = (health: number) => {
         setUserHealth(health);
@@ -73,6 +66,11 @@ export default function MatchPage() {
         setBattleEnded(status);
     }
 
+    if (isLoading) {
+        setUp();
+        return <LoadingPage/>
+    }
+
     return (
         <div className={styles.pageContainer}>
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
@@ -89,8 +87,8 @@ export default function MatchPage() {
 
                 </div>
                 <div className={styles.topPart}>
-                    <HealthStats progress={userHealth} maximum={userMax}/>
-                    <HealthStats progress={opponentHealth} maximum={opponentMax} isFlipped={true}/>
+                    <HealthStats progress={userHealth} maximum={userMax!}/>
+                    <HealthStats progress={opponentHealth} maximum={opponentMax!} isFlipped={true}/>
                 </div>
                 <div className={styles.bottomPart}>
                     <FightingRascals rascals={attacker.rascals} currRascal={userCurrRascal!}/>
