@@ -62,12 +62,12 @@ export default function RascalSellCard({rascal }: { rascal: Rascal }) {
             <section className={styles.cardAttribute}>
                 <div className={styles.cardDetail}>
                 <h2>{rascal.name}</h2>
-                {isSell &&
+                {/* {isSell &&
                     <span className={styles.cardPrice}>
                         <img src="/favicon.ico" alt="" />
                         <p>0.111</p>
                     </span>
-                }
+                } */}
                 </div>
 
                 <div className={styles.cardStats}>

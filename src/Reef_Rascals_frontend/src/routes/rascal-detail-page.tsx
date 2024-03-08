@@ -10,9 +10,14 @@ import { matchmaking } from '../../../declarations/matchmaking';
 import { AuthContext, useAuthContext } from '../middleware/middleware';
 import LoadingPage from '../components/loading-page';
 import { Principal } from '@dfinity/principal';
+import ConfirmModal from '../components/confirmation-modal';
 
 export default function RascalDetailPage() {
     const [isSell, setIsSell] = useState(false);
+    const [isExchange, setIsExchange] = useState(false);
+    const [isRevert, setIsRevert] = useState(false);
+    const [isBuy, setIsBuy] = useState(false);
+
     const [rascal, setRascal] = useState<Rascal>({} as Rascal);
     const [isLoading, setIsLoading] = useState(true);
     const [status, setStatus] = useState("");
@@ -127,13 +132,13 @@ export default function RascalDetailPage() {
                         </div>
     
                         {status === "sale" && (
-                            <div className={styles.buyBtn} onClick={buyRascal}>
+                            <div className={styles.buyBtn} onClick={() => setIsBuy(true)}>
                                 <p>Buy Now</p>
                             </div>
                         )}
 
                         { status === "owner" && (
-                            <div className={styles.retreiveBtn} onClick={retreiveRascal}>
+                            <div className={styles.retreiveBtn} onClick={() => setIsRevert(true)}>
                                 <p>Retreive</p>
                             </div>
                         )}
@@ -142,7 +147,7 @@ export default function RascalDetailPage() {
                                 <div className={styles.buyBtn} onClick={handleSell}>
                                     <p>Sell</p>
                                 </div>
-                                <div className={styles.retreiveBtn} onClick={handleExchange}>
+                                <div className={styles.retreiveBtn} onClick={() => setIsExchange(true)}>
                                     <p>Exchange</p>
                                 </div>
                             </div>
@@ -150,7 +155,15 @@ export default function RascalDetailPage() {
                     </div>
                 </section>
             </div>
-    
+            {isExchange &&
+                <ConfirmModal closeModal={() => setIsExchange(false)} confirm={handleExchange} title="Exchange Rascal" message="Are you sure you want to exchange this rascal?" />
+            }
+            {isRevert &&
+                <ConfirmModal closeModal={() => setIsRevert(false)} confirm={retreiveRascal} title="Retreive Rascal" message="Are you sure you want to retreive this rascal?" />
+            }
+            {isBuy &&
+                <ConfirmModal closeModal={() => setIsBuy(false)} confirm={buyRascal} title="Buy Rascal" message="Are you sure you want to buy this rascal?" />
+            }
             {isSell && <InputPriceModal closeModal={handleSell} sellRascal={sellRascal} />}
         </>
     );

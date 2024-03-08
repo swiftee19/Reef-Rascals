@@ -12,7 +12,7 @@ export default function MyRascalPage({inputRascals}: {inputRascals: Rascal[]}) {
             <div className={styles.myRascalContainer}>
                 <div className={styles.contentContainer}>
                     <h1 className={styles.containerHeader}>My Rascals</h1>
-                    { rascals ? 
+                    { rascals.length > 0 ? 
                     <div className={styles.myRascals}>
                         {
                             rascals.map((rascal:Rascal) => {
