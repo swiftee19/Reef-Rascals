@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {matchmaking} from "../../../declarations/matchmaking";
 import styles from "../scss/pages/match-page.module.scss";
 import {User} from '../types/user';
@@ -28,6 +28,10 @@ export default function MatchPage() {
     const [opponentHealth, setOpponentHealth] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [passAttacker, setPassAttacker] = useState<Rascal[]>([]);
+    const [passDefender, setPassDefender] = useState<Rascal[]>([]);
+
+
     async function setUp() {
         if (userId && opponentId) {
             const data = await matchmaking.getUser(Principal.fromText(userId));
@@ -43,6 +47,9 @@ export default function MatchPage() {
                 setOpponentCurrRascal(data1[0].defense.at(0)!);
                 setOpponentMax(Number(data1[0].defense.at(0)!.health));
                 setOpponentHealth(Number(data1[0].defense.at(0)!.health));
+
+                setPassAttacker(data[0].rascals);
+                setPassDefender(data1[0].defense);
                 setIsLoading(false);
             } else {
                 console.log("No data");
@@ -68,6 +75,19 @@ export default function MatchPage() {
     }
     const battleEndedHandler = (status: string) => {
         setBattleEnded(status);
+    }
+
+    const [canisterId, setCanisterId] = useState("")
+    useEffect(() => {
+        const currentRoute = window.location.href;
+        const routeSplit = currentRoute.split("?")
+        const tempCanisterId = routeSplit[1];
+        setCanisterId("?" + tempCanisterId)
+    }, []);
+
+    const closeBattleResult = () => {
+        setBattleEnded('')
+        window.location.href = "/aquarium/" + canisterId;
     }
 
     if (isLoading) {
@@ -97,9 +117,9 @@ export default function MatchPage() {
                     <FightingRascals rascals={defender.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
                 </div>
                 {battleEnded !== '' &&
-                    <BattleResultModal attcker={attacker.rascals} battleEnd={battleEnded} defender={defender.defense}
+                    <BattleResultModal attcker={passAttacker} battleEnd={battleEnded} defender={passDefender}
                                         opponent={defender} attackerId={userId!}  
-                                       closeModal={() => setBattleEnded('')}/>
+                                       closeModal={closeBattleResult}/>
                 }
             </>}
         </div>

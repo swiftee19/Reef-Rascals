@@ -19,7 +19,7 @@ actor {
         price = 2.32;
         level = 3;
         attack = 10;
-        health = 200;
+        health = 50;
         speed = 10;
         imageUrl = "/rascals/axolberry.png";
         tribe = "Chubby";
@@ -33,7 +33,7 @@ actor {
         price = 0.22;
         level = 6;
         attack = 40;
-        health = 100;
+        health = 50;
         speed = 20;
         imageUrl = "/rascals/captain-finbite.png";
         tribe = "Fearless";
@@ -47,7 +47,7 @@ actor {
         price = 1.30;
         level = 2;
         attack = 10;
-        health = 200;
+        health = 50;
         speed = 30;
         imageUrl = "/rascals/ribble.png";
         tribe = "Fearless";

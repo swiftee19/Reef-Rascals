@@ -4,8 +4,11 @@ import { BattleRascal, MatchCanvasProps } from '../game/game_class';
 import { getInt } from '../types/user';
 
 const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOpponentHealth, changeUserHealth, changeOpponentCurrRascal, changeUserCurrRascal, battleEnd, setBattleEnd}: MatchCanvasProps) => {
-    player.attack = player.rascals;
-    opponent.defense = opponent.rascals;
+    // player.attack = player.rascals;
+    // opponent.defense = opponent.rascals;
+
+    const playerAttackingCopy = player.attack
+    const opponentDefendingCopy = opponent.defense
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06 * 3;
@@ -19,10 +22,10 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
         x_right: window.innerWidth * 0.75 - (rascalSize / 2),
         y_right: window.innerHeight * 0.5 - (rascalSize / 2),
     }
-    const attackingRascals: BattleRascal[] = player.attack.map((rascal) => {
+    const attackingRascals: BattleRascal[] = playerAttackingCopy.map((rascal) => {
         return new BattleRascal(rascal, startPositions.x_left, startPositions.y_left, false, false);
     })
-    const defendingRascals: BattleRascal[] = opponent.defense.map((rascal) => {
+    const defendingRascals: BattleRascal[] = opponentDefendingCopy.map((rascal) => {
         return new BattleRascal(rascal, startPositions.x_right, startPositions.y_right, false, false);
     })
 
@@ -42,6 +45,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
     function checkRascalCondition() {
         if (getInt(defender!.rascal.health) <= 0) {
             i = 0
+            defender!.rascal.health = BigInt(0)
             currDefIdx += 1
             if (currDefIdx >= defendingRascals.length) {
                 reward(player);
@@ -56,6 +60,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
         }
         if (getInt(attacker!.rascal.health) <= 0) {
             i = 0
+            attacker!.rascal.health = BigInt(0)
             currAtkIdx += 1
             if (currAtkIdx >= attackingRascals.length) {
                 saveBattle(player, opponent, "Lose");

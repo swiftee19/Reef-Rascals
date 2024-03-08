@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { matchmaking } from '../../../declarations/matchmaking';
 import { useAuthContext } from '../middleware/middleware';
 import styles from '../scss/components/battle-result-modal.module.scss';
@@ -9,13 +9,11 @@ import { BattleHistory } from '../types/battle-history';
 import { User } from '../types/user';
 
 export default function BattleResultModal({closeModal, battleEnd, attcker, defender, opponent, attackerId}: {closeModal: () => void, battleEnd: string | null, attcker: Rascal[], defender: Rascal[], opponent: User, attackerId: string}) {
-  let fragment = 0
-
-  if(battleEnd == "Win") {
-    fragment = Math.floor(Math.random() * 3) + 1
-  }
+  const [fragment, setFragment] = useState<number>(0)
 
   async function getRascalFragment() {
+    const fragment = Math.floor(Math.random() * 3) + 1
+    setFragment(fragment)
     const userID = useAuthContext().principal
     const history = new BattleHistory(opponent, battleEnd!, attcker, defender)
     const result = await matchmaking.reward(userID, BigInt(fragment), history)
@@ -27,11 +25,13 @@ export default function BattleResultModal({closeModal, battleEnd, attcker, defen
   }
 
   useEffect(() => {
-    getRascalFragment()
+    if(battleEnd === 'Win') {
+      getRascalFragment()
+    }
   }, [])
 
   return (
-    <Modal w='30%' h='40%' closeModal={closeModal}>
+    <Modal w='40%' h='40%' closeModal={closeModal}>
       <h1 className={styles.title}>{battleEnd === 'Win' ? 'Victory' : 'Defeat'}</h1>
       <p className={styles.content}>You've {battleEnd === 'Win' ? "won" : 'lost'} the battle!</p>
       <div className={styles.rascalsContainer}>
