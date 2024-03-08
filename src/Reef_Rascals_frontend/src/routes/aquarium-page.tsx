@@ -59,12 +59,21 @@ export default function AquariumPage() {
         setIsAquarium(!isAquarium);
     }
 
-    const findMatch = () => {
-        const currentRoute = window.location.href;
-        const routeSplit = currentRoute.split("?")
-        const tempCanisterId = routeSplit[1];
-        const canisterId = "?" + tempCanisterId
-        window.location.href = "/match/1/" + canisterId;
+    const findMatch = async () => {
+        if(currUser) {
+            const data = await matchmaking.getOpponents(currUser)
+            if(data) {
+                console.log("opponent", data)
+                const opponent = data[0]
+                const currentRoute = window.location.href;
+                const routeSplit = currentRoute.split("?")
+                const tempCanisterId = routeSplit[1];
+                const canisterId = "?" + tempCanisterId
+                window.location.href = "/match/"+ opponent.id + "/" + canisterId;
+            } else {
+                console.log("No opponent found", data)
+            }
+        }
     }
 
     const handleShowGacha = () => {

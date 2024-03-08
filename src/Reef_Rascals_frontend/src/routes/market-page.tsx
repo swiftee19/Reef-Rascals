@@ -45,10 +45,10 @@ export default function MarketPage() {
 
     const topSelling = rascals.slice(0, 6)
 
-    // if(isLoading) {
-    //     fetchRascals();
-    //     return <LoadingPage />
-    // }
+    if(isLoading) {
+        fetchRascals();
+        return <LoadingPage />
+    }
 
     return (
         <>

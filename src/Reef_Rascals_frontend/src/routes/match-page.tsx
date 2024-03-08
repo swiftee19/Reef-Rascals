@@ -17,97 +17,39 @@ import BattleResultModal from '../components/battle-result-modal';
 
 export default function MatchPage() {
     const params = useParams();
-    const opponentId: string = params.opponentId as string;
-
-    const {defenderID} = useParams();
-    const [defender, setDefender] = useState<User | null>(null);
+    const opponentId = params.opponentId
+    const [defender, setDefender] = useState<User>({} as User);
+    const [attacker, setAttacker] = useState<User>({} as User);
     const [isLoading, setIsLoading] = useState(true);
 
     async function getDefender() {
-        if (defenderID) {
-            const user = await matchmaking.getUser(Principal.fromText(defenderID));
-            if (user) {
-                setDefender(user[0]);
-                setIsLoading(false);
-            } else {
-                console.log("user not found");
-            }
+        const data = await matchmaking.getUser(Principal.fromText(opponentId as string));
+        if(data) {
+            setDefender(data[0]);
+            setIsLoading(false);
+        } 
+    }
+
+    async function getAttacker() {
+        const data = await matchmaking.getUser(authManager.getCurrentUser()!.id);
+        if(data) {
+            setAttacker(data[0]);
+            setIsLoading(false);
         }
     }
 
-    // if (isLoading) {
-    //     getDefender();
-    //     return <LoadingPage/>
-    // }
-
-    const rascals: Rascal[] = rascalList
-    const opponent = {
-        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        username: "Alexander Ryan Alex",
-        profilePictureUrl: "/Ganyu.jpg",
-        dateJoined: new Date().toString(),
-        tokens: 0.123,
-        rascals: rascals.slice(0, 3),
-        defense: rascals.slice(0, 3),
-        attack: [],
-        rank: League.Silver,
-        battleHistories: [],
-        elo: BigInt(243),   
-        raslet: BigInt(0),
-        rascalFragment: BigInt(0),
-        lastRasletClaim: new Date().toString()
-    }
-
-    const battleHistory: BattleHistory = {
-        result: BattleResult.Lose,
-        date: new Date().toLocaleTimeString(),
-        id: "#18222212730",
-        opponent: opponent,
-        opponentRascal: rascals.slice(0, 3),
-        usedRascal: rascals.slice(0, 3)
-    }
-
-    const battleHistory1: BattleHistory = {
-        result: BattleResult.Win,
-        date: new Date().toLocaleTimeString(),
-        id: "#18222212730",
-        opponent: opponent,
-        opponentRascal: rascals.slice(0, 3),
-        usedRascal: rascals.slice(0, 3)
-    }
-
-    const user = {
-        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        username: "Alexander Irvin Ryan",
-        profilePictureUrl: "/Ganyu.jpg",
-        dateJoined: new Date().toString(),
-        tokens: 0.123,
-        rascals: rascals.slice(4, 7),
-        defense: rascals.slice(4, 7),
-        attack: [],
-        rank: League.Silver,
-        battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
-        elo: BigInt(267),
-        raslet: BigInt(0),
-        rascalFragment: BigInt(0)
-    }
-
     let currUser = authManager.getCurrentUser();
-    let [inGame, setInGame] = useState(true);
-    let users: User[] = [];
 
-    async function searchForMatch(): Promise<User> {
-        if (currUser === null) throw new Error("User not logged in");
-        users = await matchmaking.getOpponents(currUser);
-        const randomIndex = Math.floor(Math.random() * users.length);
-        const randomOpponent = users[randomIndex];
-        return randomOpponent;
+    if (isLoading) {
+        getDefender();
+        getAttacker();
+        return <LoadingPage/>
     }
 
     const [battleEnded, setBattleEnded] = useState<string | null>('');
 
-    const [userCurrRascal, setUserCurrRascal] = useState<Rascal | null>(user.rascals.at(0)!);
-    const [opponentCurrRascal, setOpponentCurrRascal] = useState<Rascal | null>(opponent.defense.at(0)!);
+    const [userCurrRascal, setUserCurrRascal] = useState<Rascal | null>(attacker.rascals.at(0)!);
+    const [opponentCurrRascal, setOpponentCurrRascal] = useState<Rascal | null>(defender.defense.at(0)!);
     const [userMax, setUserMax] = useState<number>(Number(userCurrRascal!.health));
     const [opponentMax, setOpponentMax] = useState<number>(Number(opponentCurrRascal!.health));
     const [userHealth, setUserHealth] = useState<number>(Number(userCurrRascal!.health));
@@ -139,7 +81,7 @@ export default function MatchPage() {
             {currUser && <>
                 <div className={styles.mainContainer}>
 
-                    <MatchCanvas player={currUser} opponent={opponent} changeUserHealth={changeUserHealth}
+                    <MatchCanvas player={currUser} opponent={defender} changeUserHealth={changeUserHealth}
                                  changeOpponentHealth={changeOpponentHealth}
                                  changeOpponentCurrRascal={changeOpponentCurrRascal}
                                  changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded}
@@ -151,11 +93,11 @@ export default function MatchPage() {
                     <HealthStats progress={opponentHealth} maximum={opponentMax} isFlipped={true}/>
                 </div>
                 <div className={styles.bottomPart}>
-                    <FightingRascals rascals={user.rascals} currRascal={userCurrRascal!}/>
-                    <FightingRascals rascals={opponent.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
+                    <FightingRascals rascals={attacker.rascals} currRascal={userCurrRascal!}/>
+                    <FightingRascals rascals={defender.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
                 </div>
                 {battleEnded !== '' &&
-                    <BattleResultModal rascals={user.rascals} battleEnd={battleEnded}
+                    <BattleResultModal rascals={attacker.rascals} battleEnd={battleEnded}
                                        closeModal={() => setBattleEnded('')}/>
                 }
             </>}

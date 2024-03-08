@@ -57,7 +57,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     const raslet = Math.floor(diff / (1000 * 10 * 60));
     user.raslet = BigInt(raslet);
     if (raslet > 0) {
-      const x = await matchmaking.getRaslet(principal, BigInt(raslet));
+      const x = await matchmaking.getRaslet(principal, BigInt(raslet),new Date().toString());
       if(x){
         console.log("raslet already claimed")
       }else {
@@ -66,7 +66,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     }
   } else {
     const user = new User(principal);
-    // matchmaking.register(user);
+    matchmaking.register(user);
     console.log("user created");
   }
 
