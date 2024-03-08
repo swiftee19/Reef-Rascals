@@ -1,6 +1,6 @@
 import styles from '../scss/components/modal.module.scss';
 
-export default function Modal({w, h, closeModal, children}: {w: string, h: string, closeModal: () => void, children: React.ReactNode}) {
+export default function Modal({w, h, closeModal, children}: {w: string, h?: string, closeModal: () => void, children: React.ReactNode}) {
     return (
         <section className={styles.modal}>
             <div className={styles.content} style={{width: w, height: h}}>
