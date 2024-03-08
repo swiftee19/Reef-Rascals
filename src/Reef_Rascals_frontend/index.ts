@@ -37,13 +37,6 @@ export const getCanisterId = (): string => {
 
 export const handleAuthenticated = async (authClient: AuthClient) => {
   const identity = authClient.getIdentity();
-  const canisterId = getCanisterId();
-
-  const actor = createActor(canisterId, {
-    agentOptions: {
-      identity,
-    },
-  });
 
   const principal = identity.getPrincipal();
   const result = await matchmaking.getUser(principal);
@@ -70,7 +63,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     console.log("user created");
   }
 
-  await localStorage.set("principal", principal as unknown as string)  
+  await localStorage.set("principal", principal as unknown as string)
 };
 
 const init = async () => {

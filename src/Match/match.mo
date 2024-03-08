@@ -11,12 +11,10 @@ import Nat "mo:base/Nat";
 import model "model";
 
 actor {
-    let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
-
     let rascal1 = {
         id = "12B9210424B";
         name = "Axolberry";
-        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        owner = Principal.fromText("mt2ii-xbnh3-d2rp7-mchtr-palbc-vkhta-lmew3-h2gag-alvmk-nojqj-dae");
         price = 2.32;
         level = 3;
         attack = 10;
@@ -30,7 +28,7 @@ actor {
     let rascal2 = {
         id = "12B92123110B";
         name = "Captain Finbite";
-        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        owner = Principal.fromText("mt2ii-xbnh3-d2rp7-mchtr-palbc-vkhta-lmew3-h2gag-alvmk-nojqj-dae");
         price = 0.22;
         level = 6;
         attack = 10;
@@ -44,7 +42,7 @@ actor {
     let rascal3 = {
         id = "12B9213210B";
         name = "Ribble";
-        owner = Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae");
+        owner = Principal.fromText("mt2ii-xbnh3-d2rp7-mchtr-palbc-vkhta-lmew3-h2gag-alvmk-nojqj-dae");
         price = 1.30;
         level = 2;
         attack = 10;
@@ -55,7 +53,26 @@ actor {
         rarity = "Rare";
     };
 
+    let opponent = {
+        id = Principal.fromText("mt2ii-xbnh3-d2rp7-mchtr-palbc-vkhta-lmew3-h2gag-alvmk-nojqj-dae");
+        username = "irvin";
+        profilePictureUrl = "/Ganyu.jpg";
+        dateJoined = "Fri Mar 08 2024 14:23:52 GMT+0700 (Western Indonesia Time)";
+        tokens = 0.0;
+        rascals = [rascal1, rascal2, rascal3];
+        defense = [rascal1, rascal2, rascal3];
+        attack = [rascal1, rascal2, rascal3];
+        rank = "Bronze";
+        battleHistories = [];
+        elo = 0;
+        raslet = 3;
+        rascalFragment = 0;
+        lastRasletClaim = "Fri Mar 08 2024 14:23:52 GMT+0700 (Western Indonesia Time)";
+    };
+
+    let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
+    users.put(opponent.id, opponent);
 
     public func getGacha(rascal : model.Rascal) : async Text {
         var user = users.get(rascal.owner);

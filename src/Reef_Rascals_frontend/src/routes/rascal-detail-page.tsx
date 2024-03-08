@@ -82,7 +82,7 @@ export default function RascalDetailPage() {
     async function handleExchange() {
         const x = await matchmaking.exchangeRascal(rascal);
         if(x){
-            window.location.reload();
+            window.location.href = "/marketplace";
             console.log("Rascal is exchanged", x);
         } else {
             console.log("Rascal is not exchanged", x);

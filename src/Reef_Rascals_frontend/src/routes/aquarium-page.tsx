@@ -1,17 +1,25 @@
-import {MutableRefObject, Ref, RefObject, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import AquariumCanvas from "../components/aquarium-canvas";
 import SidebarNav from "../components/sidebar-nav";
 import SlideWoodBtn from "../components/slide-wood-btn";
 import styles from "../scss/pages/aquarium-page.module.scss";
-import {gachaRascal, Rarity, Rascal, RascalType, setUserAttackRascal, setUserDefenseRascal} from "../types/rascal";
+import {
+    gachaRascal,
+    getRarityFromString,
+    Rarity,
+    Rascal,
+    setUserAttackRascal,
+    setUserDefenseRascal
+} from "../types/rascal";
 import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
 import {useAuthContext} from "../middleware/middleware";
 import {getCurrentUser} from "../types/auth";
 import {User} from "../types/user";
-import LoadingPage from "../components/loading-page";
 import {matchmaking} from "../../../declarations/matchmaking";
 import Modal from "../components/modal";
+import RarityLabel from "../components/rarity-label";
+import LoadingPage from "../components/loading-page";
 
 export default function AquariumPage() {
     const eggGachaRef = useRef<HTMLImageElement | null>(null);
@@ -60,16 +68,16 @@ export default function AquariumPage() {
     }
 
     const findMatch = async () => {
-        if(currUser) {
+        if (currUser) {
             const data = await matchmaking.getOpponents(currUser)
-            if(data) {
+            if (data) {
                 console.log("opponent", data)
                 const opponent = data[0]
                 const currentRoute = window.location.href;
                 const routeSplit = currentRoute.split("?")
                 const tempCanisterId = routeSplit[1];
                 const canisterId = "?" + tempCanisterId
-                window.location.href = "/match/"+ opponent.id + "/" + canisterId;
+                window.location.href = "/match/" + opponent.id + "/" + canisterId;
             } else {
                 console.log("No opponent found", data)
             }
@@ -229,7 +237,8 @@ export default function AquariumPage() {
     return (
         <>
             <SidebarNav/>
-            {showGachaModal &&
+            {
+                showGachaModal &&
                 <>
                     <div className={`${styles.gachaModalContainer}`}>
                         <div className={styles.gachaModal}>
@@ -245,12 +254,33 @@ export default function AquariumPage() {
                                         {(
                                             gachaResult &&
                                             <>
-                                                <img className={styles.gachaResult} src={gachaResult?.imageUrl}
-                                                     onClick={() => {
-                                                         handleCloseGachaModal()
-                                                     }}/>
-                                                <div className={styles.gachaResultStatsContainer}>
-
+                                                <div className={styles.gachaResultContainer}>
+                                                    <div className={styles.gachaResult}>
+                                                        <img className={styles.gachaResult} src={gachaResult?.imageUrl}
+                                                             onClick={() => {
+                                                                 handleCloseGachaModal()
+                                                             }}/>
+                                                        <div className={styles.rarity}>
+                                                            <RarityLabel
+                                                                rarity={getRarityFromString(gachaResult.rarity)}
+                                                                short={false}/>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.gachaResultStatsContainer}>
+                                                        <h2>{gachaResult.name}</h2>
+                                                        <div>
+                                                            <p className={styles.atkLbl}>ATK</p>
+                                                            <p>{gachaResult?.attack.toString()}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p className={styles.hpLbl}>HP</p>
+                                                            <p>{gachaResult?.health.toString()}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p className={styles.spdLbl}>SPD</p>
+                                                            <p>{gachaResult?.speed.toString()}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </>
                                         )}

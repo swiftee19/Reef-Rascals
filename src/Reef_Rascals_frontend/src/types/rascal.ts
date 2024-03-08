@@ -15,6 +15,10 @@ export enum Rarity {
     Legend = "Legend"
 }
 
+export function getRarityFromString(value: string): Rarity{
+    return Object.values(Rarity).find((rarity) => rarity === value) as Rarity;
+}
+
 export class Rascal {
     id: string;
     name: string;
