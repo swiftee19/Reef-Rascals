@@ -199,13 +199,14 @@ export default function ProfilePage() {
                             </h2>
                             <div className={styles.line}/>
                             <div className={styles.leagueInfoContainer}>
-                                <img src="/silver-league-icon.png" alt={"Image not found"}/>
+                                <img src={userLeagueIcon} alt={"Image not found"}/>
                                 <div className={styles.leagueInfo}>
                                     <h1 style={{color: leagueFontColor}}>
                                         {currUser.rank}
                                     </h1>
                                     <h1 className={styles.playerPercentageInfo}>
-                                        You are in the top 79%
+                                        {currUser.rank == League.Gold ? "You are in the top 100%" :
+                                        currUser.rank == League.Silver ? "You are in the top 89%" : "You are in the top 79%"}
                                     </h1>
                                 </div>
                             </div>
