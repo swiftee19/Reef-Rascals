@@ -10,7 +10,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06 * 3;
     const boomImageDuration = 200;
-    const baseSpeed = 50;
+    const baseSpeed = 1;
     const entropy = 2;
 
     const startPositions = {

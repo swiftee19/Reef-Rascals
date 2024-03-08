@@ -35,7 +35,7 @@ export default function AquariumPage() {
     const [showGachaModal, setShowGachaModal] = useState(false)
     const [glowAnimation, setGlowAnimation] = useState(false);
     const [isGettingNewRascalFromBackend, setIsGettingNewRascalFromBackend] = useState(false)
-    const [isFindingOpponent, setIsFindingOpponent] = useState(false)
+    const [brawlButtonText, setBrawlButtonText] = useState("Brawl!")
     const [gachaResult, setGachaResult] = useState<Rascal | null>(null)
 
     const [showSelectBattleRascalModalIsOpen, setShowSelectBattleRascalModalIsOpen] = useState(false)
@@ -72,17 +72,21 @@ export default function AquariumPage() {
     const findMatch = async () => {
         if (currUser) {
             const data = await matchmaking.getOpponents(currUser)
-            setIsFindingOpponent(false)
-            if (data) {
-                console.log("opponent", data)
-                const opponent = data[0]
-                const currentRoute = window.location.href;
-                const routeSplit = currentRoute.split("?")
-                const tempCanisterId = routeSplit[1];
-                const canisterId = "?" + tempCanisterId
-                window.location.href = "/match/" + opponent.id + "/" + canisterId;
-            } else {
-                console.log("No opponent found", data)
+            if(data.length > 0) {
+                setBrawlButtonText("Opponent found")
+                if (data) {
+                    console.log("opponent", data)
+                    const opponent = data[0]
+                    const currentRoute = window.location.href;
+                    const routeSplit = currentRoute.split("?")
+                    const tempCanisterId = routeSplit[1];
+                    const canisterId = "?" + tempCanisterId
+                    window.location.href = "/match/" + opponent.id + "/" + canisterId;
+                } else {
+                    console.log("No opponent found", data)
+                }
+            } else{
+                setBrawlButtonText("No opponent found")
             }
         }
     }
@@ -103,6 +107,7 @@ export default function AquariumPage() {
     const handleCloseSelectBattleRascalModal = () => {
         setShowSelectBattleRascalModalIsOpen(false)
         setShowRascalSelectionForBattleContainer(false)
+        setBrawlButtonText("Brawl!")
     }
     const toggleRascalSelectionModalForBattle = () => {
         if (showRascalSelectionForBattleContainer) {
@@ -207,12 +212,19 @@ export default function AquariumPage() {
     }, [defenseRascal1, defenseRascal2, defenseRascal3]);
 
     const handleStartFight = async () => {
-        if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
-            return
+        if(currUser) {
+            if (currUser.raslet < 2){
+                setBrawlButtonText(`Not enough Raslet ${currUser.raslet}/2`)
+                return
+            }
+            if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
+                return
+            }
+
+            setBrawlButtonText("Finding Opponent")
+            await setUserAttackRascal(authContext.principal, battleRascal1, battleRascal2, battleRascal3)
+            findMatch();
         }
-        setIsFindingOpponent(true)
-        await setUserAttackRascal(authContext.principal, battleRascal1, battleRascal2, battleRascal3)
-        findMatch();
     }
 
     const handleSaveDefenseRascals = async () => {
@@ -350,11 +362,7 @@ export default function AquariumPage() {
                                 handleStartFight()
                             }}>
                                 <img src="/wood-button.png"/>
-                                {
-                                    isFindingOpponent ?
-                                        <h1>Finding Opponent...</h1> :
-                                        <h1>Brawl!</h1>
-                                }
+                                <h1>{brawlButtonText}</h1>
                             </div>
                         </div>
                     </Modal>

@@ -41,7 +41,9 @@ export class BattleRascal {
         const deviationValue = Math.random() * 3 * deviationSign;
         const finalValue = getInt(this.rascal.attack) + parseInt(String(deviationValue));
 
-        console.log("Attacker", this.rascal.name, "Defender", defender.name, "Damage", finalValue);
+        console.log("Attacker: " + this.rascal.name + " Defender: " + defender.name + " Final Value: " + finalValue);
+        console.log("Defender Health: " + getInt(defender.health) + " - " + finalValue + " = " + (getInt(defender.health) - finalValue));
+
         defender.health = BigInt(getInt(defender.health) - finalValue);
         console.log("Defender health", getInt(defender.health));
         return finalValue;
