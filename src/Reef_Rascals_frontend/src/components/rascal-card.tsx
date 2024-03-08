@@ -9,7 +9,6 @@ export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, bro
     if (!rascal) {
         return <div>Rascal data not available</div>;
     }
-    
     const gotoRascalDetail = () => {
         window.location.href = `/details/${rascal.id}/${canisterId}`;
     }

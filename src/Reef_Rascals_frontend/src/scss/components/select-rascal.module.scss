@@ -1,0 +1,53 @@
+@use '../colors.scss';
+@use '../fonts.scss';
+
+.selectContainer {
+  background-color: colors.$dark-blue;
+  border: 1px solid colors.$light-blue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+
+  img {
+    width: 50%;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.cardStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  div {
+    text-align: center;
+    .atkLbl, .hpLbl, .spdLbl {
+        color: colors.$white;
+        font-weight: 500;
+        width: 2.5rem;
+        border-radius: 5px;
+    }
+    .atkLbl {
+        background-color: colors.$soft-red;
+    }
+    .hpLbl {
+        background-color: colors.$turqouise;
+    }
+    .spdLbl {
+        background-color: colors.$yellow;
+    }
+  }
+
+  p {
+    color: colors.$light-blue;
+  }
+}

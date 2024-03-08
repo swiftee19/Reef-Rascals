@@ -43,7 +43,6 @@ export default function AquariumPage() {
     const [defenseRascal1, setDefenseRascal1] = useState<Rascal | null>(null)
     const [defenseRascal2, setDefenseRascal2] = useState<Rascal | null>(null)
     const [defenseRascal3, setDefenseRascal3] = useState<Rascal | null>(null)
-    const [isSavingUserDefenseRascals, setIsSavingUserDefenseRascals] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -51,6 +50,7 @@ export default function AquariumPage() {
             setCurrUser(user)
             setRascals(user.rascals)
             setIsLoadingRascals(false)
+            console.log("rascals", user.rascals)
         }
     }
 
@@ -212,6 +212,37 @@ export default function AquariumPage() {
     if (isLoadingRascals) {
         userSetUp()
         return <LoadingPage/>
+    }
+
+    // const dummyRascals: Rascal[] = rascalList
+    const handleSelectBattleRascal = (rascal: Rascal) => {
+        switch (selectedBattleRascalContainer){
+            case 1:
+                setBattleRascal1(rascal)
+                break;
+            case 2:
+                setBattleRascal2(rascal)
+                break;
+            case 3:
+                setBattleRascal3(rascal)
+                break;
+        }
+        setShowRascalSelectionForBattleContainer(false)
+    }
+
+    const handleSelectDefenseRascal = (rascal: Rascal) => {
+        switch (selectedDefenseRascalContainer){
+            case 1:
+                setDefenseRascal1(rascal)
+                break;
+            case 2:
+                setDefenseRascal2(rascal)
+                break;
+            case 3:
+                setDefenseRascal3(rascal)
+                break;
+        }
+        setShowRascalSelectionContainerForDefense(false)
     }
 
     return (

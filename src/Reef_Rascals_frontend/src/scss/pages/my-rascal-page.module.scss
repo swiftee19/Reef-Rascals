@@ -40,3 +40,18 @@
         grid-template-columns: 1fr;
     }
 }
+
+.noRascal {
+    color: colors.$cream-brown;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 10%;
+
+    img {
+        width: 25%;
+    }
+}
