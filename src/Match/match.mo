@@ -18,7 +18,7 @@ actor {
         price = 2.32;
         level = 3;
         attack = 10;
-        health = 30;
+        health = 200;
         speed = 10;
         imageUrl = "/rascals/axolberry.png";
         tribe = "Chubby";
@@ -31,9 +31,9 @@ actor {
         owner = Principal.fromText("mt2ii-xbnh3-d2rp7-mchtr-palbc-vkhta-lmew3-h2gag-alvmk-nojqj-dae");
         price = 0.22;
         level = 6;
-        attack = 10;
-        health = 30;
-        speed = 10;
+        attack = 40;
+        health = 100;
+        speed = 20;
         imageUrl = "/rascals/captain-finbite.png";
         tribe = "Fearless";
         rarity = "Epic";
@@ -46,8 +46,8 @@ actor {
         price = 1.30;
         level = 2;
         attack = 10;
-        health = 30;
-        speed = 10;
+        health = 200;
+        speed = 30;
         imageUrl = "/rascals/ribble.png";
         tribe = "Fearless";
         rarity = "Rare";
@@ -69,6 +69,8 @@ actor {
         rascalFragment = 0;
         lastRasletClaim = "Fri Mar 08 2024 14:23:52 GMT+0700 (Western Indonesia Time)";
     };
+
+
 
     let users = HashMap.HashMap<Principal, model.User>(5, Principal.equal, Principal.hash);
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
