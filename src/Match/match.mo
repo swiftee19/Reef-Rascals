@@ -196,8 +196,9 @@ actor {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
-                let newUSer = { user with rascalFragment = user.rascalFragment + amount };
-                users.put(id, newUSer);
+                let newUSer = { user with rascalFragment = user.rascalFragment + amount};
+                let newUSer2 = { newUSer with raslet = newUSer.raslet - 2};
+                users.put(id, newUSer2);
                 return "success";
             };
             case(null) {

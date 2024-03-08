@@ -84,7 +84,6 @@ export default function MatchPage() {
                                  changeOpponentCurrRascal={changeOpponentCurrRascal}
                                  changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded}
                                  setBattleEnd={battleEndedHandler}/>
-
                 </div>
                 <div className={styles.topPart}>
                     <HealthStats progress={userHealth} maximum={userMax!}/>

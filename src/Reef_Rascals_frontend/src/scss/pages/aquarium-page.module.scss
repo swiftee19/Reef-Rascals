@@ -411,7 +411,7 @@
   .brawlButton {
     position: absolute;
     bottom: 10%;
-    width: 40%;
+    width: max-content;
     height: 20%;
     transition: 300ms;
     display: flex;
@@ -438,7 +438,6 @@
 
     h1 {
       z-index: 100;
-      width: 70%;
       text-align: center;
       color: colors.$dark-brown;
     }
