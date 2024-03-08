@@ -43,6 +43,7 @@ export default function AquariumPage() {
     const [defenseRascal1, setDefenseRascal1] = useState<Rascal | null>(null)
     const [defenseRascal2, setDefenseRascal2] = useState<Rascal | null>(null)
     const [defenseRascal3, setDefenseRascal3] = useState<Rascal | null>(null)
+    const [isSavingUserDefenseRascals, setIsSavingUserDefenseRascals] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -50,7 +51,6 @@ export default function AquariumPage() {
             setCurrUser(user)
             setRascals(user.rascals)
             setIsLoadingRascals(false)
-            console.log("rascals", user.rascals)
         }
     }
 
@@ -204,11 +204,9 @@ export default function AquariumPage() {
     }
 
     const handleSaveDefenseRascals = async () => {
-        if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
-            return
-        }
-
-        await setUserDefenseRascal(authContext.principal, defenseRascal1, defenseRascal2, defenseRascal3)
+        setUserDefenseRascal(authContext.principal, defenseRascal1, defenseRascal2, defenseRascal3).then((result) => {
+            setIsSavingUserDefenseRascals(false)
+        })
     }
 
     if (isLoadingRascals) {
@@ -358,10 +356,14 @@ export default function AquariumPage() {
                                 </div>
                             </div>
                             <div className={styles.brawlButton} onClick={() => {
+                                setIsSavingUserDefenseRascals(true)
                                 handleSaveDefenseRascals()
                             }}>
                                 <img src="/wood-button.png"/>
-                                <h1>Save</h1>
+                                {isSavingUserDefenseRascals ?
+                                    <h1>Saving...</h1> :
+                                    <h1>Save</h1>
+                                }
                             </div>
                         </div>
                     </Modal>

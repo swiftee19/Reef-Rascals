@@ -116,6 +116,10 @@ export async function setUserDefenseRascal(owner: string, defenseRascal1: Rascal
 
     if (user) {
         const newUser = user[0];
-        await matchmaking.setUserDefenseRascal(defenseRascals, newUser.id)
+        matchmaking.setUserDefenseRascal(defenseRascals, newUser.id).then((result)=>{
+            return result;
+        })
     }
+
+    return "no user found"
 }
