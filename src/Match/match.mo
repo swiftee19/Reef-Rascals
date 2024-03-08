@@ -96,7 +96,11 @@ actor {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
-                var newUSer = { user with raslet = user.raslet + amount };
+                const find = amount;
+                if(7 - user.raslet < amount) {
+                    find = 7 - user.raslet;
+                };
+                var newUSer = { user with raslet = user.raslet + find };
                 newUSer := { newUSer with lastRasletClaim = lastRaslet };
                 users.put(id, newUSer);
                 return "success";

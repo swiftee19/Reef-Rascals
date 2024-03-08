@@ -56,7 +56,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     const diff = now - lastClaim;
     const raslet = Math.floor(diff / (1000 * 10 * 60));
     user.raslet = BigInt(raslet);
-    if (raslet > 0) {
+    if (raslet > 0 && user.raslet < 7) {
       const x = await matchmaking.getRaslet(principal, BigInt(raslet),new Date().toString());
       if(x){
         console.log("raslet already claimed")
