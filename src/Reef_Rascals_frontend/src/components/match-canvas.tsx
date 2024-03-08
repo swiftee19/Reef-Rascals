@@ -108,8 +108,10 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
             damage = current.attack(target.rascal)
             if (target === defender) {
                 changeOpponentHealth(getInt(target.rascal.health))
+                console.log("Opponent health", getInt(target.rascal.health));
             } else {
                 changeUserHealth(getInt(target.rascal.health))
+                console.log("User health", getInt(target.rascal.health));
             }
             checkRascalCondition()
         }

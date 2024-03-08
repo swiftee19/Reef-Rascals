@@ -35,11 +35,13 @@ export default function MatchPage() {
             if (data && data1) {
                 setAttacker(data[0]);
                 setDefender(data1[0]);
+                
                 setUserCurrRascal(data[0].rascals.at(0)!);
-                setOpponentCurrRascal(data1[0].defense.at(0)!);
                 setUserMax(Number(data[0].rascals.at(0)!.health));
-                setOpponentMax(Number(data1[0].defense.at(0)!.health));
                 setUserHealth(Number(data[0].rascals.at(0)!.health));
+
+                setOpponentCurrRascal(data1[0].defense.at(0)!);
+                setOpponentMax(Number(data1[0].defense.at(0)!.health));
                 setOpponentHealth(Number(data1[0].defense.at(0)!.health));
                 setIsLoading(false);
             } else {
@@ -48,12 +50,13 @@ export default function MatchPage() {
         }
     }
 
-
     const changeUserHealth = (health: number) => {
         setUserHealth(health);
+        console.log("User health", health);
     }
     const changeOpponentHealth = (health: number) => {
         setOpponentHealth(health);
+        console.log("Opponent health", health);
     }
     const changeUserCurrRascal = (rascal: Rascal) => {
         setUserCurrRascal(rascal);

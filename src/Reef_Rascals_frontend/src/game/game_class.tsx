@@ -45,6 +45,7 @@ export class BattleRascal {
         console.log("Defender Health: " + getInt(defender.health) + " - " + finalValue + " = " + (getInt(defender.health) - finalValue));
 
         defender.health = BigInt(getInt(defender.health) - finalValue);
+        console.log("Defender health", getInt(defender.health));
         return finalValue;
     }
 }
