@@ -63,7 +63,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     console.log("user created");
   }
 
-  await localStorage.set("principal", principal as unknown as string)  
+  await localStorage.set("principal", principal as unknown as string)
 };
 
 const init = async () => {

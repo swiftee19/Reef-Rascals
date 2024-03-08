@@ -31,11 +31,31 @@ export const AuthContextProvider = ({children}: { children: ReactNode }) => {
             onSuccess: async () => {
                 await handleAuthenticated(authClient);
                 console.log("successfully logged in");
+                window.location.reload()
             },
             onError: (err) => {
                 console.error(err);
             },
         });
+    };
+
+    const onLogoutSuccess = async () => {
+        await localStorage.remove("principal")
+        setPrincipal(null)
+
+        const currentRoute = window.location.href;
+        const routeSplit = currentRoute.split("?")
+        const tempCanisterId = routeSplit[1];
+        const canisterId = "?" + tempCanisterId
+
+        window.location.href = "/" + canisterId;
+    }
+
+    const logout = async () => {
+        const authClient = await AuthClient.create();
+
+        await authClient.logout()
+        onLogoutSuccess()
     };
 
     useEffect(() => {
@@ -58,7 +78,7 @@ export const AuthContextProvider = ({children}: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{login, principal}}>
+        <AuthContext.Provider value={{login, logout, principal}}>
             {children}
         </AuthContext.Provider>
     );

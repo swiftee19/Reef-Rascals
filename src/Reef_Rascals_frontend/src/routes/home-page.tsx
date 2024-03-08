@@ -46,6 +46,10 @@ export default function HomePage() {
         await authContext.login();
     };
 
+    const goLogout = async () => {
+        await authContext.logout();
+    }
+
     return (
         <>
             <SidebarNav/>
@@ -62,13 +66,21 @@ export default function HomePage() {
                     />
                     <img id="logo" className={styles.logo} src="/logo-full.png" alt=""/>
                     <img id="frontImg" src="/bg-parallax-front.png" alt=""/>
-                    {authContext.principal == null && (
-                        <>
-                            <div className={styles.loginBtn}>
-                                <WoodButton btnText="Login" onClick={goLogin}/>
-                            </div>
-                        </>
-                    )}
+                    {authContext.principal == null ? (
+                            <>
+                                <div className={styles.loginBtn}>
+                                    <WoodButton btnText="Login" onClick={goLogin}/>
+                                </div>
+                            </>
+                        ) :
+                        (
+                            <>
+                                <div className={styles.loginBtn}>
+                                    <WoodButton btnText="Logout" onClick={goLogout}/>
+                                </div>
+                            </>
+                        )
+                    }
                 </section>
 
                 <section className={styles.introContainer}>
