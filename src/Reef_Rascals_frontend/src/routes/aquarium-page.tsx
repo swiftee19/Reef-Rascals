@@ -43,6 +43,7 @@ export default function AquariumPage() {
     const [defenseRascal1, setDefenseRascal1] = useState<Rascal | null>(null)
     const [defenseRascal2, setDefenseRascal2] = useState<Rascal | null>(null)
     const [defenseRascal3, setDefenseRascal3] = useState<Rascal | null>(null)
+    const [isSavingUserDefenseRascals, setIsSavingUserDefenseRascals] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
