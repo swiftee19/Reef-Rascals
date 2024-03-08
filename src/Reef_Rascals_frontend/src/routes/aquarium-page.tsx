@@ -210,10 +210,10 @@ export default function AquariumPage() {
         await setUserDefenseRascal(authContext.principal, defenseRascal1, defenseRascal2, defenseRascal3)
     }
 
-    if (isLoadingRascals) {
-        userSetUp()
-        return <LoadingPage />
-    }
+    // if (isLoadingRascals) {
+    //     userSetUp()
+    //     return <LoadingPage />
+    // }
 
     // const dummyRascals: Rascal[] = rascalList
     const handleSelectBattleRascal = (rascal: Rascal) => {

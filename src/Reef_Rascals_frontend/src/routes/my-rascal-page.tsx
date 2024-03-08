@@ -21,7 +21,7 @@ export default function MyRascalPage({inputRascals}: {inputRascals: Rascal[]}) {
                     :
                     <div className={styles.noRascal}>
                         <img src="/rascals/gloomy-bob.png" alt="" />
-                        <p>You currently have no rascals...</p>
+                        <p>You currently have no rascals. Hatch to get your first one!</p>
                     </div>
                     }
                 </div>

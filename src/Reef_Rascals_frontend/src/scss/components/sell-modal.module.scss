@@ -8,9 +8,13 @@
 .cardContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     gap: 1rem;
     padding: 10px 2rem;
     width: 100%;
+}
+
+.noRascal {
+    color: colors.$white;
 }

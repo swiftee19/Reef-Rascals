@@ -12,6 +12,7 @@ export default function SellModal({closeModal, rascals}: {closeModal: () => void
     return(
         <Modal closeModal={closeModal} w="70%" h="80%">
             <h1 className={styles.title}>Choose Rascal to Sell</h1>
+            { myRascals.length > 0 ?
             <div className={styles.cardContainer}>
                 {
                     myRascals.map((rascal) => (
@@ -19,6 +20,11 @@ export default function SellModal({closeModal, rascals}: {closeModal: () => void
                     ))
                 }
             </div>
+            :
+            <div className={styles.noRascal}>
+                You currently have no rascals to sell!
+            </div>
+            }
         </Modal>
     )
 }

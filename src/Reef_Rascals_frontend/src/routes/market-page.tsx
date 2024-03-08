@@ -45,10 +45,10 @@ export default function MarketPage() {
 
     const topSelling = rascals.slice(0, 6)
 
-    if(isLoading) {
-        fetchRascals();
-        return <LoadingPage />
-    }
+    // if(isLoading) {
+    //     fetchRascals();
+    //     return <LoadingPage />
+    // }
 
     return (
         <>
@@ -75,29 +75,42 @@ export default function MarketPage() {
 
                 <section className={styles.topContainer}>
                     <h1 className={styles.containerHeader}>Top Selling</h1>
+                    {topSelling.length > 0 ?
                     <div className={styles.topSelling}>
                         {topSelling.map((rascal, index) => (
                             <RascalRankCard key={rascal.id} rascal={rascal} index={index} />
                         ))}
                     </div>
+                    :
+                    <div className={styles.noRascal}>
+                        There are currently no top rascals. Check back later!
+                    </div>
+                    }
                 </section>
 
-                <section className={styles.recentContainer}>
-                    <h1 className={styles.containerHeader}>Your Sales Rascals</h1>
-                    <div className={styles.recentRascals}>
-                        {yourSell.map((rascal) => (
-                            <RascalCard key={rascal.id} rascal={rascal} />
-                        ))}
-                    </div>
-                </section>
+                {yourSell.length > 0 &&
+                    <section className={styles.recentContainer}>
+                        <h1 className={styles.containerHeader}>Your Sales Rascals</h1>
+                        <div className={styles.recentRascals}>
+                            {yourSell.map((rascal) => (
+                                <RascalCard key={rascal.id} rascal={rascal} />
+                            ))}
+                        </div>
+                    </section>
+                }
 
                 <section className={styles.recentContainer}>
                     <h1 className={styles.containerHeader}>Recent Rascals</h1>
-                    <div className={styles.recentRascals}>
+                    {filteredRascals.length > 0 ? <div className={styles.recentRascals}>
                         {filteredRascals.map((rascal) => (
                             <RascalCard key={rascal.id} rascal={rascal} />
                         ))}
                     </div>
+                    :
+                    <div className={styles.noRascal}>
+                        There are currently no rascals for sale. Check back later!
+                    </div>
+                    }
                 </section>
 
                 { sellModal &&
