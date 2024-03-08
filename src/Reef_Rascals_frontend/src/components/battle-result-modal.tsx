@@ -5,8 +5,10 @@ import styles from '../scss/components/battle-result-modal.module.scss';
 import { getCurrentUser } from '../types/auth';
 import { Rascal } from '../types/rascal';
 import Modal from './modal';
+import { BattleHistory } from '../types/battle-history';
+import { User } from '../types/user';
 
-export default function BattleResultModal({closeModal, battleEnd, rascals}: {closeModal: () => void, battleEnd: string | null, rascals: Rascal[]}){
+export default function BattleResultModal({closeModal, battleEnd, attcker, defender, opponent, attackerId}: {closeModal: () => void, battleEnd: string | null, attcker: Rascal[], defender: Rascal[], opponent: User, attackerId: string}) {
   let fragment = 0
 
   if(battleEnd == "Win") {
@@ -15,7 +17,8 @@ export default function BattleResultModal({closeModal, battleEnd, rascals}: {clo
 
   async function getRascalFragment() {
     const userID = useAuthContext().principal
-    const result = await matchmaking.reward(userID, BigInt(fragment))
+    const history = new BattleHistory(opponent, battleEnd!, attcker, defender)
+    const result = await matchmaking.reward(userID, BigInt(fragment), history)
     if(result) {
       console.log("Fragment is rewarded", result)
     } else {
@@ -33,7 +36,7 @@ export default function BattleResultModal({closeModal, battleEnd, rascals}: {clo
       <p className={styles.content}>You've {battleEnd === 'Win' ? "won" : 'lost'} the battle!</p>
       <div className={styles.rascalsContainer}>
         {
-            rascals.slice().reverse().map((rascal) => {
+            attcker.slice().reverse().map((rascal) => {
                 return (
                     <div className={styles.rascalEggs} key={rascal.id} >
                         <img className={styles.egg} src="/rascal-egg.png" alt="" />

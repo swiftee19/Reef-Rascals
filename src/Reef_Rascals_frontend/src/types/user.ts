@@ -44,7 +44,7 @@ export class User {
         this.rank = League.Bronze;
         this.battleHistories = [];
         this.elo = BigInt(0);
-        this.raslet = BigInt(0);
+        this.raslet = BigInt(7);
         this.rascalFragment = BigInt(30);
         this.lastRasletClaim = new Date().toString();
     }

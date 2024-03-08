@@ -94,7 +94,8 @@ export default function MatchPage() {
                     <FightingRascals rascals={defender.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
                 </div>
                 {battleEnded !== '' &&
-                    <BattleResultModal rascals={attacker.rascals} battleEnd={battleEnded}
+                    <BattleResultModal attcker={attacker.rascals} battleEnd={battleEnded} defender={defender.defense}
+                                        opponent={defender} attackerId={userId!}  
                                        closeModal={() => setBattleEnded('')}/>
                 }
             </>}

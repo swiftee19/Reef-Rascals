@@ -194,13 +194,15 @@ actor {
         };
     };
 
-    public func reward(id : Principal, amount : Int) : async Text {
+    public func reward(id : Principal, amount : Int, history: model.BattleHistory) : async Text {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
-                let newUSer = { user with rascalFragment = user.rascalFragment + amount};
-                let newUSer2 = { newUSer with raslet = newUSer.raslet - 2};
-                users.put(id, newUSer2);
+                var newUSer = { user with rascalFragment = user.rascalFragment + amount};
+                newUSer := { newUSer with raslet = newUSer.raslet - 2};
+                var newHistory = Array.append<model.BattleHistory>(user.battleHistories, [history]);
+                newUSer := { newUSer with battleHistories = newHistory};
+                users.put(id, newUSer);
                 return "success";
             };
             case(null) {
