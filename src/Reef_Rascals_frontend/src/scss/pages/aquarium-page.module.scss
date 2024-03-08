@@ -255,24 +255,89 @@
       }
     }
 
-    .gachaResult {
-      width: 30%;
-      border-radius: 50%;
-      object-fit: fill;
-      animation: miniGlowAndGrow 4s infinite;
-      transition: 300ms;
-
-      &:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        animation: glow 2s infinite;
-      }
-    }
-
-    .gachaResultStatsContainer{
+    .gachaResultContainer {
       width: 100%;
-      height: 100%;
-      background-color: white;
+      height: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding-inline: 10%;
+
+      .gachaResult {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+
+        img {
+          height: 80%;
+          border-radius: 50%;
+          object-fit: fill;
+          animation: miniGlowAndGrow 4s infinite;
+          transition: 300ms;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            animation: glow 2s infinite;
+          }
+        }
+      }
+
+      .rarity {
+        width: 100%;
+      }
+
+      .gachaResultStatsContainer {
+        width: fit-content;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        padding-left: 1rem;
+        padding-bottom: 2rem;
+        gap: 1rem;
+
+        h2 {
+          width: fit-content;
+          text-align: center;
+          color: colors.$white;
+        }
+
+        div {
+          width: fit-content;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 1.5rem;
+          color: colors.$white;
+          font-weight: 500;
+
+          .atkLbl, .hpLbl, .spdLbl {
+            font-size: 1.5rem;
+            color: colors.$white;
+            font-weight: 500;
+            width: 5rem;
+            border-radius: 5px;
+          }
+
+          .atkLbl {
+            background-color: colors.$soft-red;
+          }
+
+          .hpLbl {
+            background-color: colors.$turqouise;
+          }
+
+          .spdLbl {
+            background-color: colors.$yellow;
+          }
+        }
+      }
     }
   }
 }
@@ -323,10 +388,6 @@
       height: 10%;
       border-radius: 50%;
       position: relative;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
-      // transition: 300ms;
 
       &:hover {
         transform: scale(1.1) translateY(-1rem);
