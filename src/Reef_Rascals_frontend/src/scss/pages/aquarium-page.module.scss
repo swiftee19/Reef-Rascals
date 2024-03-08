@@ -101,7 +101,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.5rem;
-    color: colors.$radial-gradient;
+    color: colors.$dark-brown;
   }
 }
 
@@ -112,6 +112,7 @@
   left: 6rem;
   bottom: 2rem;
   transition-duration: 0.25s;
+  color: colors.$medium-brown;
 
   .openDefenseModalButton {
     position: relative;
@@ -132,6 +133,7 @@
       top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
+      // color: colors.$dark-brown;
       width: 80%;
       filter: brightness(0) saturate(100%) invert(13%) sepia(37%) saturate(1013%) hue-rotate(340deg) brightness(89%) contrast(94%);
     }
@@ -295,6 +297,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  // justify-content: center;
   gap: 1.5rem;
 
   h1 {
@@ -308,13 +311,17 @@
     height: 20%;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 
     .selectedRascalContainer {
       width: 20%;
       height: 10%;
       border-radius: 50%;
       position: relative;
-      transition: 300ms;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      // transition: 300ms;
 
       &:hover {
         transform: scale(1.1) translateY(-1rem);
@@ -322,7 +329,7 @@
       }
 
       .rascalWoodenBackground {
-        position: absolute;
+        position: relative;
         width: 100%;
       }
 
@@ -337,7 +344,7 @@
 
   .brawlButton {
     position: absolute;
-    bottom: 1rem;
+    bottom: 10%;
     width: 40%;
     height: 20%;
     transition: 300ms;
@@ -350,7 +357,7 @@
       transform: scale(1.1);
 
       h1 {
-        color: colors.$yellow;
+        color: colors.$cream-brown;
         transition: 300ms;
       }
     }
@@ -372,25 +379,27 @@
 }
 
 .availableRascalsContainer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   width: 90%;
   height: 25%;
   z-index: 2000;
+
   background-color: colors.$dark-blue;
   border-radius: 10px 10px 0 0;
   border: 1px solid colors.$light-blue;
+
   transform: translateX(-50%) scaleY(0);
   transition: 300ms;
   transform-origin: bottom;
-
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  overflow: auto;
+  justify-content: start;
+  overflow-y: hidden;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem;
 
   img {
     height: 50%;
@@ -404,5 +413,12 @@
 }
 
 .showAvailableRascalsContainer {
-  transform: translateX(-50%) scaleY(1);
+  transform: translateX(-50%);
+}
+
+.selectCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }

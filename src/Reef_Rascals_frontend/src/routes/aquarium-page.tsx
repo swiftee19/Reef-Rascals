@@ -43,6 +43,7 @@ export default function AquariumPage() {
     const [defenseRascal1, setDefenseRascal1] = useState<Rascal | null>(null)
     const [defenseRascal2, setDefenseRascal2] = useState<Rascal | null>(null)
     const [defenseRascal3, setDefenseRascal3] = useState<Rascal | null>(null)
+    const [isSavingUserDefenseRascals, setIsSavingUserDefenseRascals] = useState(false)
 
     async function userSetUp() {
         const user = await getCurrentUser()
@@ -204,16 +205,45 @@ export default function AquariumPage() {
     }
 
     const handleSaveDefenseRascals = async () => {
-        if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
-            return
-        }
-
-        await setUserDefenseRascal(authContext.principal, defenseRascal1, defenseRascal2, defenseRascal3)
+        setUserDefenseRascal(authContext.principal, defenseRascal1, defenseRascal2, defenseRascal3).then((result) => {
+            setIsSavingUserDefenseRascals(false)
+        })
     }
 
     if (isLoadingRascals) {
         userSetUp()
         return <LoadingPage/>
+    }
+
+    // const dummyRascals: Rascal[] = rascalList
+    const handleSelectBattleRascal = (rascal: Rascal) => {
+        switch (selectedBattleRascalContainer){
+            case 1:
+                setBattleRascal1(rascal)
+                break;
+            case 2:
+                setBattleRascal2(rascal)
+                break;
+            case 3:
+                setBattleRascal3(rascal)
+                break;
+        }
+        setShowRascalSelectionForBattleContainer(false)
+    }
+
+    const handleSelectDefenseRascal = (rascal: Rascal) => {
+        switch (selectedDefenseRascalContainer){
+            case 1:
+                setDefenseRascal1(rascal)
+                break;
+            case 2:
+                setDefenseRascal2(rascal)
+                break;
+            case 3:
+                setDefenseRascal3(rascal)
+                break;
+        }
+        setShowRascalSelectionContainerForDefense(false)
     }
 
     return (
@@ -358,10 +388,14 @@ export default function AquariumPage() {
                                 </div>
                             </div>
                             <div className={styles.brawlButton} onClick={() => {
+                                setIsSavingUserDefenseRascals(true)
                                 handleSaveDefenseRascals()
                             }}>
                                 <img src="/wood-button.png"/>
-                                <h1>Save</h1>
+                                {isSavingUserDefenseRascals ?
+                                    <h1>Saving...</h1> :
+                                    <h1>Save</h1>
+                                }
                             </div>
                         </div>
                     </Modal>
