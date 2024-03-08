@@ -92,11 +92,12 @@ actor {
         };
     };
 
-    public func getRaslet(id : Principal, amount: Int) : async Text {
+    public func getRaslet(id : Principal, amount: Int, lastRaslet: Text) : async Text {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
-                let newUSer = { user with raslet = user.raslet + amount };
+                var newUSer = { user with raslet = user.raslet + amount };
+                newUSer := { newUSer with lastRasletClaim = lastRaslet };
                 users.put(id, newUSer);
                 return "success";
             };

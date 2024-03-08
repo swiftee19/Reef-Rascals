@@ -59,12 +59,21 @@ export default function AquariumPage() {
         setIsAquarium(!isAquarium);
     }
 
-    const findMatch = () => {
-        const currentRoute = window.location.href;
-        const routeSplit = currentRoute.split("?")
-        const tempCanisterId = routeSplit[1];
-        const canisterId = "?" + tempCanisterId
-        window.location.href = "/match/1/" + canisterId;
+    const findMatch = async () => {
+        if(currUser) {
+            const data = await matchmaking.getOpponents(currUser)
+            if(data) {
+                console.log("opponent", data)
+                const opponent = data[0]
+                const currentRoute = window.location.href;
+                const routeSplit = currentRoute.split("?")
+                const tempCanisterId = routeSplit[1];
+                const canisterId = "?" + tempCanisterId
+                window.location.href = "/match/"+ opponent.id + "/" + canisterId;
+            } else {
+                console.log("No opponent found", data)
+            }
+        }
     }
 
     const handleShowGacha = () => {
@@ -216,35 +225,6 @@ export default function AquariumPage() {
     }
 
     // const dummyRascals: Rascal[] = rascalList
-    const handleSelectBattleRascal = (rascal: Rascal) => {
-        switch (selectedBattleRascalContainer){
-            case 1:
-                setBattleRascal1(rascal)
-                break;
-            case 2:
-                setBattleRascal2(rascal)
-                break;
-            case 3:
-                setBattleRascal3(rascal)
-                break;
-        }
-        setShowRascalSelectionForBattleContainer(false)
-    }
-
-    const handleSelectDefenseRascal = (rascal: Rascal) => {
-        switch (selectedDefenseRascalContainer){
-            case 1:
-                setDefenseRascal1(rascal)
-                break;
-            case 2:
-                setDefenseRascal2(rascal)
-                break;
-            case 3:
-                setDefenseRascal3(rascal)
-                break;
-        }
-        setShowRascalSelectionContainerForDefense(false)
-    }
 
     return (
         <>
@@ -262,12 +242,16 @@ export default function AquariumPage() {
                                              src="/rascal-egg.png" onClick={() => {
                                             handleGacha()
                                         }}/>
-                                        {(gachaResult &&
+                                        {(
+                                            gachaResult &&
                                             <>
                                                 <img className={styles.gachaResult} src={gachaResult?.imageUrl}
                                                      onClick={() => {
                                                          handleCloseGachaModal()
                                                      }}/>
+                                                <div className={styles.gachaResultStatsContainer}>
+
+                                                </div>
                                             </>
                                         )}
                                     </> :
@@ -455,7 +439,7 @@ export default function AquariumPage() {
                     <div className={styles.aquariumStats}>
                         <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={Number(currUser?.raslet)}
                                    max={7}/>
-                        <WoodStats image="/rascal-egg-top.png" curr={Number(currUser?.rascalFragment)} max={10}/>
+                        <WoodStats image="/rascal-egg-top.png" curr={Number(currUser?.rascalFragment)}/>
                         <WoodStats image="/favicon.ico" curr={Number(currUser?.tokens)}/>
                     </div>
                 </header>
