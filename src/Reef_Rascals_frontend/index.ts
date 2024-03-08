@@ -66,7 +66,7 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     }
   } else {
     const user = new User(principal);
-    matchmaking.register(user);
+    // matchmaking.register(user);
     console.log("user created");
   }
 
