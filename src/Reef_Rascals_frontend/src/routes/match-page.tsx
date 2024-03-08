@@ -10,8 +10,8 @@ import {FightingRascals} from '../components/fighting-rascals';
 import {useParams} from 'react-router';
 import LoadingPage from '../components/loading-page';
 import BattleResultModal from '../components/battle-result-modal';
-import { useAuthContext } from '../middleware/middleware';
-import { Principal } from '@dfinity/principal';
+import {useAuthContext} from '../middleware/middleware';
+import {Principal} from '@dfinity/principal';
 
 export default function MatchPage() {
     const params = useParams();
@@ -29,24 +29,25 @@ export default function MatchPage() {
     const [isLoading, setIsLoading] = useState(true);
 
     async function setUp() {
-        const data = await matchmaking.getUser(Principal.fromText(userId));
-        const data1 = await matchmaking.getUser(Principal.fromText(opponentId!));
-        if(data && data1) {
-            setAttacker(data[0]);
-            setDefender(data1[0]);
-            setUserCurrRascal(data[0].rascals.at(0)!);
-            setOpponentCurrRascal(data1[0].defense.at(0)!);
-            setUserMax(Number(data[0].rascals.at(0)!.health));
-            setOpponentMax(Number(data1[0].defense.at(0)!.health));
-            setUserHealth(Number(data[0].rascals.at(0)!.health));
-            setOpponentHealth(Number(data1[0].defense.at(0)!.health));
-            setIsLoading(false);
-        } else {
-            console.log("No data");
+        if (userId && opponentId) {
+            const data = await matchmaking.getUser(Principal.fromText(userId));
+            const data1 = await matchmaking.getUser(Principal.fromText(opponentId!));
+            if (data && data1) {
+                setAttacker(data[0]);
+                setDefender(data1[0]);
+                setUserCurrRascal(data[0].rascals.at(0)!);
+                setOpponentCurrRascal(data1[0].defense.at(0)!);
+                setUserMax(Number(data[0].rascals.at(0)!.health));
+                setOpponentMax(Number(data1[0].defense.at(0)!.health));
+                setUserHealth(Number(data[0].rascals.at(0)!.health));
+                setOpponentHealth(Number(data1[0].defense.at(0)!.health));
+                setIsLoading(false);
+            } else {
+                console.log("No data");
+            }
         }
     }
 
-    let currUser = authManager.getCurrentUser();
 
     const changeUserHealth = (health: number) => {
         setUserHealth(health);
@@ -76,15 +77,13 @@ export default function MatchPage() {
             <img className={styles.bgBack} src={"/bg-brawl-sea.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-bottom.png"} alt={"image not found"}/>
             <img className={styles.bgFront} src={"/bg-brawl-top.png"} alt={"image not found"}/>
-            {currUser && <>
+            {attacker && <>
                 <div className={styles.mainContainer}>
-
-                    <MatchCanvas player={currUser} opponent={defender} changeUserHealth={changeUserHealth}
+                    <MatchCanvas player={attacker} opponent={defender} changeUserHealth={changeUserHealth}
                                  changeOpponentHealth={changeOpponentHealth}
                                  changeOpponentCurrRascal={changeOpponentCurrRascal}
                                  changeUserCurrRascal={changeUserCurrRascal} battleEnd={battleEnded}
                                  setBattleEnd={battleEndedHandler}/>
-
                 </div>
                 <div className={styles.topPart}>
                     <HealthStats progress={userHealth} maximum={userMax!}/>

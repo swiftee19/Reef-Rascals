@@ -8,6 +8,7 @@ import Random "mo:base/Random";
 import Float "mo:base/Float";
 import Int "mo:base/Int";
 import Nat "mo:base/Nat";
+import Bool "mo:base/Bool";
 import model "model";
 
 actor {
@@ -197,8 +198,9 @@ actor {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
-                let newUSer = { user with rascalFragment = user.rascalFragment + amount };
-                users.put(id, newUSer);
+                let newUSer = { user with rascalFragment = user.rascalFragment + amount};
+                let newUSer2 = { newUSer with raslet = newUSer.raslet - 2};
+                users.put(id, newUSer2);
                 return "success";
             };
             case(null) {
@@ -351,6 +353,9 @@ actor {
         };
         userArray := Array.filter<model.User>(userArray, func (x) {
             x.id != user.id;
+        });
+        userArray := Array.filter<model.User>(userArray, func (x) {
+            x.defense.size() >= 1;
         });
         return userArray;
     };

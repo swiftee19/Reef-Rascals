@@ -4,15 +4,15 @@ import { Rascal } from '../types/rascal';
 import rascalList from '../types/rascal-dummy';
 
 export default function MyRascalPage({inputRascals}: {inputRascals: Rascal[]}) {
-    const rascals = inputRascals;
-    // const rascals = rascalList;
+    // const rascals = inputRascals;
+    const rascals = rascalList;
     console.log("rascals array:", rascals);
     return (
         <>
             <div className={styles.myRascalContainer}>
                 <div className={styles.contentContainer}>
                     <h1 className={styles.containerHeader}>My Rascals</h1>
-                    { rascals ? 
+                    { rascals.length > 0 ? 
                     <div className={styles.myRascals}>
                         {
                             rascals.map((rascal:Rascal) => {

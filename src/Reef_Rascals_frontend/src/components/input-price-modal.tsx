@@ -1,6 +1,5 @@
 import Modal from "./modal";
 import styles from '../scss/components/input-price-modal.module.scss';
-import { Rascal } from "../types/rascal";
 import { useState } from "react";
 
 export default function InputPriceModal({closeModal, sellRascal}: {closeModal: () => void, sellRascal: (price: number) => void}){
