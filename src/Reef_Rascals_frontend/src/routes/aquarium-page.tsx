@@ -287,7 +287,7 @@ export default function AquariumPage() {
                                     </> :
                                     <>
                                         <h1 className={styles.invalidRasletText}>Not enough fragments
-                                            ({currUser?.raslet.toString()}/10)</h1>
+                                            ({currUser?.rascalFragment.toString()}/10)</h1>
                                         <div className={styles.invalidRasletSymbolContainer}>
                                             <img className={styles.invalidEggTop} src="/rascal-egg-top.png"/>
                                             <img className={styles.invalidEggBottom} src="/rascal-egg-bottom.png"/>
