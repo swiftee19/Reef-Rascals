@@ -10,7 +10,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rascalSize = window.innerWidth * 0.06 * 3;
     const boomImageDuration = 200;
-    const baseSpeed = 100;
+    const baseSpeed = 50;
     const entropy = 2;
 
     const startPositions = {
@@ -108,8 +108,10 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
             damage = current.attack(target.rascal)
             if (target === defender) {
                 changeOpponentHealth(getInt(target.rascal.health))
+                console.log("Opponent health", getInt(target.rascal.health));
             } else {
                 changeUserHealth(getInt(target.rascal.health))
+                console.log("User health", getInt(target.rascal.health));
             }
             checkRascalCondition()
         }
