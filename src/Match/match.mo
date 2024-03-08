@@ -8,6 +8,7 @@ import Random "mo:base/Random";
 import Float "mo:base/Float";
 import Int "mo:base/Int";
 import Nat "mo:base/Nat";
+import Bool "mo:base/Bool";
 import model "model";
 
 actor {
@@ -349,6 +350,9 @@ actor {
         };
         userArray := Array.filter<model.User>(userArray, func (x) {
             x.id != user.id;
+        });
+        userArray := Array.filter<model.User>(userArray, func (x) {
+            x.defense.size() >= 1;
         });
         return userArray;
     };

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef} from 'react';
 import styles from "../scss/pages/profile-page.module.scss";
 import SidebarNav from "../components/sidebar-nav";
 import {League, LeagueThresholdNumber, User, getElo, saveUser} from "../types/user";
@@ -20,7 +20,7 @@ export default function ProfilePage() {
     const [userLeagueProgress, setUserLeagueProgress] = useState(0)
     const [leagueFontColor, setLeagueFontColor] = useState("black")
     const [userLeagueIcon, setUserLeagueIcon] = useState("")
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState("Loading...")
     const [loading, setLoading] = useState(true)
 
 
@@ -81,12 +81,19 @@ export default function ProfilePage() {
         }
     }
 
-    const handleUsernameChange = (e: any) => {
-        setUsername(e.target.value);
-    }
+    useEffect(() => {
+        if(currUser){
+            setUsername(currUser.username)
+        }
+    }, [currUser]);
+
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value)
+    };
 
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
+            console.log("Enter")
             saveUser({...currUser, username: username});
         }
     }
@@ -114,7 +121,7 @@ export default function ProfilePage() {
                                 Date Joined: {new Date(currUser?.dateJoined!).toLocaleDateString()}
                             </p>
                             <h1 className={`${styles.khula} ${styles.white}`}>
-                                <input className={styles.nameInput} type="text" value={currUser?.username}
+                                <input className={styles.nameInput} type="text" value={username}
                                        onChange={handleUsernameChange} onKeyDown={handleEnterKeyPress}/>
                             </h1>
                             <p className={`${styles.khula} ${styles.sm}`}>

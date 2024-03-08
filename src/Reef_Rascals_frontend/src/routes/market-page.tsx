@@ -90,7 +90,7 @@ export default function MarketPage() {
 
                 {yourSell.length > 0 &&
                     <section className={styles.recentContainer}>
-                        <h1 className={styles.containerHeader}>Your Sales Rascals</h1>
+                        <h1 className={styles.containerHeader}>Your Sales</h1>
                         <div className={styles.recentRascals}>
                             {yourSell.map((rascal) => (
                                 <RascalCard key={rascal.id} rascal={rascal} />

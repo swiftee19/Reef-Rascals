@@ -35,6 +35,7 @@ export default function AquariumPage() {
     const [showGachaModal, setShowGachaModal] = useState(false)
     const [glowAnimation, setGlowAnimation] = useState(false);
     const [isGettingNewRascalFromBackend, setIsGettingNewRascalFromBackend] = useState(false)
+    const [isFindingOpponent, setIsFindingOpponent] = useState(false)
     const [gachaResult, setGachaResult] = useState<Rascal | null>(null)
 
     const [showSelectBattleRascalModalIsOpen, setShowSelectBattleRascalModalIsOpen] = useState(false)
@@ -71,6 +72,7 @@ export default function AquariumPage() {
     const findMatch = async () => {
         if (currUser) {
             const data = await matchmaking.getOpponents(currUser)
+            setIsFindingOpponent(false)
             if (data) {
                 console.log("opponent", data)
                 const opponent = data[0]
@@ -168,16 +170,6 @@ export default function AquariumPage() {
         };
     }, [isGettingNewRascalFromBackend]);
 
-    async function getOpponent() {
-        if (currUser) {
-            const data = await matchmaking.getOpponents(currUser);
-            if (data) {
-                const opponent = data[Math.floor(Math.random() * data.length)];
-                setOppUser(opponent);
-            }
-        }
-    }
-
     useEffect(() => {
         const allRascals = currUser?.rascals
         const userBattleRascals = currUser?.attack
@@ -218,6 +210,7 @@ export default function AquariumPage() {
         if (!battleRascal1 && !battleRascal2 && !battleRascal3) {
             return
         }
+        setIsFindingOpponent(true)
         await setUserAttackRascal(authContext.principal, battleRascal1, battleRascal2, battleRascal3)
         findMatch();
     }
@@ -307,7 +300,7 @@ export default function AquariumPage() {
                                     </> :
                                     <>
                                         <h1 className={styles.invalidRasletText}>Not enough fragments
-                                            ({currUser?.raslet.toString()}/10)</h1>
+                                            ({currUser?.rascalFragment.toString()}/10)</h1>
                                         <div className={styles.invalidRasletSymbolContainer}>
                                             <img className={styles.invalidEggTop} src="/rascal-egg-top.png" />
                                             <img className={styles.invalidEggBottom} src="/rascal-egg-bottom.png" />
@@ -356,8 +349,12 @@ export default function AquariumPage() {
                             <div className={styles.brawlButton} onClick={() => {
                                 handleStartFight()
                             }}>
-                                <img src="/wood-button.png" />
-                                <h1>Brawl!</h1>
+                                <img src="/wood-button.png"/>
+                                {
+                                    isFindingOpponent ?
+                                        <h1>Finding Opponent...</h1> :
+                                        <h1>Brawl!</h1>
+                                }
                             </div>
                         </div>
                     </Modal>
