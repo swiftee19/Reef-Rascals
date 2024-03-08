@@ -37,7 +37,7 @@ export class User {
         this.username = "Rascals Warrior";
         this.profilePictureUrl = "";
         this.dateJoined = new Date().toString();
-        this.tokens = 1000;
+        this.tokens = 0;
         this.rascals = [];
         this.defense = [];
         this.attack = [];
@@ -45,7 +45,7 @@ export class User {
         this.battleHistories = [];
         this.elo = BigInt(0);
         this.raslet = BigInt(0);
-        this.rascalFragment = BigInt(0);
+        this.rascalFragment = BigInt(30);
         this.lastRasletClaim = new Date().toString();
     }
 }
@@ -79,6 +79,8 @@ export function gacha(user: User) {
     } else {
         user.rascals.push(commonRascal[Math.floor(Math.random() * commonRascal.length)]);
     }
+
+    user.rascalFragment = user.rascalFragment - BigInt(10);
 
     saveUser(user);
 }

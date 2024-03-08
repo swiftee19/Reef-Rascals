@@ -25,99 +25,14 @@ export default function ProfilePage() {
 
 
     const authContext = useAuthContext();
-    const [currUser, setCurrUser] = useState<User | null>(null)
-
-    const rascal1: Rascal = new Rascal(
-        "Axolberry",
-        "/rascals/axolberry.png",
-        RascalType.Chubby,
-        Rarity.Common,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
-
-    const rascal2: Rascal = new Rascal(
-        "Captain Finbite",
-        "/rascals/captain-finbite.png",
-        RascalType.Fearless,
-        Rarity.Epic,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
-
-    const rascal3: Rascal = new Rascal(
-        "Ribble",
-        "/rascals/ribble.png",
-        RascalType.Fearless,
-        Rarity.Rare,
-        20,
-        10,
-        30,
-        "whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"
-    );
-
-    const opponent = {
-        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        username: "Alexander Ryan Alex",
-        profilePictureUrl: "/Ganyu.jpg",
-        dateJoined: new Date().toString(),
-        tokens: 0.123,
-        rascals: [],
-        defense: [],
-        attack: [],
-        rank: League.Silver,
-        battleHistories: [],
-        elo: BigInt(243),
-        raslet: BigInt(0),
-        rascalFragment: BigInt(0),
-        lastRasletClaim: new Date().toString()
-    }
-
-    const battleHistory: BattleHistory = {
-        result: BattleResult.Lose,
-        date: new Date().toString(),
-        id: "#18222212730",
-        opponent: opponent,
-        opponentRascal: [rascal1, rascal2],
-        usedRascal: [rascal2, rascal1, rascal3]
-    }
-
-    const battleHistory1: BattleHistory = {
-        result: BattleResult.Win,
-        date: new Date().toString(),
-        id: "#18222212730",
-        opponent: opponent,
-        opponentRascal: [rascal1, rascal2, rascal1],
-        usedRascal: [rascal2, rascal2, rascal3]
-    }
-
-    const user = {
-        id: Principal.fromText("whbpg-wktkv-qm2ea-l545d-ztrdc-ekeci-r4o7y-jiobt-b54l4-534x7-lae"),
-        username: "Alexander Irvin Ryan",
-        profilePictureUrl: "/Ganyu.jpg",
-        dateJoined: new Date().toString(),
-        tokens: 0,
-        rascals: [rascal1, rascal2, rascal3],
-        defense: [rascal1, rascal2, rascal3],
-        attack: [],
-        rank: League.Silver,
-        battleHistories: [battleHistory, battleHistory1, battleHistory1, battleHistory1, battleHistory, battleHistory1],
-        elo: BigInt(267),
-        raslet: BigInt(0),
-        rascalFragment: BigInt(0),
-        lastRasletClaim: new Date().toString()
-    }
+    const [currUser, setCurrUser] = useState<User>({} as User)
 
     const calculateLeagueSliderProgress = () => {
-        switch (user.rank) {
+        switch (currUser.rank) {
             case League.Bronze:
-                return (getElo(user) / LeagueThresholdNumber.Silver) * 100
+                return (getElo(currUser) / LeagueThresholdNumber.Silver) * 100
             case League.Silver:
-                return (getElo(user) / LeagueThresholdNumber.Gold) * 100
+                return (getElo(currUser) / LeagueThresholdNumber.Gold) * 100
             case League.Gold:
                 return 100
         }
@@ -172,7 +87,7 @@ export default function ProfilePage() {
 
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
-            saveUser({...user, username: username});
+            saveUser({...currUser, username: username});
         }
     }
 
@@ -212,7 +127,7 @@ export default function ProfilePage() {
                                 <div className={styles.userToken}>
                                     <img src="/favicon.ico" alt={"Image not found"}/>
                                     <p>
-                                        {user.tokens.toString()}
+                                        {currUser.tokens.toString()}
                                     </p>
                                 </div>
                             </RadialContainer>
@@ -234,7 +149,7 @@ export default function ProfilePage() {
                                     </p>
                                 </span>
                                     <h1 className={`${styles.khula} ${styles.bold} ${styles.lightBlue}`}>
-                                        {user.battleHistories.length}
+                                        {currUser.battleHistories.length}
                                     </h1>
                                 </div>
                                 <div className={styles.flexColumn}>
@@ -287,7 +202,7 @@ export default function ProfilePage() {
                                 <img src="/silver-league-icon.png" alt={"Image not found"}/>
                                 <div className={styles.leagueInfo}>
                                     <h1 style={{color: leagueFontColor}}>
-                                        {user.rank}
+                                        {currUser.rank}
                                     </h1>
                                     <h1 className={styles.playerPercentageInfo}>
                                         You are in the top 79%
@@ -308,7 +223,7 @@ export default function ProfilePage() {
                                     />
                                 </div>
                                 <p style={{color: leagueFontColor}}>
-                                    {getElo(user)}/{LeagueThresholdNumber[user.rank as League] + 100}
+                                    {getElo(currUser)}/{LeagueThresholdNumber[currUser.rank as League] + 100}
                                 </p>
                             </div>
                         </div>
@@ -316,7 +231,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div className={styles.rightContainer}>
-                    {user.battleHistories.map((battle, index) =>
+                    {currUser.battleHistories.map((battle, index) =>
                         <>
                             <BattleHistoryCard battleHistory={battle}/>
                         </>

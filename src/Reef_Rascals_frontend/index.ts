@@ -56,10 +56,16 @@ export const handleAuthenticated = async (authClient: AuthClient) => {
     const diff = now - lastClaim;
     const raslet = Math.floor(diff / (1000 * 10 * 60));
     user.raslet = BigInt(raslet);
-    console.log(raslet);
+    if (raslet > 0) {
+      const x = await matchmaking.getRaslet(principal, BigInt(raslet));
+      if(x){
+        console.log("raslet already claimed")
+      }else {
+        console.log("failed claiming raslet")
+      }
+    }
   } else {
     const user = new User(principal);
-    user.rascals = rascalList;
     matchmaking.register(user);
     console.log("user created");
   }
