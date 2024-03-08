@@ -4,8 +4,8 @@ import { Rascal } from '../types/rascal';
 import rascalList from '../types/rascal-dummy';
 
 export default function MyRascalPage({inputRascals}: {inputRascals: Rascal[]}) {
-    const rascals = inputRascals;
-    // const rascals = rascalList;
+    // const rascals = inputRascals;
+    const rascals = rascalList;
     console.log("rascals array:", rascals);
     return (
         <>

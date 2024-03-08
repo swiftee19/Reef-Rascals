@@ -468,7 +468,7 @@
   padding: 1rem;
 
   img {
-    height: 50%;
+    // height: 50%;
     transition: 300ms;
 
     &:hover {
@@ -487,4 +487,13 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+.noRascal {
+  color: colors.$white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
