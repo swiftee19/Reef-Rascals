@@ -114,7 +114,7 @@ const rascalList: Rascal[] = [rascal1, rascal2, rascal3, rascal4, rascal5, rasca
 const rareRascal: Rascal[] = rascalList.filter(rascal => rascal.rarity === Rarity.Rare);
 const epicRascal: Rascal[] = rascalList.filter(rascal => rascal.rarity === Rarity.Epic);
 const legendRascal: Rascal[] = rascalList.filter(rascal => rascal.rarity === Rarity.Legend);
-const CommonRascal: Rascal[] = rascalList.filter(rascal => rascal.rarity === Rarity.Common);
+const commonRascal: Rascal[] = rascalList.filter(rascal => rascal.rarity === Rarity.Common);
 
 export default rascalList;
-export { rareRascal, epicRascal, legendRascal, CommonRascal };
+export { rareRascal, epicRascal, legendRascal, commonRascal };

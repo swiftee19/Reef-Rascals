@@ -2,7 +2,7 @@ import {Rascal} from "./rascal";
 import {BattleHistory} from "./battle-history";
 import { matchmaking } from "../../../declarations/matchmaking";
 import { Principal } from "@dfinity/principal";
-import rascalList, { CommonRascal, epicRascal, legendRascal, rareRascal } from "./rascal-dummy";
+import rascalList, { commonRascal, epicRascal, legendRascal, rareRascal } from "./rascal-dummy";
 
 export enum League {
     Bronze = "Bronze",
@@ -77,7 +77,7 @@ export function gacha(user: User) {
     } else if (randomNumber <= 35) {
         user.rascals.push(rareRascal[Math.floor(Math.random() * rareRascal.length)]);
     } else {
-        user.rascals.push(CommonRascal[Math.floor(Math.random() * CommonRascal.length)]);
+        user.rascals.push(commonRascal[Math.floor(Math.random() * commonRascal.length)]);
     }
 
     user.rascalFragment = user.rascalFragment - BigInt(10);

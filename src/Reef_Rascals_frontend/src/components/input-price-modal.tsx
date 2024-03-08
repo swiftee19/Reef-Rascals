@@ -8,7 +8,7 @@ export default function InputPriceModal({closeModal, sellRascal}: {closeModal: (
     const [price, setPrice] = useState<number>(0);
 
     return (
-        <Modal closeModal={closeModal} w="30%" h="35%">
+        <Modal closeModal={closeModal} w="30%">
             <h1 className={styles.title}>Input Price</h1>
             <input className={styles.inputPrice} type="number" placeholder="Input price..." onChange={(event)=> {
                 setPrice(Number(event.target.value));
