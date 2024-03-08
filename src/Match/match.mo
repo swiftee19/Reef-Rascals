@@ -6,6 +6,8 @@ import Array "mo:base/Array";
 import Iter "mo:base/Iter";
 import Random "mo:base/Random";
 import Float "mo:base/Float";
+import Int "mo:base/Int";
+import Nat "mo:base/Nat";
 import model "model";
 
 actor {
@@ -54,6 +56,55 @@ actor {
     };
 
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
+
+    public func getGacha(rascal : model.Rascal) : async Text {
+        var user = users.get(rascal.owner);
+        switch(user) {
+            case(?user) {
+                if(user.rascalFragment < 10) {
+                    return "insufficient rascal fragment";
+                };
+
+                var newUSer = { user with rascalFragment = user.rascalFragment - 10 };
+                let newRscals = Array.append<model.Rascal>(newUSer.rascals, [rascal]);
+                newUSer := { newUSer with rascals = newRscals };
+                users.put(rascal.owner, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+
+    };
+
+    public func addBalance(id : Principal, amount: Float) : async Text {
+        var check: ?model.User = users.get(id);
+        switch(check) {
+            case(?user) {
+                let newUSer = { user with tokens = user.tokens + amount };
+                users.put(id, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
+    public func getRaslet(id : Principal, amount: Int) : async Text {
+        var check: ?model.User = users.get(id);
+        switch(check) {
+            case(?user) {
+                let newUSer = { user with raslet = user.raslet + amount };
+                users.put(id, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
 
     public func exchangeRascal(rascal : model.Rascal) : async Text {
         var user: ?model.User = users.get(rascal.owner);
