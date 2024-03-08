@@ -39,7 +39,7 @@ export class Rascal {
         this.attack = BigInt(attack);
         this.speed = BigInt(speed);
         this.owner = Principal.fromText(owner);
-        this.price = 0.111;
+        this.price = 0;
     }
 }
 

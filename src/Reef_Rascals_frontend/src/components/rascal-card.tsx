@@ -25,10 +25,10 @@ export default function RascalCard({ rascal, brownTheme }: { rascal: Rascal, bro
             <div className={`${styles.cardTop} ${brownTheme && styles.brownGradient}`}>
                 <img className={styles.rascalImg} src={rascal.imageUrl} alt={rascal.name}/>
 
-                <div className={`${styles.cardPrice} ${brownTheme && styles.brownTheme}`}>
+                {rascal.price != 0 && <div className={`${styles.cardPrice} ${brownTheme && styles.brownTheme}`}>
                     <img src="/favicon.ico" alt="" />
-                    <p>0.111</p>
-                </div>
+                    <p>{rascal.price}</p>
+                </div>}
 
                 <div className={styles.cardRarity}>
                     <RarityLabel rarity={rascal.rarity as Rarity} short={true}/>
