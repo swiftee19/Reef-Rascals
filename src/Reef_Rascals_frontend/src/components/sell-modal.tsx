@@ -10,7 +10,7 @@ export default function SellModal({closeModal, rascals}: {closeModal: () => void
     const myRascals = rascals;
 
     return(
-        <Modal closeModal={closeModal} w="70%" h="50%">
+        <Modal closeModal={closeModal} w="70%" h="80%">
             <h1 className={styles.title}>Choose Rascal to Sell</h1>
             { myRascals.length > 0 ?
             <div className={styles.cardContainer}>
