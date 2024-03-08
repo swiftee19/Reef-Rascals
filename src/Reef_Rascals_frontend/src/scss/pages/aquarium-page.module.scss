@@ -411,6 +411,7 @@
   .brawlButton {
     position: absolute;
     bottom: 10%;
+    min-width: 40%;
     width: max-content;
     height: 20%;
     transition: 300ms;
