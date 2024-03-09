@@ -40,15 +40,15 @@ export default function MatchPage() {
                 setAttacker(data[0]);
                 setDefender(data1[0]);
                 
-                setUserCurrRascal(data[0].rascals.at(0)!);
-                setUserMax(Number(data[0].rascals.at(0)!.health));
-                setUserHealth(Number(data[0].rascals.at(0)!.health));
+                setUserCurrRascal(data[0].attack.at(0)!);
+                setUserMax(Number(data[0].attack.at(0)!.health));
+                setUserHealth(Number(data[0].attack.at(0)!.health));
 
                 setOpponentCurrRascal(data1[0].defense.at(0)!);
                 setOpponentMax(Number(data1[0].defense.at(0)!.health));
                 setOpponentHealth(Number(data1[0].defense.at(0)!.health));
 
-                setPassAttacker(data[0].rascals);
+                setPassAttacker(data[0].attack);
                 setPassDefender(data1[0].defense);
                 setIsLoading(false);
             } else {
@@ -113,7 +113,7 @@ export default function MatchPage() {
                     <HealthStats progress={opponentHealth} maximum={opponentMax!} isFlipped={true}/>
                 </div>
                 <div className={styles.bottomPart}>
-                    <FightingRascals rascals={attacker.rascals} currRascal={userCurrRascal!}/>
+                    <FightingRascals rascals={attacker.attack} currRascal={userCurrRascal!}/>
                     <FightingRascals rascals={defender.defense} isFlipped={true} currRascal={opponentCurrRascal!}/>
                 </div>
                 {battleEnded !== '' &&

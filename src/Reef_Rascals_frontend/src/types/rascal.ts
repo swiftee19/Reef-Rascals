@@ -50,6 +50,7 @@ export class Rascal {
 export async function gachaRascal(owner: string) {
     const rascals = rascalList;
     let rascal = null;
+
     const random = (Math.random() * 100) + 1;
     if(random <= 1) {
         rascal = legendRascal[Math.floor(Math.random() * legendRascal.length)];
@@ -70,17 +71,14 @@ export async function gachaRascal(owner: string) {
     const attack = rascal.attack + BigInt(Math.floor(Math.random() * maximumAttackDeviation) * plusMinus);
     const speed = rascal.speed + BigInt(Math.floor(Math.random() * maximumSpeedDeviation) * plusMinus);
     const health = rascal.health + BigInt(Math.floor(Math.random() * maximumHealthDeviation) * plusMinus);
-
     const newRascal = new Rascal(rascal.name, rascal.imageUrl, <RascalType>rascal.tribe, <Rarity>rascal.rarity, Number(health), Number(attack), Number(speed), owner);
 
     const user = await matchmaking.getUser(Principal.fromText(owner));
-
     if (user) {
         const newUser = user[0];
         await matchmaking.getGacha(newRascal);
         return newRascal;
     }
-
     return null;
 }
 

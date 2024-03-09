@@ -58,9 +58,13 @@ export default function AquariumPage() {
     async function userSetUp() {
         const user = await getCurrentUser()
         if (user) {
+            user.attack = [];
             setCurrUser(user)
             setRascals(user.rascals)
             setIsLoadingRascals(false)
+            setBattleRascal1(null)
+            setBattleRascal2(null)
+            setBattleRascal3(null)
             console.log("rascals", user.rascals)
         }
     }
