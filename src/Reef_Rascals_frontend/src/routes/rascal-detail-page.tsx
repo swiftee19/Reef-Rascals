@@ -3,7 +3,6 @@ import RarityLabel from '../components/rarity-label';
 import SidebarNav from '../components/sidebar-nav';
 import styles from '../scss/pages/rascal-detail-page.module.scss';
 import { Rarity, Rascal } from '../types/rascal';
-import rascalList from '../types/rascal-dummy';
 import InputPriceModal from '../components/input-price-modal';
 import { useParams } from 'react-router';
 import { matchmaking } from '../../../declarations/matchmaking';

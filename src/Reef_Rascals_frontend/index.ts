@@ -1,7 +1,6 @@
 import {AuthClient, LocalStorage} from "@dfinity/auth-client";
 import {createActor, matchmaking} from "../declarations/matchmaking";
 import { User } from "./src/types/user";
-import rascalList from "./src/types/rascal-dummy";
 
 // One day in nanoseconds
 const days = BigInt(1);

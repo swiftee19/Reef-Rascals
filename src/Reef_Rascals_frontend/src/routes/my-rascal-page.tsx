@@ -1,7 +1,6 @@
 import RascalCard from '../components/rascal-card';
 import styles from '../scss/pages/my-rascal-page.module.scss';
 import { Rascal } from '../types/rascal';
-import rascalList from '../types/rascal-dummy';
 
 export default function MyRascalPage({inputRascals}: {inputRascals: Rascal[]}) {
     const rascals = inputRascals;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "../scss/components/sell-modal.module.scss";
-import rascalList from "../types/rascal-dummy";
 import RascalSellCard from "./rascal-sell-card";
 import Modal from "./modal";
 import { Rascal } from "../types/rascal";

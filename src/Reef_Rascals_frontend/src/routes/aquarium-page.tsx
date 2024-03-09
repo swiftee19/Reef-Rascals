@@ -21,7 +21,6 @@ import Modal from "../components/modal";
 import RarityLabel from "../components/rarity-label";
 import LoadingPage from "../components/loading-page";
 import SelectRascal from "../components/select-rascal";
-import rascalList from "../types/rascal-dummy";
 
 export default function AquariumPage() {
     const eggGachaRef = useRef<HTMLImageElement | null>(null);
@@ -75,6 +74,10 @@ export default function AquariumPage() {
 
     const findMatch = async () => {
         if (currUser) {
+            if(currUser.raslet < 2) {
+                setBrawlButtonText(`Not enough Raslet ${currUser.raslet}/2`)
+                return
+            }
             const data = await matchmaking.getOpponents(currUser)
             if(data.length > 0) {
                 setBrawlButtonText("Opponent found")
