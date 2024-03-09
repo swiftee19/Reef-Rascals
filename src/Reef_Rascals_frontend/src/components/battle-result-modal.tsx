@@ -7,16 +7,16 @@ import { Rascal } from '../types/rascal';
 import Modal from './modal';
 import { BattleHistory } from '../types/battle-history';
 import { User } from '../types/user';
+import { Principal } from '@dfinity/principal';
 
 export default function BattleResultModal({closeModal, battleEnd, attcker, defender, opponent, attackerId}: {closeModal: () => void, battleEnd: string | null, attcker: Rascal[], defender: Rascal[], opponent: User, attackerId: string}) {
   const [fragment, setFragment] = useState<number>(0)
+  const userID = useAuthContext().principal
 
-  async function getRascalFragment() {
-    const fragment = Math.floor(Math.random() * 3) + 1
+  async function getRascalFragment(fragment: number) {
     setFragment(fragment)
-    const userID = useAuthContext().principal
     const history = new BattleHistory(opponent, battleEnd!, attcker, defender)
-    const result = await matchmaking.reward(userID, BigInt(fragment), history)
+    const result = await matchmaking.reward(Principal.fromText(userID), BigInt(fragment), history)
     if(result) {
       console.log("Fragment is rewarded", result)
     } else {
@@ -26,7 +26,10 @@ export default function BattleResultModal({closeModal, battleEnd, attcker, defen
 
   useEffect(() => {
     if(battleEnd === 'Win') {
-      getRascalFragment()
+      const fragment = Math.floor(Math.random() * 3) + 1
+      getRascalFragment(fragment)
+    } else {
+      getRascalFragment(0)
     }
   }, [])
 

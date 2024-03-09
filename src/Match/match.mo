@@ -198,11 +198,17 @@ actor {
         var check: ?model.User = users.get(id);
         switch(check) {
             case(?user) {
+                var min:Int = 2; 
                 var newUSer = { user with rascalFragment = user.rascalFragment + amount};
-                newUSer := { newUSer with raslet = newUSer.raslet - 2};
+                var newUser2 = { newUSer with raslet = user.raslet - min};
                 var newHistory = Array.append<model.BattleHistory>(user.battleHistories, [history]);
-                newUSer := { newUSer with battleHistories = newHistory};
-                users.put(id, newUSer);
+                var newUser3 = { newUser2 with battleHistories = newHistory};
+                if(amount > 0) {
+                    var newUser4 = { newUser3 with elo = user.elo + 20};
+                    users.put(id, newUser4);
+                } else {
+                    users.put(id, newUser3);
+                };
                 return "success";
             };
             case(null) {
@@ -250,7 +256,7 @@ actor {
 
                 let newRascals = Array.append<model.Rascal>(user.rascals, [newRascal]);
                 var newUSer = { user with rascals = newRascals};
-                newUSer := { newUSer with balance = user.tokens - rascal.price };
+                newUSer := { newUSer with tokens = user.tokens - rascal.price };
                 users.put(buyer, newUSer);
                 rascalMarket := Array.filter<model.Rascal>(rascalMarket, func (x) {
                     x.id != rascal.id;

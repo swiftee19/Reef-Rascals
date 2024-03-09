@@ -4,9 +4,6 @@ import { BattleRascal, MatchCanvasProps } from '../game/game_class';
 import { getInt } from '../types/user';
 
 const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOpponentHealth, changeUserHealth, changeOpponentCurrRascal, changeUserCurrRascal, battleEnd, setBattleEnd}: MatchCanvasProps) => {
-    // player.attack = player.rascals;
-    // opponent.defense = opponent.rascals;
-
     const playerAttackingCopy = player.attack
     const opponentDefendingCopy = opponent.defense
 
