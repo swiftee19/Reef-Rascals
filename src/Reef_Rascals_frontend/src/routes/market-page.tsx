@@ -19,6 +19,7 @@ export default function MarketPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [userRascal, setUserRascal] = useState<Rascal[]>([]);
     const [yourSell, setYourSell] = useState<Rascal[]>([]);
+    const [currUser, setCurrUser] = useState<User>({} as User);
 
     const fetchRascals = async () => {
         const dataUser = await getCurrentUser();
@@ -27,8 +28,9 @@ export default function MarketPage() {
             setRascals(data);
             setFilteredRascals(data);
             setUserRascal(dataUser.rascals);
+            setCurrUser(dataUser);
             const filter : Rascal[] = data.filter(rascal => rascal.owner.toString() == dataUser.id.toString());
-            setYourSell(filter)
+            setYourSell(filter);
             setIsLoading(false);
         }
     }
@@ -66,10 +68,10 @@ export default function MarketPage() {
                         <div className={styles.sellBtn} onClick={() => setSellModal(true)}>
                             Sell
                         </div>
-                        <div className={styles.myICP}>
+                        {currUser && <div className={styles.myICP}>
                             <img src="/favicon.ico" alt="" />
-                            <p>0.111</p>
-                        </div>
+                            <p>{currUser.tokens}</p>
+                        </div>}
                     </div>
                 </header>
 

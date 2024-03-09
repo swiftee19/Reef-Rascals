@@ -11,7 +11,7 @@ import {handleAuthenticated, localStorage} from "../../index";
 export const AuthContext = createContext<any>(null);
 export const useAuthContext = () => useContext(AuthContext);
 
-const guestRoutes = ["", "/", "marketplace", "loading", "details"];
+const guestRoutes = ["", "/", "loading"];
 export const AuthContextProvider = ({children}: { children: ReactNode }) => {
     const [principal, setPrincipal] = useState<string | null>(null);
     // const [principal, setPrincipal] = useState<string | null>("null");
@@ -71,7 +71,9 @@ export const AuthContextProvider = ({children}: { children: ReactNode }) => {
                 const canisterId = "?" + tempCanisterId
 
                 if (result == null && !guestRoutes.includes(mainPathname)) {
-                    window.location.href = "/" + canisterId;
+                    login().then(() => {
+                        window.location.href = "/" + canisterId
+                    });
                 }
             })
         }

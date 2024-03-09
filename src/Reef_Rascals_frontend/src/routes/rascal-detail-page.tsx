@@ -10,6 +10,7 @@ import { AuthContext, useAuthContext } from '../middleware/middleware';
 import LoadingPage from '../components/loading-page';
 import { Principal } from '@dfinity/principal';
 import ConfirmModal from '../components/confirmation-modal';
+import { User } from '../types/user';
 
 export default function RascalDetailPage() {
     const [isSell, setIsSell] = useState(false);
@@ -99,6 +100,7 @@ export default function RascalDetailPage() {
             <div className={styles.mainContainer}>
                 <img className={styles.backgroundImg} src="/bg-aquarium.png" />
                 <div className={styles.backdropOverlay} />
+
                 <section className={styles.rascalContainer}>
                     <div className={styles.rascalImg}>
                         <img src={rascal.imageUrl} alt={rascal.name} />
@@ -128,6 +130,12 @@ export default function RascalDetailPage() {
                                     <p>{rascal.speed.toString()}</p>
                                 </div>
                             </div>
+                            {status === "sale" &&
+                            <div className={styles.rascalPrice}>
+                                <img src="/favicon.ico" alt="" />
+                                <p>{rascal.price}</p>
+                            </div>
+                            }
                         </div>
     
                         {status === "sale" && (
@@ -154,13 +162,13 @@ export default function RascalDetailPage() {
                     </div>
                 </section>
             </div>
-            {isExchange &&
+            {(userId && isExchange) &&
                 <ConfirmModal closeModal={() => setIsExchange(false)} confirm={handleExchange} title="Exchange Rascal" message="Are you sure you want to exchange this rascal?" />
             }
-            {isRevert &&
+            {userId && isRevert &&
                 <ConfirmModal closeModal={() => setIsRevert(false)} confirm={retreiveRascal} title="Retreive Rascal" message="Are you sure you want to retreive this rascal?" />
             }
-            {isBuy &&
+            {userId && isBuy &&
                 <ConfirmModal closeModal={() => setIsBuy(false)} confirm={buyRascal} title="Buy Rascal" message="Are you sure you want to buy this rascal?" />
             }
             {isSell && <InputPriceModal closeModal={handleSell} sellRascal={sellRascal} />}
