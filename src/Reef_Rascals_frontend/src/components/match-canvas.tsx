@@ -42,7 +42,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
     function checkRascalCondition() {
         if (getInt(defender!.rascal.health) <= 0) {
             i = 0
-            defender!.rascal.health = BigInt(0)
+            defender!.rascal.health = BigInt(defenderMaxHealth)
             currDefIdx += 1
             if (currDefIdx >= defendingRascals.length) {
                 reward(player);
@@ -57,7 +57,7 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
         }
         if (getInt(attacker!.rascal.health) <= 0) {
             i = 0
-            attacker!.rascal.health = BigInt(0)
+            attacker!.rascal.health = BigInt(attackerMaxHealth)
             currAtkIdx += 1
             if (currAtkIdx >= attackingRascals.length) {
                 saveBattle(player, opponent, "Lose");
