@@ -1,7 +1,7 @@
 import React, { useRef} from 'react';
 import styles from "../scss/pages/profile-page.module.scss";
 import SidebarNav from "../components/sidebar-nav";
-import {League, LeagueThresholdNumber, User, getElo, saveUser} from "../types/user";
+import {League, LeagueThresholdNumber, User, getElo} from "../types/user";
 import RadialContainer from "../components/radial-container";
 import {useEffect, useState} from "react";
 import {BattleHistory, BattleResult} from "../types/battle-history";
@@ -94,7 +94,7 @@ export default function ProfilePage() {
     const handleEnterKeyPress = (event: any) => {
         if (event.key === 'Enter') {
             console.log("Enter")
-            saveUser({...currUser, username: username});
+            matchmaking.setName(Principal.fromText(authContext.principal), username);
         }
     }
 

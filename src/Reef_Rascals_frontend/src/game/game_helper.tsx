@@ -1,25 +1,9 @@
 import { BattleHistory } from "../types/battle-history";
 import { Rascal } from "../types/rascal";
-import { User, saveUser } from "../types/user";
+import { User } from "../types/user";
 import { HealthBarProps } from "./game_class";
 
 export const getRandomBoolean = () => Math.random() < 0.5;
-export function reward(user: User) {
-    const randomNumber = Math.floor(Math.random() * 100) + 1;
-    if (randomNumber <= 5) {
-        user.rascalFragment += BigInt(3);
-    } else if (randomNumber <= 25) {
-        user.rascalFragment += BigInt(2);
-    } else {
-        user.rascalFragment += BigInt(1);
-    }
-    saveUser(user);
-}
-
-export function saveBattle(user: User, opponent: User, result: string) {
-    user.battleHistories.push(new BattleHistory(opponent, result, user.attack, opponent.defense));
-    saveUser(user);
-}
 
 export function drawHealthBar(context: CanvasRenderingContext2D, healthBarProps: HealthBarProps) {
     const {x, y, width, height, maxHealth, currentHealth} = healthBarProps;

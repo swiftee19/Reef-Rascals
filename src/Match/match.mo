@@ -77,6 +77,20 @@ actor {
     var rascalMarket:[model.Rascal] = [rascal1, rascal2, rascal3];
     users.put(opponent.id, opponent);
 
+    public func setName(id : Principal, name: Text) : async Text {
+        var check: ?model.User = users.get(id);
+        switch(check) {
+            case(?user) {
+                let newUSer = { user with username = name };
+                users.put(id, newUSer);
+                return "success";
+            };
+            case(null) {
+                return "no user found";
+            };
+        };
+    };
+
     public func getGacha(rascal : model.Rascal) : async Text {
         var user = users.get(rascal.owner);
         switch(user) {

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { drawBoom, drawDamageText, drawRascalWithHealthBar, reward, saveBattle } from '../game/game_helper';
+import { drawBoom, drawDamageText, drawRascalWithHealthBar } from '../game/game_helper';
 import { BattleRascal, MatchCanvasProps } from '../game/game_class';
 import { getInt } from '../types/user';
 
@@ -45,8 +45,6 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
             defender!.rascal.health = BigInt(defenderMaxHealth)
             currDefIdx += 1
             if (currDefIdx >= defendingRascals.length) {
-                reward(player);
-                saveBattle(player, opponent, "Win");
                 setBattleEnd("Win");
                 return;
             }
@@ -60,7 +58,6 @@ const MatchCanvas: React.FC<MatchCanvasProps> = ({player, opponent, changeOppone
             attacker!.rascal.health = BigInt(attackerMaxHealth)
             currAtkIdx += 1
             if (currAtkIdx >= attackingRascals.length) {
-                saveBattle(player, opponent, "Lose");
                 setBattleEnd("Lose");
                 console.log("Lose");
                 return;
