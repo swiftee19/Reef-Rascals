@@ -199,10 +199,15 @@ actor {
         switch(check) {
             case(?user) {
                 var newUSer = { user with rascalFragment = user.rascalFragment + amount};
-                newUSer := { newUSer with raslet = newUSer.raslet - 2};
+                var newUser2 = { newUSer with raslet = newUSer.raslet - 2};
                 var newHistory = Array.append<model.BattleHistory>(user.battleHistories, [history]);
-                newUSer := { newUSer with battleHistories = newHistory};
-                users.put(id, newUSer);
+                var newUser3 = { newUser2 with battleHistories = newHistory};
+                if(amount > 0) {
+                    var newUser4 = { newUser3 with elo = newUser3.elo + 20};
+                    users.put(id, newUser4);
+                } else {
+                    users.put(id, newUser3);
+                };
                 return "success";
             };
             case(null) {

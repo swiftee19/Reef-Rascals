@@ -11,8 +11,7 @@ import { User } from '../types/user';
 export default function BattleResultModal({closeModal, battleEnd, attcker, defender, opponent, attackerId}: {closeModal: () => void, battleEnd: string | null, attcker: Rascal[], defender: Rascal[], opponent: User, attackerId: string}) {
   const [fragment, setFragment] = useState<number>(0)
 
-  async function getRascalFragment() {
-    const fragment = Math.floor(Math.random() * 3) + 1
+  async function getRascalFragment(fragment: number) {
     setFragment(fragment)
     const userID = useAuthContext().principal
     const history = new BattleHistory(opponent, battleEnd!, attcker, defender)
@@ -26,7 +25,10 @@ export default function BattleResultModal({closeModal, battleEnd, attcker, defen
 
   useEffect(() => {
     if(battleEnd === 'Win') {
-      getRascalFragment()
+      const fragment = Math.floor(Math.random() * 3) + 1
+      getRascalFragment(fragment)
+    } else {
+      getRascalFragment(0)
     }
   }, [])
 

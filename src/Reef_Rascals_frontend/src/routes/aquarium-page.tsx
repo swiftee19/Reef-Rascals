@@ -15,7 +15,7 @@ import MyRascalPage from "./my-rascal-page";
 import WoodStats from "../components/wood-stats";
 import { useAuthContext } from "../middleware/middleware";
 import { getCurrentUser } from "../types/auth";
-import { User } from "../types/user";
+import { User, getInt } from "../types/user";
 import { matchmaking } from "../../../declarations/matchmaking";
 import Modal from "../components/modal";
 import RarityLabel from "../components/rarity-label";
@@ -478,9 +478,9 @@ export default function AquariumPage() {
                 <header className={styles.aquariumTop}>
                     <SlideWoodBtn onToggle={togglePage} isAquarium={isAquarium} />
                     <div className={styles.aquariumStats}>
-                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={Number(currUser?.raslet)}
+                        <WoodStats image="/raslet.png" color="colors.$green-raslet" curr={getInt(currUser?.raslet!)}
                             max={7} />
-                        <WoodStats image="/rascal-egg-top.png" curr={Number(currUser?.rascalFragment)} />
+                        <WoodStats image="/rascal-egg-top.png" curr={getInt(currUser?.rascalFragment!)} />
                         <WoodStats image="/favicon.ico" curr={Number(currUser?.tokens)} />
                     </div>
                 </header>
