@@ -48,7 +48,7 @@ dfx deploy
 ### 2. Marketplace Page
   On the Marketplace Page, you can analyze our current state of economics. You can see our top selling Rascals who are most sought after by our users. You can also see your own sales and wheter they have already been bought or not. Clicking on these Rascals will open up their details and you will be able to either **buy**, **sell**, **retrieve** or **exchange** them for _Rascal Fragments_ (Can be used to hatch new Rascals in the Aquarium Page).
 ### 3. Aquarium Page
-  Here inside your Aquarium are your lovely little Rascals. 
+  Inside your Aquarium are your lovely little Rascals. 
   #### Aquarium Tab
   You can see your lovely Rascals floating around aimlessly inside your screen through the _Aquarium_ Tab. Here, you can also set up your Defense Rascals to defend you when bad guys decide to attack your aquarium. Under the defense button, you can also initiate an attack on other aquariums by selecting up to three Rascals to fight for you. Then, clicking on the _Brawl_ button and waiting for an opponent for you to attack. After finding a suiting opponent, you get to see your brave Rascals brawl it out on a thrilling battle⚔️💥. Lastly, one of the ways for you to gather more Rascals is located in this tab. On the bottom right of your view, you can find the **Hatch Button**. Clicking the **Hatch Button** will obtain you one randomly generated Rascal and it will automatically be added to your Rascal list.
   #### My Rascals Tab
