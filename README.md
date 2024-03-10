@@ -1,17 +1,19 @@
 # Welcome to the Reef_Rascals project repository!
 
+## Overview
 Dive into the world of **Reef Rascals**, a captivating _play-to-earn_ experience where you collect, trade and battle adorable rascals in a thriving online marketplace built on blockchain technology.
 
-**Own your rascals**: **Reef Rascals** empowers you to truly own your in-game assets. **Each rascal is unique**, giving you complete control over collecting, trading, and profiting in the player-driven economy.
+**Own your rascals**: **Reef Rascals** empowers you to truly own your in-game assets.
+
+**Each rascal is unique**, giving you complete control over collecting, trading, and profiting in the player-driven economy.
+
 **Thriving marketplace**: Buy, sell, and auction your rascals with other players using cryptocurrency. The marketplace is your gateway to building a collection and profiting from the game's vibrant economy.
 
-[on progress]
-
-# Getting Started (Quick Start)
+## Getting Started (Quick Start)
 This section provides a high-level overview of **Getting Started with Reef Rascals**.
 
 **Prerequisites**:
-Install the Dfinity Development Kit (DFX) following the official guide: https://internetcomputer.org/docs/current/developer-docs/getting-started/install/#installing-dfx
+Install the Dfinity Development Kit (DFX) following the official guide [click here!](https://internetcomputer.org/docs/current/developer-docs/getting-started/install/#installing-dfx)
 
 Running the Game Locally:
 1. Clone the Repository:
@@ -33,3 +35,11 @@ dfx start --background
 ```bash
 dfx deploy
 ```
+
+## Application Description
+
+### 1. Home Page
+  On the Home Page, you can enjoy our [On Progress]
+### 2. Marketplace Page
+### 3. Aquarium Page
+### 4. Profile Page
