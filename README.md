@@ -1,4 +1,4 @@
-# Welcome to the Reef_Rascals project repository!
+# Welcome to Reef Rascals!
 
 ## Overview
 Dive into the world of **Reef Rascals**, a captivating _play-to-earn_ experience where you collect, trade and battle adorable rascals in a thriving online marketplace built on blockchain technology.
