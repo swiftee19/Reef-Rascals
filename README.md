@@ -54,4 +54,4 @@ dfx deploy
   #### My Rascals Tab
   When you switch over to the _My Rascals_ Tab, your Rascals will be displayed inside cards to aid you in viewing their attributes. Clicking on the cards will open up their details (like the details in the Marketplace Page).
 ### 4. Profile Page
-  [On Progress]
+  Here is where you can take a summary of your achievements. From your **Username**, **Date Joined**, **Principal** and **Tokens** up until your **Rank** and **Battle Histories**, they are all here on the **Profile Page**.
